@@ -241,5 +241,36 @@ VALUES (611420, 'Computer operator training', 61);
 
 
 
+INSERT INTO company
+VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
+
+INSERT INTO company
+VALUES (13, 'Nasa', 541715, 'Stennis Space Center', 'MS', 70001, 'www.nasa.com');
+
+INSERT INTO company
+VALUES (14, 'Computer Education', 541513, 'New Orleans', 'LA', 70131, 'www.comp.edu.com');
+
+INSERT INTO company
+VALUES (15, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com');
+
+INSERT INTO company
+VALUES (16, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com');
+
+INSERT INTO company
+VALUES (17, 'Amazon Web Services', 518210, 'New Orleans', 'LA', 70232, 'www.aws.com');
+
+INSERT INTO company
+VALUES (18, 'Oracle', 511210, 'New Orleans', 'LA', 782341, 'www.oracle.com');
+
+INSERT INTO company
+VALUES (19, 'Twitter', 541513, 'New Orleans', 'LA', 72421, 'www.twitter.com');
+
+INSERT INTO company
+VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.compdesign.com');
+
+
+
+
+
 
 

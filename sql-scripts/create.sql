@@ -100,3 +100,15 @@ CREATE TABLE job_category (
   foreign key (ks_code) references knowledge_skill(ks_code)
 );
 
+CREATE TABLE company (
+  comp_id number,
+  comp_name varchar(30),
+  n_code number,
+  city varchar(40),
+  state varchar(2),
+  zip number,
+  website varchar(70),
+  primary key (comp_id),
+  foreign key (n_code) references naics(n_code)
+);
+
