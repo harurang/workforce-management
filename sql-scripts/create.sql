@@ -87,3 +87,16 @@ CREATE TABLE nwcet (
 CREATE TABLE career_cluster (
   title varchar(70)
 );
+
+CREATE TABLE job_category (
+  cate_code number,
+  detailed_occupation varchar(70),
+  parent_cate varchar(70),
+  ks_code number,
+  pay_high varchar(40),
+  pay_low varchar(40)
+  primary key (cate_code),
+  foreign key (detailed_occupation) references soc(detailed_occupation),
+  foreign key (ks_code) references knowledge_skill(ks_code)
+);
+

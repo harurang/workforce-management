@@ -202,3 +202,44 @@ VALUES ('Web Development and Administration');
 
 
 
+INSERT INTO naics
+VALUES (61, 'Fuels, utilities, waste management, and environmental remediation services, and related products and services', null);
+
+INSERT INTO naics
+VALUES (51, 'Equipment and related products', null);
+
+INSERT INTO naics
+VALUES (54, 'Intellectual property and related products', null);
+
+INSERT INTO naics
+VALUES (511210, 'Applications development and publishing, except on a custom basis', 51);
+
+INSERT INTO naics
+VALUES (518210, 'Application hosting', 51);
+
+INSERT INTO naics
+VALUES (541511, 'Computer program or software development, custom', 54);
+
+INSERT INTO naics
+VALUES (541512, 'CAD (computer-aided design) systems integration design services', 54);
+
+INSERT INTO naics
+VALUES (541513, 'Computer systems facilities management and operation services', 54);
+
+INSERT INTO naics
+VALUES (541514, 'Computer systems facilities management and operation services', 54);
+
+INSERT INTO naics
+VALUES (541519, 'Computer disaster recovery services', 54);
+
+INSERT INTO naics
+VALUES (541715, 'Aerospace research and development (except prototype production)', 54);
+
+INSERT INTO naics
+VALUES (611420, 'Computer operator training', 61);
+
+
+
+
+
+
