@@ -83,3 +83,7 @@ CREATE TABLE naics (
 CREATE TABLE nwcet (
   description varchar(70)
 );
+
+CREATE TABLE career_cluster (
+  title varchar(70)
+);

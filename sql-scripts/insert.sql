@@ -175,7 +175,29 @@ VALUES ('Google Analytics');
 
 
 
+INSERT INTO career_cluster
+VALUES ('Database Development and Administration');
 
+INSERT INTO career_cluster
+VALUES ('Digital Media');
+
+INSERT INTO career_cluster
+VALUES ('Enterprise Systems Analysis and Integration');
+
+INSERT INTO career_cluster
+VALUES ('Network Design and Administration');
+
+INSERT INTO career_cluster
+VALUES ('Programming/Software Engineering');
+
+INSERT INTO career_cluster
+VALUES ('Technical Support');
+
+INSERT INTO career_cluster
+VALUES ('Technical Writing');
+
+INSERT INTO career_cluster
+VALUES ('Web Development and Administration');
 
 
 
