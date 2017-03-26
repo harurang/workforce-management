@@ -19,7 +19,7 @@ CREATE TABLE phone_number (
 
 CREATE TABLE job (
   job_code number,
-  detailed_occupation varchar(50),
+  cate_code number,
   company_name varchar(50),
   pay_rate number,
   pay_type varchar(20),
