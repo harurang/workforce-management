@@ -19,13 +19,11 @@ CREATE TABLE phone_number (
 
 CREATE TABLE job (
   job_code number,
-  per_id varchar(3),
   detailed_occupation varchar(50),
   company_name varchar(50),
   pay_rate number,
   pay_type varchar(20),
-  primary key (job_code),
-  foreign key (per_id) references person(per_id)
+  primary key (job_code)
 );
 
 CREATE TABLE course (
