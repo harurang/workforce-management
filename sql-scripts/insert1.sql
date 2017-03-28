@@ -173,7 +173,7 @@ of software and hardware problems.');
 INSERT INTO tier
 VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
 and personal qualities required of all workers to be successful in today's
-workplace. Examples: basic skills (reading, writing, arithmetic, etc.),
+workplace. Examples: basic skills,
 thinking skills, personal qualities, management of time and resources,
 interpersonal skills, management and use of information, understanding and
 management of systems, and use of technology.');
