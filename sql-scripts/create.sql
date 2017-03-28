@@ -20,10 +20,10 @@ CREATE TABLE phone_number (
 CREATE TABLE job (
   job_code number,
   cate_code number,
-  company_name varchar(50),
   pay_rate number,
   pay_type varchar(20),
-  primary key (job_code)
+  primary key (job_code),
+  foreign key (cate_code) references job_category
 );
 
 CREATE TABLE course (
@@ -47,11 +47,8 @@ CREATE TABLE section (
 );
 
 CREATE TABLE soc (
-  detailed_occupation varchar(70),
-  broad_group varchar(70),
-  minor_group varchar(70),
-  major_group varchar(70),
-  primary key (detailed_occupation)
+  soc_title varchar(70),
+  primary key (soc_title)
 );
 
 CREATE TABLE takes (
@@ -88,14 +85,12 @@ CREATE TABLE career_cluster (
 
 CREATE TABLE job_category (
   cate_code number,
-  detailed_occupation varchar(70),
+  soc_title varchar(70),
   parent_cate varchar(70),
-  ks_code number,
   pay_high varchar(40),
-  pay_low varchar(40)
+  pay_low varchar(40),
   primary key (cate_code),
-  foreign key (detailed_occupation) references soc(detailed_occupation),
-  foreign key (ks_code) references knowledge_skill(ks_code)
+  foreign key (soc_title) references soc(soc_title)
 );
 
 CREATE TABLE company (

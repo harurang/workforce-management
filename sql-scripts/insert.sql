@@ -33,25 +33,40 @@ VALUES (9, '234-323-2342', '657-345-4562');
 
 
 INSERT INTO soc 
-VALUES ('Computer and Information Research Scientists', 'Computer and Information Research Scientists', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Information Research Scientists');
 
 INSERT INTO soc 
-VALUES ('Computer Systems Analysts', 'Computer and Information Analysts', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer Occupations');
 
 INSERT INTO soc 
-VALUES ('Information Security Analysts', 'Computer and Information Analysts', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Mathematical Occupations');
 
 INSERT INTO soc 
-VALUES ('Computer Programmers', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Information Analysts');
 
 INSERT INTO soc 
-VALUES ('Software Developers, Applications', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer Systems Analysts');
 
 INSERT INTO soc 
-VALUES ('Web Developers', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Information Security Analysts');
 
 INSERT INTO soc 
-VALUES ('Computer User Support Specialists', 'Computer Support Specialists', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Software Developers and Programmers');
+
+INSERT INTO soc 
+VALUES ('Computer Programmers');
+
+INSERT INTO soc 
+VALUES ('Software Developers, Applications');
+
+INSERT INTO soc 
+VALUES ('Web Developers');
+
+INSERT INTO soc 
+VALUES ('Computer Support Specialists');
+
+INSERT INTO soc 
+VALUES ('Computer User Support Specialists');
 
 
 
@@ -271,6 +286,43 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 
 
 
+INSERT INTO job_category 
+VALUES (1, null, '100,000', '25,000', 'Computer and Mathematical Occupations');
 
+INSERT INTO job_category 
+VALUES (2, 1, '100,000', '45,000', 'Computer Occupations');
+
+INSERT INTO job_category 
+VALUES (3, 2, '50,000', '40,000', 'Computer Support Specialists');
+
+INSERT INTO job_category 
+VALUES (4, 3, '50,000', '45,000', 'Computer User Support Specialists');
+
+INSERT INTO job_category 
+VALUES (5, 2, '120,000', '50,000', 'Software Developers and Programmers');
+
+INSERT INTO job_category 
+VALUES (6, 5, '100,000', '40,000', 'Web Developers');
+
+INSERT INTO job_category 
+VALUES (7, 2, '120,000', '60,000', 'Software Developers and Programmers');
+
+INSERT INTO job_category 
+VALUES (8, 7, '100,000', '62,000', 'Software Developers, Applications');
+
+INSERT INTO job_category 
+VALUES (9, 7, '100,000', '65,000', 'Computer Programmers');
+
+INSERT INTO job_category 
+VALUES (10, 2, '65,000', '55,000', 'Computer and Information Analysts');
+
+INSERT INTO job_category 
+VALUES (11, 10, '120,000', '70,000', 'Information Security Analysts');
+
+INSERT INTO job_category 
+VALUES (12, 10, '60,000', '50,000', 'Computer Systems Analysts');
+
+INSERT INTO job_category 
+VALUES (13, 2, '70,000', '50,000', 'Computer and Information Research Scientists');
 
 
