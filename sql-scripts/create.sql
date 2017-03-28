@@ -85,12 +85,12 @@ CREATE TABLE career_cluster (
 
 CREATE TABLE job_category (
   cate_code number,
-  detailed_occupation varchar(70),
+  soc_title varchar(70),
   parent_cate varchar(70),
   pay_high varchar(40),
   pay_low varchar(40),
   primary key (cate_code),
-  foreign key (detailed_occupation) references soc(detailed_occupation)
+  foreign key (soc_title) references soc(soc_title)
 );
 
 CREATE TABLE company (
