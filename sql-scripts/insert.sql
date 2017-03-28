@@ -33,25 +33,40 @@ VALUES (9, '234-323-2342', '657-345-4562');
 
 
 INSERT INTO soc 
-VALUES ('Computer and Information Research Scientists', 'Computer and Information Research Scientists', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Information Research Scientists');
 
 INSERT INTO soc 
-VALUES ('Computer Systems Analysts', 'Computer and Information Analysts', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer Occupations');
 
 INSERT INTO soc 
-VALUES ('Information Security Analysts', 'Computer and Information Analysts', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Mathematical Occupations');
 
 INSERT INTO soc 
-VALUES ('Computer Programmers', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer and Information Analysts');
 
 INSERT INTO soc 
-VALUES ('Software Developers, Applications', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Computer Systems Analysts');
 
 INSERT INTO soc 
-VALUES ('Web Developers', 'Software Developers and Programmers', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Information Security Analysts');
 
 INSERT INTO soc 
-VALUES ('Computer User Support Specialists', 'Computer Support Specialists', 'Computer Occupations', 'Computer and Mathematical Occupations');
+VALUES ('Software Developers and Programmers');
+
+INSERT INTO soc 
+VALUES ('Computer Programmers');
+
+INSERT INTO soc 
+VALUES ('Software Developers, Applications');
+
+INSERT INTO soc 
+VALUES ('Web Developers');
+
+INSERT INTO soc 
+VALUES ('Computer Support Specialists');
+
+INSERT INTO soc 
+VALUES ('Computer User Support Specialists');
 
 
 
