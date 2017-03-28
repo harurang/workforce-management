@@ -326,3 +326,35 @@ INSERT INTO job_category
 VALUES (13, 2, '70,000', '50,000', 'Computer and Information Research Scientists');
 
 
+
+
+INSERT INTO job
+VALUES(82, 60000, 'salary', 11, 'Cyber Security Specialist Junior');
+
+INSERT INTO job
+VALUES(73, 15, 'hourly', 4, 'Geek Squad Agent');
+
+INSERT INTO job
+VALUES(31, 80000, 'salary', 5, 'Java Developer');
+
+INSERT INTO job
+VALUES(67, 73000, 'salary', 10, 'Network Engineer');
+
+INSERT INTO job
+VALUES(75, 70000, 'salary', 9, 'Software Developer');
+
+INSERT INTO job
+VALUES(43, 85000, 'salary', 11, 'IT Security Analyst');
+
+INSERT INTO job
+VALUES(91, 62000, 'salary', 6,'Front End Web Developer');
+
+INSERT INTO job
+VALUES(44, 69000, 'salary', 6, 'Backend End Web Developer');
+
+INSERT INTO job
+VALUES(52, 56000, 'contract', 8, '.NET Developer');
+
+INSERT INTO job
+VALUES(21, 57000, 'salary', 13, 'Bioinformatician');
+
