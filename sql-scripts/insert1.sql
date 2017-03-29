@@ -153,7 +153,7 @@ is and understand the functions that make up the architecture',
 'Open', '$200', 'CS-1543');
 
 INSERT INTO course
-VALUES (2114, 'Introduction to Programming Languages, 2000, 'Learn about the
+VALUES (2114, 'Introduction to Programming Languages', 2000, 'Learn about the
 core programming languages and what they consist of.', 'Open', '$200', 'CS-2106');
 
 INSERT INTO course
