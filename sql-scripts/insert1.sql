@@ -90,19 +90,19 @@ VALUES (9, 325);
 
 
 INSERT INTO job_history
-VALUES ('02/10/2017', '03/10/2015', , 2);
+VALUES ('02/10/2017', '03/10/2015', 44, 2);
 
 INSERT INTO job_history
-VALUES ('03/08/2017', '01/23/2014', , 4);
+VALUES ('03/08/2017', '01/23/2014', 91, 4);
 
 INSERT INTO job_history
-VALUES ('01/14/2017', '05/16/2015', , 5);
+VALUES ('01/14/2017', '05/16/2015', 43, 5);
 
 INSERT INTO job_history
-VALUES ('03/14/2017', '01/09/2016', , 7);
+VALUES ('03/14/2017', '01/09/2016', 31, 7);
 
 INSERT INTO job_history
-VALUES ('02/21/2017', '04/21/2013', , 9);
+VALUES ('02/21/2017', '04/21/2013', 21, 9);
 
 
 
