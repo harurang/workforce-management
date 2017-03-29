@@ -30,3 +30,13 @@ CREATE TABLE tier(
     description varchar(70),
     primary key (tier_level)
 );
+
+
+CREATE TABLE course(
+    c_code number,
+    course_level varchar(70),
+    description varchar(70),
+    status varchar(70),
+    price varchar(70),
+    prereq varchar(70)
+);
