@@ -19,9 +19,10 @@ CREATE TABLE phone_number (
 
 CREATE TABLE job (
   job_code number,
-  cate_code number,
   pay_rate number,
   pay_type varchar(20),
+  cate_code number,
+  job_title varchar(70),
   primary key (job_code),
   foreign key (cate_code) references job_category
 );
@@ -87,8 +88,8 @@ CREATE TABLE job_category (
   cate_code number,
   soc_title varchar(70),
   parent_cate varchar(70),
-  pay_high varchar(40),
-  pay_low varchar(40),
+  pay_range_high varchar(40),
+  pay_range_low varchar(40),
   primary key (cate_code),
   foreign key (soc_title) references soc(soc_title)
 );
