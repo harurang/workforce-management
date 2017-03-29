@@ -1,11 +1,11 @@
 CREATE TABLE knowledge_skill(
   ks_code number,
   cluster_title varchar(70),
-  level varchar(70),
+  tier_level varchar(70),
   description varchar(70),
   primary key (ks_code),
   foreign key (cluster_title) references cluster(cluster_title),
-  foreign key (level) references tier(level),
+  foreign key (tier_level) references tier(tier_level),
   foreign key (description) references nwcet(description)
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE paid_by(
 
 
 CREATE TABLE tier(
-    level varchar(70),
+    tier_level varchar(70),
     description varchar(70),
-    primary key (level)
+    primary key (tier_level)
 );
