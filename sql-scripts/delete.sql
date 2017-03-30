@@ -2,15 +2,11 @@ drop table phone_number;
 
 drop table job_history;
 
-drop table job_history;
-
 drop table comp_job;
 
 drop table company;
 
 drop table naics;
-
-drop table nwect;
 
 drop table course_knowledge;
 
