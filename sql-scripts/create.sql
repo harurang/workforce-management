@@ -24,7 +24,7 @@ CREATE TABLE soc (
 
 CREATE TABLE job_category (
   cate_code number,
-  parent_cate varchar(70),
+  parent_cate number,
   pay_range_high varchar(40),
   pay_range_low varchar(40),
   soc_title varchar(70),
