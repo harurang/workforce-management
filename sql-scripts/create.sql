@@ -46,7 +46,7 @@ CREATE TABLE course(
     c_code number,
     title varchar(70),
     course_level varchar(70),
-    description varchar(70),
+    description varchar(200),
     status varchar(70),
     price varchar(70),
     prereq varchar(70),
