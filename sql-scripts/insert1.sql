@@ -1,28 +1,3 @@
-INSERT INTO knowledge_skill
-VALUES (435782, 'Database Development and Administration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435783, 'Digital Media'. 'Tier II', 'Javascript');
-
-INSERT INTO knowledge_skill
-VALUES (435784, 'Enterprise Systems Analysis and Integration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435785, 'Network Design and Administration', 'Tier II', 'PERL');
-
-INSERT INTO knowledge_skill
-VALUES (435786, 'Programming/Software Engineering', 'Tier II', 'Java' );
-
-INSERT INTO knowledge_skill
-VALUES (435787, 'Techinal Support', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435788, 'Technical Writing', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435789, 'Web Development and Administration', 'Tier II', 'CSS' );
-
-
 
 
 INSERT INTO course_knowledge
@@ -186,27 +161,3 @@ the design of mobile and ubiquitous computing systems.', 'Closed', '$400', null)
 
 
 
-
-
-INSERT INTO tier
-VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
-abilities unique to individual industries and organization. Examples: 
-knowledge of and compliance with companies and organization protocols, 
-understanding and effective use of industry terminology, knowledge of and 
-compliance with industry legal requirements, and knowledge of and compliance
-with company and product standards.');
-
-INSERT INTO tier
-VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
-to all jobs within a career cluster across all industries. Examples: 
-proficient use of software and hardware tools, proficient use of Internet
-techniques, understanding of hardware/system architecture, and troubleshooting
-of software and hardware problems.');
-
-INSERT INTO tier
-VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
-and personal qualities required of all workers to be successful in the
-workplace. Examples: basic skills,
-thinking skills, personal qualities, management of time and resources,
-interpersonal skills, management and use of information, understanding and
-management of systems, and use of technology.');
