@@ -70,29 +70,43 @@ VALUES ('Computer User Support Specialists');
 
 
 
-INSERT INTO naics 
-VALUES (54, 'Professional, Scientific, and Technical Services', null);
 
-INSERT INTO naics 
-VALUES (541, 'Professional, Scientific, and Technical Services', 54);
 
-INSERT INTO naics 
-VALUES (5415, 'Computer Systems Design and Related Services', 541);
+INSERT INTO naics
+VALUES (61, 'Fuels, utilities, waste management, and environmental remediation services, and related products and services', null);
 
-INSERT INTO naics 
-VALUES (54151, 'Computer Systems Design and Related Services', 5415);
+INSERT INTO naics
+VALUES (51, 'Equipment and related products', null);
 
-INSERT INTO naics 
-VALUES (541511, 'Custom Computer Programming Services', 5415);
+INSERT INTO naics
+VALUES (54, 'Intellectual property and related products', null);
 
-INSERT INTO naics 
-VALUES (541512, 'Computer Systems Design Services', 5415);
+INSERT INTO naics
+VALUES (511210, 'Applications development and publishing, except on a custom basis', 51);
 
-INSERT INTO naics 
-VALUES (541513, 'Computer Facilities Management Services', 5415);
+INSERT INTO naics
+VALUES (518210, 'Application hosting', 51);
 
-INSERT INTO naics 
-VALUES (541519, 'Other Computer Related Services', 5415);
+INSERT INTO naics
+VALUES (541511, 'Computer program or software development, custom', 54);
+
+INSERT INTO naics
+VALUES (541512, 'CAD (computer-aided design) systems integration design services', 54);
+
+INSERT INTO naics
+VALUES (541513, 'Computer systems facilities management and operation services', 54);
+
+INSERT INTO naics
+VALUES (541514, 'Computer systems facilities management and operation services', 54);
+
+INSERT INTO naics
+VALUES (541519, 'Computer disaster recovery services', 54);
+
+INSERT INTO naics
+VALUES (541715, 'Aerospace research and development (except prototype production)', 54);
+
+INSERT INTO naics
+VALUES (611420, 'Computer operator training', 61);
 
 
 
@@ -217,45 +231,6 @@ VALUES ('Web Development and Administration');
 
 
 
-INSERT INTO naics
-VALUES (61, 'Fuels, utilities, waste management, and environmental remediation services, and related products and services', null);
-
-INSERT INTO naics
-VALUES (51, 'Equipment and related products', null);
-
-INSERT INTO naics
-VALUES (54, 'Intellectual property and related products', null);
-
-INSERT INTO naics
-VALUES (511210, 'Applications development and publishing, except on a custom basis', 51);
-
-INSERT INTO naics
-VALUES (518210, 'Application hosting', 51);
-
-INSERT INTO naics
-VALUES (541511, 'Computer program or software development, custom', 54);
-
-INSERT INTO naics
-VALUES (541512, 'CAD (computer-aided design) systems integration design services', 54);
-
-INSERT INTO naics
-VALUES (541513, 'Computer systems facilities management and operation services', 54);
-
-INSERT INTO naics
-VALUES (541514, 'Computer systems facilities management and operation services', 54);
-
-INSERT INTO naics
-VALUES (541519, 'Computer disaster recovery services', 54);
-
-INSERT INTO naics
-VALUES (541715, 'Aerospace research and development (except prototype production)', 54);
-
-INSERT INTO naics
-VALUES (611420, 'Computer operator training', 61);
-
-
-
-
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
 
@@ -358,3 +333,108 @@ VALUES(52, 56000, 'contract', 8, '.NET Developer');
 INSERT INTO job
 VALUES(21, 57000, 'salary', 13, 'Bioinformatician');
 
+
+
+
+INSERT INTO career_tier
+VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
+abilities unique to individual industries and organization.');
+
+INSERT INTO career_tier
+VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
+to all jobs within a career cluster across all industries.');
+
+INSERT INTO career_tier
+VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
+and personal qualities required of all workers to be successful in the
+workplace.');
+
+
+
+
+INSERT INTO comp_job
+VALUES(12, 31);
+
+INSERT INTO comp_job
+VALUES(13, 43);
+
+INSERT INTO comp_job
+VALUES(14, 75);
+
+INSERT INTO comp_job
+VALUES(15, 73);
+
+INSERT INTO comp_job
+VALUES(17, 67);
+
+INSERT INTO comp_job
+VALUES(18, 44);
+
+INSERT INTO comp_job
+VALUES(19, 91);
+
+INSERT INTO comp_job
+VALUES(20, 91);
+
+
+-- Need knowledge_skill here
+
+INSERT INTO person_skill
+VALUES(2, 435782);
+
+INSERT INTO person_skill
+VALUES(4, 435784);
+
+INSERT INTO person_skill
+VALUES(4, 435785);
+
+INSERT INTO person_skill
+VALUES(5, 435783);
+
+INSERT INTO person_skill
+VALUES(7, 435786);
+
+INSERT INTO person_skill
+VALUES(10, 435787);
+
+INSERT INTO person_skill
+VALUES(10, 435785);
+
+
+
+
+INSERT INTO job_skill
+VALUES(82, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES(73, 435787, 'required');
+
+INSERT INTO job_skill
+VALUES(31, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES(67, 435785, 'required');
+
+INSERT INTO job_skill
+VALUES(75, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES(91, 435789, 'required');
+
+INSERT INTO job_skill
+VALUES(91, 435783, 'preferred');
+
+INSERT INTO job_skill
+VALUES(44, 435789, 'preferred');
+
+INSERT INTO job_skill
+VALUES(44, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES(52, 435784, 'preferred');
+
+INSERT INTO job_skill
+VALUES(21, 435788, 'preferred');
+
+INSERT INTO job_skill
+VALUES(43, 435785, 'preferred');
