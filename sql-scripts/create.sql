@@ -44,37 +44,38 @@ CREATE TABLE job (
 
 CREATE TABLE course(
     c_code number,
+    title varchar(70),
     course_level varchar(70),
     description varchar(70),
     status varchar(70),
     price varchar(70),
     prereq varchar(70),
-    primary key (c_code) 
+    primary key (c_code), 
+    foreign key (prereq) references course(c_code)
 );
 
 CREATE TABLE section (
   sec_id number,
-  c_code number,
-  end_date varchar(50),
   start_date varchar(50),
-  price varchar(20),
-  format varchar(20),
+  end_date varchar(50),
+  c_code number,
   primary key (sec_id),
   foreign key (c_code) references course(c_code)
 );
 
 CREATE TABLE takes (
-  sec_id number,
   per_id number,
+  sec_id number,
   foreign key (sec_id) references section(sec_id),
   foreign key (per_id) references person(per_id)
 );
 
 CREATE TABLE job_history (
-  per_id number,
   job_code number,
   start_date varchar(50),
   end_date varchar(50),
+  job_code number,
+  per_id number,
   foreign key (per_id) references person(per_id),
   foreign key (job_code) references job(job_code)
 );
