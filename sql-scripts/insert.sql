@@ -377,7 +377,34 @@ INSERT INTO comp_job
 VALUES(20, 91);
 
 
--- Need knowledge_skill here
+
+
+INSERT INTO knowledge_skill
+VALUES (435782, 'Database Development and Administration', 'Tier II', 'SQL');
+
+INSERT INTO knowledge_skill
+VALUES (435783, 'Digital Media', 'Tier II', 'JavaScript');
+
+INSERT INTO knowledge_skill
+VALUES (435784, 'Enterprise Systems Analysis and Integration', 'Tier II', 'SQL');
+
+INSERT INTO knowledge_skill
+VALUES (435785, 'Network Design and Administration', 'Tier II', 'PERL');
+
+INSERT INTO knowledge_skill
+VALUES (435786, 'Programming/Software Engineering', 'Tier II', 'JAVA' );
+
+INSERT INTO knowledge_skill
+VALUES (435787, 'Technical Support', 'Tier I', null );
+
+INSERT INTO knowledge_skill
+VALUES (435788, 'Technical Writing', 'Tier I', null );
+
+INSERT INTO knowledge_skill
+VALUES (435789, 'Web Development and Administration', 'Tier II', 'CSS' );
+
+
+
 
 INSERT INTO person_skill
 VALUES(2, 435782);
@@ -395,10 +422,10 @@ INSERT INTO person_skill
 VALUES(7, 435786);
 
 INSERT INTO person_skill
-VALUES(10, 435787);
+VALUES(9, 435787);
 
 INSERT INTO person_skill
-VALUES(10, 435785);
+VALUES(9, 435785);
 
 
 
