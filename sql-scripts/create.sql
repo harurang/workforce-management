@@ -50,8 +50,7 @@ CREATE TABLE course(
     status varchar(70),
     price varchar(70),
     prereq varchar(70),
-    primary key (c_code), 
-    foreign key (prereq) references course(c_code)
+    primary key (c_code)
 );
 
 CREATE TABLE section (
@@ -71,7 +70,6 @@ CREATE TABLE takes (
 );
 
 CREATE TABLE job_history (
-  job_code number,
   start_date varchar(50),
   end_date varchar(50),
   job_code number,
