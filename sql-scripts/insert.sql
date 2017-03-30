@@ -358,3 +358,48 @@ VALUES(52, 56000, 'contract', 8, '.NET Developer');
 INSERT INTO job
 VALUES(21, 57000, 'salary', 13, 'Bioinformatician');
 
+
+
+
+INSERT INTO career_tier
+VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
+abilities unique to individual industries and organization.');
+
+INSERT INTO career_tier
+VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
+to all jobs within a career cluster across all industries.');
+
+INSERT INTO career_tier
+VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
+and personal qualities required of all workers to be successful in the
+workplace.');
+
+
+
+
+INSERT INTO comp_job
+VALUES(12, 31);
+
+INSERT INTO comp_job
+VALUES(13, 43);
+
+INSERT INTO comp_job
+VALUES(14, 75);
+
+INSERT INTO comp_job
+VALUES(15, 73);
+
+INSERT INTO comp_job
+VALUES(17, 67);
+
+INSERT INTO comp_job
+VALUES(18, 44);
+
+INSERT INTO comp_job
+VALUES(19, 91);
+
+INSERT INTO comp_job
+VALUES(20, 91);
+
+
+
