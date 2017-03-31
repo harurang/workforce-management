@@ -18,8 +18,8 @@ CREATE TABLE phone_number (
 );
 
 CREATE TABLE soc (
-  soc_title varchar(70),
-  primary key (soc_title)
+  title varchar(70),
+  primary key (title)
 );
 
 CREATE TABLE job_category (
@@ -27,9 +27,9 @@ CREATE TABLE job_category (
   parent_cate number,
   pay_range_high varchar(40),
   pay_range_low varchar(40),
-  soc_title varchar(70),
+  title varchar(70),
   primary key (cate_code),
-  foreign key (soc_title) references soc(soc_title)
+  foreign key (title) references soc(title)
 );
 
 CREATE TABLE job (
@@ -48,15 +48,18 @@ CREATE TABLE course(
     course_level varchar(70),
     description varchar(200),
     status varchar(70),
-    price varchar(70),
-    prereq varchar(70),
-    primary key (c_code)
+    price number,
+    prereq number,
+    primary key (c_code),
+    foreign key (prereq) references course(c_code)
 );
 
 CREATE TABLE section (
   sec_id number,
   start_date varchar(50),
   end_date varchar(50),
+  format varchar(40),
+  offered_by varchar(40),
   c_code number,
   primary key (sec_id),
   foreign key (c_code) references course(c_code)
@@ -80,15 +83,15 @@ CREATE TABLE job_history (
 
 CREATE TABLE naics (
   n_code number,
-  title varchar(200),
+  speciality varchar(200),
   hierarchy number,
   primary key (n_code),
   foreign key (hierarchy) references naics(n_code)
 );
 
 CREATE TABLE nwcet (
-  description varchar(70),
-  primary key (description)
+  title varchar(70),
+  primary key (title)
 );
 
 CREATE TABLE career_cluster (
@@ -118,11 +121,11 @@ CREATE TABLE knowledge_skill (
   ks_code number,
   cluster_title varchar(70),
   tier_level varchar(30),
-  description varchar(70),
+  title varchar(70),
   primary key (ks_code),
   foreign key (cluster_title) references career_cluster(cluster_title),
   foreign key (tier_level) references career_tier(tier_level),
-  foreign key (description) references nwcet(description)
+  foreign key (title) references nwcet(title)
 );
 
 CREATE TABLE course_knowledge(
