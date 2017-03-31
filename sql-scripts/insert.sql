@@ -200,7 +200,11 @@ VALUES ('Eclipse');
 INSERT INTO nwcet
 VALUES ('Google Analytics');
 
+INSERT INTO nwcet
+VALUES ('PC Support');
 
+INSERT INTO nwcet
+VALUES ('Defining Computer Security Criteria');
 
 
 
@@ -407,7 +411,7 @@ VALUES (435789, 'Web Development and Administration', 'Tier II', 'CSS' );
 
 
 INSERT INTO person_skill
-VALUES(2, 435782);
+VALUES(2, 435789);
 
 INSERT INTO person_skill
 VALUES(4, 435784);
