@@ -38,10 +38,8 @@ CREATE TABLE job (
   pay_type varchar(20),
   cate_code number,
   job_title varchar(70),
-  comp_name varchar(30),
   primary key (job_code),
-  foreign key (cate_code) references job_category(cate_code),
-  foreign key (comp_name) references company(comp_name)
+  foreign key (cate_code) references job_category(cate_code)
 );
 
 CREATE TABLE course(
