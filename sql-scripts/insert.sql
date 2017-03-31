@@ -551,19 +551,34 @@ VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786);
 
 
 INSERT INTO job_history
-VALUES ('02/10/2017', '03/10/2015', 44, 2);
+VALUES ('03/10/2015', 'Currently', 44, 2);
 
 INSERT INTO job_history
-VALUES ('03/08/2017', '01/23/2014', 91, 4);
+VALUES ('05/10/2013', '01/23/2015', 82, 2);
 
 INSERT INTO job_history
-VALUES ('01/14/2017', '05/16/2015', 43, 5);
+VALUES ('01/23/2014', 'Currently', 91, 4);
 
 INSERT INTO job_history
-VALUES ('03/14/2017', '01/09/2016', 31, 7);
+VALUES ('06/11/2012', '12/05/2013', 73, 4);
 
 INSERT INTO job_history
-VALUES ('02/21/2017', '04/21/2013', 21, 9);
+VALUES ('05/16/2015', 'Currently', 43, 5);
+
+INSERT INTO job_history
+VALUES ('02/24/2013', '02/27/2015', 91, 5);
+
+INSERT INTO job_history
+VALUES ('01/09/2016', 'Currently', 31, 7);
+
+INSERT INTO job_history
+VALUES ('04/13/2014', '11/23/2015', 44, 7);
+
+INSERT INTO job_history
+VALUES ('04/21/2016', 'Currently', 21, 9);
+
+INSERT INTO job_history
+VALUES ('08/12/2013', '03/05/2016', 73, 9);
 
 
 
