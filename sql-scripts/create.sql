@@ -22,14 +22,44 @@ CREATE TABLE soc (
   primary key (title)
 );
 
+CREATE TABLE nwcet (
+  title varchar(70),
+  primary key (title)
+);
+
+CREATE TABLE career_tier (
+    tier_level varchar(30),
+    description varchar(400),
+    primary key (tier_level)
+);
+
+CREATE TABLE career_cluster (
+  cluster_title varchar(70),
+  primary key (cluster_title)
+);
+
+CREATE TABLE knowledge_skill (
+  ks_code number,
+  title varchar(70),
+  cluster_title varchar(70),
+  tier_level varchar(30),
+  primary key (ks_code),
+  foreign key (cluster_title) references career_cluster(cluster_title),
+  foreign key (tier_level) references career_tier(tier_level),
+  foreign key (title) references nwcet(title)
+);
+
 CREATE TABLE job_category (
   cate_code number,
   parent_cate number,
-  pay_range_high varchar(40),
-  pay_range_low varchar(40),
+  pay_range_high number,
+  pay_range_low number,
   title varchar(70),
+  ks_code number,
   primary key (cate_code),
-  foreign key (title) references soc(title)
+  foreign key (parent_cate) references job_category(cate_code),
+  foreign key (title) references soc(title),
+  foreign key (ks_code) references knowledge_skill(ks_code)
 );
 
 CREATE TABLE naics (
@@ -101,33 +131,6 @@ CREATE TABLE job_history (
   per_id number,
   foreign key (per_id) references person(per_id),
   foreign key (job_code) references job(job_code)
-);
-
-CREATE TABLE nwcet (
-  title varchar(70),
-  primary key (title)
-);
-
-CREATE TABLE career_cluster (
-  cluster_title varchar(70),
-  primary key (cluster_title)
-);
-
-CREATE TABLE career_tier (
-    tier_level varchar(30),
-    description varchar(400),
-    primary key (tier_level)
-);
-
-CREATE TABLE knowledge_skill (
-  ks_code number,
-  cluster_title varchar(70),
-  tier_level varchar(30),
-  title varchar(70),
-  primary key (ks_code),
-  foreign key (cluster_title) references career_cluster(cluster_title),
-  foreign key (tier_level) references career_tier(tier_level),
-  foreign key (title) references nwcet(title)
 );
 
 CREATE TABLE course_knowledge(

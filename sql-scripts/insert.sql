@@ -238,6 +238,10 @@ VALUES ('Defining Computer Security Criteria');
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
 
@@ -265,6 +269,12 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO career_cluster
 VALUES ('Database Development and Administration');
 
@@ -332,6 +342,11 @@ VALUES (435788, 'Defining Computer Security Criteria', 'Technical Writing', 'Tie
 
 INSERT INTO knowledge_skill
 VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 
 
 
@@ -374,8 +389,11 @@ VALUES (12, 10, 60000, 50000, 'Computer Systems Analysts', 435784);
 
 INSERT INTO job_category 
 VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435788);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 
 
 
@@ -413,8 +431,11 @@ VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician', 17);
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO comp_job
 VALUES(12, 31);
 
@@ -441,10 +462,13 @@ VALUES(20, 91);
 
 
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO person_skill
 VALUES(2, 435789);
 
