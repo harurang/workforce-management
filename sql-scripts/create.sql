@@ -32,12 +32,33 @@ CREATE TABLE job_category (
   foreign key (title) references soc(title)
 );
 
+CREATE TABLE naics (
+  n_code number,
+  speciality varchar(200),
+  hierarchy number,
+  primary key (n_code),
+  foreign key (hierarchy) references naics(n_code)
+);
+
+CREATE TABLE company (
+  comp_id number,
+  comp_name varchar(30),
+  n_code number,
+  city varchar(40),
+  state varchar(2),
+  zip number,
+  website varchar(70),
+  primary key (comp_id),
+  foreign key (n_code) references naics(n_code)
+);
+
 CREATE TABLE job (
   job_code number,
   pay_rate number,
   pay_type varchar(20),
   cate_code number,
   job_title varchar(70),
+  comp_id number,
   primary key (job_code),
   foreign key (cate_code) references job_category(cate_code)
 );
@@ -81,14 +102,6 @@ CREATE TABLE job_history (
   foreign key (job_code) references job(job_code)
 );
 
-CREATE TABLE naics (
-  n_code number,
-  speciality varchar(200),
-  hierarchy number,
-  primary key (n_code),
-  foreign key (hierarchy) references naics(n_code)
-);
-
 CREATE TABLE nwcet (
   title varchar(70),
   primary key (title)
@@ -97,18 +110,6 @@ CREATE TABLE nwcet (
 CREATE TABLE career_cluster (
   cluster_title varchar(70),
   primary key (cluster_title)
-);
-
-CREATE TABLE company (
-  comp_id number,
-  comp_name varchar(30),
-  n_code number,
-  city varchar(40),
-  state varchar(2),
-  zip number,
-  website varchar(70),
-  primary key (comp_id),
-  foreign key (n_code) references naics(n_code)
 );
 
 CREATE TABLE career_tier (
