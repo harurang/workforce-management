@@ -355,34 +355,34 @@ VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435
 
 
 INSERT INTO job
-VALUES(82, 60000, 'salary', 11, 'Cyber Security Specialist Junior', 12);
+VALUES(82, 60000, 'salary', null, 11, 'Cyber Security Specialist Junior', 12);
 
 INSERT INTO job
-VALUES(73, 15, 'hourly', 4, 'Geek Squad Agent', 13);
+VALUES(73, 15, 'hourly', 40, 4, 'Geek Squad Agent', 13);
 
 INSERT INTO job
-VALUES(31, 80000, 'salary', 5, 'Java Developer', 14);
+VALUES(31, 80000, 'salary', null, 5, 'Java Developer', 14);
 
 INSERT INTO job
-VALUES(67, 73000, 'salary', 10, 'Network Engineer', 15);
+VALUES(67, 73000, 'salary', null, 10, 'Network Engineer', 15);
 
 INSERT INTO job
-VALUES(75, 70000, 'salary', 9, 'Software Developer', 17);
+VALUES(75, 70000, 'salary', null, 9, 'Software Developer', 17);
 
 INSERT INTO job
-VALUES(43, 85000, 'salary', 11, 'IT Security Analyst', 18);
+VALUES(43, 85000, 'salary', null, 11, 'IT Security Analyst', 18);
 
 INSERT INTO job
-VALUES(91, 62000, 'salary', 6,'Front End Web Developer', 19);
+VALUES(91, 62000, 'salary', null, 6,'Front End Web Developer', 19);
 
 INSERT INTO job
-VALUES(44, 69000, 'salary', 6, 'Backend End Web Developer', 20);
+VALUES(44, 69000, 'salary', null, 6, 'Backend End Web Developer', 20);
 
 INSERT INTO job
-VALUES(52, 56000, 'contract', 8, '.NET Developer', 20);
+VALUES(52, 56000, 'contract', null, 8, '.NET Developer', 20);
 
 INSERT INTO job
-VALUES(21, 57000, 'salary', 13, 'Bioinformatician', 17);
+VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician', 17);
 
 
 
