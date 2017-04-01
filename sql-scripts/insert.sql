@@ -208,32 +208,6 @@ VALUES ('Defining Computer Security Criteria');
 
 
 
-INSERT INTO career_cluster
-VALUES ('Database Development and Administration');
-
-INSERT INTO career_cluster
-VALUES ('Digital Media');
-
-INSERT INTO career_cluster
-VALUES ('Enterprise Systems Analysis and Integration');
-
-INSERT INTO career_cluster
-VALUES ('Network Design and Administration');
-
-INSERT INTO career_cluster
-VALUES ('Programming/Software Engineering');
-
-INSERT INTO career_cluster
-VALUES ('Technical Support');
-
-INSERT INTO career_cluster
-VALUES ('Technical Writing');
-
-INSERT INTO career_cluster
-VALUES ('Web Development and Administration');
-
-
-
 
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
@@ -262,44 +236,120 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 
 
 
-INSERT INTO job_category 
-VALUES (1, null, '100,000', '25,000', 'Computer and Mathematical Occupations');
+
+
+
+INSERT INTO career_cluster
+VALUES ('Database Development and Administration');
+
+INSERT INTO career_cluster
+VALUES ('Digital Media');
+
+INSERT INTO career_cluster
+VALUES ('Enterprise Systems Analysis and Integration');
+
+INSERT INTO career_cluster
+VALUES ('Network Design and Administration');
+
+INSERT INTO career_cluster
+VALUES ('Programming/Software Engineering');
+
+INSERT INTO career_cluster
+VALUES ('Technical Support');
+
+INSERT INTO career_cluster
+VALUES ('Technical Writing');
+
+INSERT INTO career_cluster
+VALUES ('Web Development and Administration');
+
+
+
+
+INSERT INTO career_tier
+VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
+abilities unique to individual industries and organization.');
+
+INSERT INTO career_tier
+VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
+to all jobs within a career cluster across all industries.');
+
+INSERT INTO career_tier
+VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
+and personal qualities required of all workers to be successful in the
+workplace.');
+
+
+
+
+
+INSERT INTO knowledge_skill
+VALUES (435782, 'SQL', 'Database Development and Administration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435783, 'JavaScript', 'Digital Media', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435784, 'SQL', 'Enterprise Systems Analysis and Integration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435785, 'PERL', 'Network Design and Administration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435786, 'JAVA', 'Programming/Software Engineering', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435787, null, 'Technical Support', 'Tier I');
+
+INSERT INTO knowledge_skill
+VALUES (435788, null, 'Technical Writing', 'Tier I');
+
+INSERT INTO knowledge_skill
+VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
+
+
+
+
+
 
 INSERT INTO job_category 
-VALUES (2, 1, '100,000', '45,000', 'Computer Occupations');
+VALUES (1, null, 100000, 25000, 'Computer and Mathematical Occupations', 435787);
 
 INSERT INTO job_category 
-VALUES (3, 2, '50,000', '40,000', 'Computer Support Specialists');
+VALUES (2, 1, 100000, 45000, 'Computer Occupations', 435787);
 
 INSERT INTO job_category 
-VALUES (4, 3, '50,000', '45,000', 'Computer User Support Specialists');
+VALUES (3, 2, 50000, 40000, 'Computer Support Specialists', 435787);
 
 INSERT INTO job_category 
-VALUES (5, 2, '120,000', '50,000', 'Software Developers and Programmers');
+VALUES (4, 3, 50000, 45000, 'Computer User Support Specialists', 435787);
 
 INSERT INTO job_category 
-VALUES (6, 5, '100,000', '40,000', 'Web Developers');
+VALUES (5, 2, 120000, 50000, 'Software Developers and Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (7, 2, '120,000', '60,000', 'Software Developers and Programmers');
+VALUES (6, 5, 100000, 40000, 'Web Developers', 435789);
 
 INSERT INTO job_category 
-VALUES (8, 7, '100,000', '62,000', 'Software Developers, Applications');
+VALUES (7, 2, 120000, 60000, 'Software Developers and Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (9, 7, '100,000', '65,000', 'Computer Programmers');
+VALUES (8, 7, 100000, 62000, 'Software Developers, Applications', 435786);
 
 INSERT INTO job_category 
-VALUES (10, 2, '65,000', '55,000', 'Computer and Information Analysts');
+VALUES (9, 7, 100000, 65000, 'Computer Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (11, 10, '120,000', '70,000', 'Information Security Analysts');
+VALUES (10, 2, 65000, 55000, 'Computer and Information Analysts', 435784);
 
 INSERT INTO job_category 
-VALUES (12, 10, '60,000', '50,000', 'Computer Systems Analysts');
+VALUES (11, 10, 120000, 70000, 'Information Security Analysts', 435785);
 
 INSERT INTO job_category 
-VALUES (13, 2, '70,000', '50,000', 'Computer and Information Research Scientists');
+VALUES (12, 10, 60000, 50000, 'Computer Systems Analysts', 435784);
+
+INSERT INTO job_category 
+VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435788);
 
 
 
@@ -337,22 +387,6 @@ VALUES(21, 57000, 'salary', 13, 'Bioinformatician', 17);
 
 
 
-INSERT INTO career_tier
-VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
-abilities unique to individual industries and organization.');
-
-INSERT INTO career_tier
-VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
-to all jobs within a career cluster across all industries.');
-
-INSERT INTO career_tier
-VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
-and personal qualities required of all workers to be successful in the
-workplace.');
-
-
-
-
 INSERT INTO comp_job
 VALUES(12, 31);
 
@@ -376,34 +410,6 @@ VALUES(19, 91);
 
 INSERT INTO comp_job
 VALUES(20, 91);
-
-
-
-
-INSERT INTO knowledge_skill
-VALUES (435782, 'Database Development and Administration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435783, 'Digital Media', 'Tier II', 'JavaScript');
-
-INSERT INTO knowledge_skill
-VALUES (435784, 'Enterprise Systems Analysis and Integration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435785, 'Network Design and Administration', 'Tier II', 'PERL');
-
-INSERT INTO knowledge_skill
-VALUES (435786, 'Programming/Software Engineering', 'Tier II', 'JAVA' );
-
-INSERT INTO knowledge_skill
-VALUES (435787, 'Technical Support', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435788, 'Technical Writing', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435789, 'Web Development and Administration', 'Tier II', 'CSS' );
-
 
 
 
