@@ -299,10 +299,10 @@ INSERT INTO knowledge_skill
 VALUES (435786, 'JAVA', 'Programming/Software Engineering', 'Tier II');
 
 INSERT INTO knowledge_skill
-VALUES (435787, null, 'Technical Support', 'Tier I');
+VALUES (435787, 'PC Support', 'Technical Support', 'Tier I');
 
 INSERT INTO knowledge_skill
-VALUES (435788, null, 'Technical Writing', 'Tier I');
+VALUES (435788, 'Defining Computer Security Criteria', 'Technical Writing', 'Tier I');
 
 INSERT INTO knowledge_skill
 VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');

@@ -55,11 +55,11 @@ CREATE TABLE job_category (
   pay_range_high number,
   pay_range_low number,
   title varchar(70),
-  core_skill number,
+  ks_code number,
   primary key (cate_code),
   foreign key (parent_cate) references job_category(cate_code),
   foreign key (title) references soc(title),
-  foreign key (core_skill) references knowledge_skill(ks_code)
+  foreign key (ks_code) references knowledge_skill(ks_code)
 );
 
 CREATE TABLE naics (
