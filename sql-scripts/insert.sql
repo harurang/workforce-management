@@ -506,10 +506,13 @@ INSERT INTO job_skill
 VALUES(91, 435783, 'preferred');
 
 INSERT INTO job_skill
-VALUES(44, 435789, 'preferred');
+VALUES(44, 435785, 'preferred');
 
 INSERT INTO job_skill
 VALUES(44, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES(44, 435784, 'required');
 
 INSERT INTO job_skill
 VALUES(52, 435784, 'preferred');
@@ -774,7 +777,10 @@ INSERT INTO course_knowledge
 VALUES (435786, 3120);
 
 INSERT INTO course_knowledge
-VALUES (435788, 4102);
+VALUES (435789, 4208);
 
 INSERT INTO course_knowledge
-VALUES (435789, 4208);
+VALUES (435786, 4102);
+ 
+INSERT INTO course_knowledge
+VALUES (435784, 4102); 
