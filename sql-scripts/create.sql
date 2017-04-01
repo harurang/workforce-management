@@ -56,6 +56,7 @@ CREATE TABLE job (
   job_code number,
   pay_rate number,
   pay_type varchar(20),
+  hours number,
   cate_code number,
   job_title varchar(70),
   comp_id number,
