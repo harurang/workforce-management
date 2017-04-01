@@ -13,6 +13,21 @@ VALUES (7, 'Vanessa', 'Houston', '0324 Hill', 'TX', 12874, 'vanessa@aol.com', 'f
 INSERT INTO person
 VALUES (9, 'Lindsey', 'San Diego', '3423 Severn', 'CA', 94665, 'lindsey@yahoo.com', 'female');
 
+INSERT INTO person
+VALUES (100, 'Brandon', 'Atlanta', '4321 Apple St.', 'GA', 30301, 'brandon@gmail.com', 'male');
+
+INSERT INTO person
+VALUES (105, 'Emily', 'St.Louis', '2134 Mrytle Lane', 'MO', 63101, 'emily@yahoo.com', 'female');
+
+INSERT INTO person
+VALUES (176, 'Keith', 'Jackson', '4532 Cape', 'MS', 39056, 'keith@gmail.com', 'male');
+
+INSERT INTO person
+VALUES (234, 'Lily', 'Miami', '3245 Brussel', 'FL', 33018, 'lily@yahoo.com', 'female');
+
+INSERT INTO person
+VALUES (206, 'Ashton', 'New York', '763 7th Ave.', 'FL', 10001, 'ashton@gmail.com', 'male');
+
 
 
 INSERT INTO phone_number
@@ -29,6 +44,21 @@ VALUES (7, '644-234-4532', '567-234-5463');
 
 INSERT INTO phone_number
 VALUES (9, '234-323-2342', '657-345-4562');
+
+INSERT INTO phone_number
+VALUES (100, '432-456-2134', '453-675-7546');
+
+INSERT INTO phone_number
+VALUES (105, '345-435-6536', '234-532-5324');
+
+INSERT INTO phone_number
+VALUES (176, '532-425-6532', '563-632-7432');
+
+INSERT INTO phone_number
+VALUES (234, '324-643-6326', '325-563-2636');
+
+INSERT INTO phone_number
+VALUES (206, '563-627-2674', '463-632-7463');
 
 
 
@@ -208,33 +238,6 @@ VALUES ('Defining Computer Security Criteria');
 
 
 
-INSERT INTO career_cluster
-VALUES ('Database Development and Administration');
-
-INSERT INTO career_cluster
-VALUES ('Digital Media');
-
-INSERT INTO career_cluster
-VALUES ('Enterprise Systems Analysis and Integration');
-
-INSERT INTO career_cluster
-VALUES ('Network Design and Administration');
-
-INSERT INTO career_cluster
-VALUES ('Programming/Software Engineering');
-
-INSERT INTO career_cluster
-VALUES ('Technical Support');
-
-INSERT INTO career_cluster
-VALUES ('Technical Writing');
-
-INSERT INTO career_cluster
-VALUES ('Web Development and Administration');
-
-
-
-
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
 
@@ -262,44 +265,117 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 
 
 
-INSERT INTO job_category 
-VALUES (1, null, '100,000', '25,000', 'Computer and Mathematical Occupations');
+INSERT INTO career_cluster
+VALUES ('Database Development and Administration');
+
+INSERT INTO career_cluster
+VALUES ('Digital Media');
+
+INSERT INTO career_cluster
+VALUES ('Enterprise Systems Analysis and Integration');
+
+INSERT INTO career_cluster
+VALUES ('Network Design and Administration');
+
+INSERT INTO career_cluster
+VALUES ('Programming/Software Engineering');
+
+INSERT INTO career_cluster
+VALUES ('Technical Support');
+
+INSERT INTO career_cluster
+VALUES ('Technical Writing');
+
+INSERT INTO career_cluster
+VALUES ('Web Development and Administration');
+
+
+
+
+INSERT INTO career_tier
+VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
+abilities unique to individual industries and organization.');
+
+INSERT INTO career_tier
+VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
+to all jobs within a career cluster across all industries.');
+
+INSERT INTO career_tier
+VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
+and personal qualities required of all workers to be successful in the
+workplace.');
+
+
+
+
+
+INSERT INTO knowledge_skill
+VALUES (435782, 'SQL', 'Database Development and Administration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435783, 'JavaScript', 'Digital Media', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435784, 'SQL', 'Enterprise Systems Analysis and Integration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435785, 'PERL', 'Network Design and Administration', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435786, 'JAVA', 'Programming/Software Engineering', 'Tier II');
+
+INSERT INTO knowledge_skill
+VALUES (435787, 'PC Support', 'Technical Support', 'Tier I');
+
+INSERT INTO knowledge_skill
+VALUES (435788, 'Defining Computer Security Criteria', 'Technical Writing', 'Tier I');
+
+INSERT INTO knowledge_skill
+VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
+
+
+
 
 INSERT INTO job_category 
-VALUES (2, 1, '100,000', '45,000', 'Computer Occupations');
+VALUES (1, null, 100000, 25000, 'Computer and Mathematical Occupations', 435787);
 
 INSERT INTO job_category 
-VALUES (3, 2, '50,000', '40,000', 'Computer Support Specialists');
+VALUES (2, 1, 100000, 45000, 'Computer Occupations', 435787);
 
 INSERT INTO job_category 
-VALUES (4, 3, '50,000', '45,000', 'Computer User Support Specialists');
+VALUES (3, 2, 50000, 40000, 'Computer Support Specialists', 435787);
 
 INSERT INTO job_category 
-VALUES (5, 2, '120,000', '50,000', 'Software Developers and Programmers');
+VALUES (4, 3, 50000, 45000, 'Computer User Support Specialists', 435787);
 
 INSERT INTO job_category 
-VALUES (6, 5, '100,000', '40,000', 'Web Developers');
+VALUES (5, 2, 120000, 50000, 'Software Developers and Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (7, 2, '120,000', '60,000', 'Software Developers and Programmers');
+VALUES (6, 5, 100000, 40000, 'Web Developers', 435789);
 
 INSERT INTO job_category 
-VALUES (8, 7, '100,000', '62,000', 'Software Developers, Applications');
+VALUES (7, 2, 120000, 60000, 'Software Developers and Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (9, 7, '100,000', '65,000', 'Computer Programmers');
+VALUES (8, 7, 100000, 62000, 'Software Developers, Applications', 435786);
 
 INSERT INTO job_category 
-VALUES (10, 2, '65,000', '55,000', 'Computer and Information Analysts');
+VALUES (9, 7, 100000, 65000, 'Computer Programmers', 435786);
 
 INSERT INTO job_category 
-VALUES (11, 10, '120,000', '70,000', 'Information Security Analysts');
+VALUES (10, 2, 65000, 55000, 'Computer and Information Analysts', 435784);
 
 INSERT INTO job_category 
-VALUES (12, 10, '60,000', '50,000', 'Computer Systems Analysts');
+VALUES (11, 10, 120000, 70000, 'Information Security Analysts', 435785);
 
 INSERT INTO job_category 
-VALUES (13, 2, '70,000', '50,000', 'Computer and Information Research Scientists');
+VALUES (12, 10, 60000, 50000, 'Computer Systems Analysts', 435784);
+
+INSERT INTO job_category 
+VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435788);
+
+
 
 
 
@@ -337,20 +413,6 @@ VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician', 17);
 
 
 
-INSERT INTO career_tier
-VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
-abilities unique to individual industries and organization.');
-
-INSERT INTO career_tier
-VALUES ('Tier II', 'Technical skills, knowledge, and abilities skills common 
-to all jobs within a career cluster across all industries.');
-
-INSERT INTO career_tier
-VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
-and personal qualities required of all workers to be successful in the
-workplace.');
-
-
 
 
 INSERT INTO comp_job
@@ -380,30 +442,6 @@ VALUES(20, 91);
 
 
 
-INSERT INTO knowledge_skill
-VALUES (435782, 'Database Development and Administration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435783, 'Digital Media', 'Tier II', 'JavaScript');
-
-INSERT INTO knowledge_skill
-VALUES (435784, 'Enterprise Systems Analysis and Integration', 'Tier II', 'SQL');
-
-INSERT INTO knowledge_skill
-VALUES (435785, 'Network Design and Administration', 'Tier II', 'PERL');
-
-INSERT INTO knowledge_skill
-VALUES (435786, 'Programming/Software Engineering', 'Tier II', 'JAVA' );
-
-INSERT INTO knowledge_skill
-VALUES (435787, 'Technical Support', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435788, 'Technical Writing', 'Tier I', null );
-
-INSERT INTO knowledge_skill
-VALUES (435789, 'Web Development and Administration', 'Tier II', 'CSS' );
-
 
 
 
@@ -427,6 +465,22 @@ VALUES(9, 435787);
 
 INSERT INTO person_skill
 VALUES(9, 435785);
+
+INSERT INTO person_skill
+VALUES(100, 435789);
+
+INSERT INTO person_skill
+VALUES(105, 435787);
+
+INSERT INTO person_skill
+VALUES(176, 435785);
+
+INSERT INTO person_skill
+VALUES(234, 435786);
+
+INSERT INTO person_skill
+VALUES(206, 435784);
+
 
 
 
@@ -577,6 +631,38 @@ VALUES ('04/21/2016', 'Currently', 21, 9);
 INSERT INTO job_history
 VALUES ('08/12/2013', '03/05/2016', 73, 9);
 
+INSERT INTO job_history
+VALUES ('03/24/2015', 'Currently', 44, 100);
+
+INSERT INTO job_history
+VALUES ('01/27/2103', '02/15/2015', 52, 100);
+
+INSERT INTO job_history
+VALUES ('06/21/2016', 'Currently', 91, 105);
+
+INSERT INTO job_history
+VALUES ('04/23/2014', '04/12/2016', 21, 105);
+
+INSERT INTO job_history
+VALUES ('03/23/2013', 'Currently', 43, 176);
+
+INSERT INTO job_history
+VALUES ('07/17/2012', '02/13/2013', 82, 176);
+
+INSERT INTO job_history
+VALUES ('04/23/2016', 'Currently', 31, 234);
+
+INSERT INTO job_history
+VALUES ('08/15/2014', '03/23/2016', 67, 234);
+
+INSERT INTO job_history
+VALUES ('09/23/2015', 'Currently', 21, 206);
+
+INSERT INTO job_history
+VALUES ('05/14/2013', '08/04/2015', 73, 206);
+
+
+
 
 
 INSERT INTO takes
@@ -593,6 +679,21 @@ VALUES (7, 324);
 
 INSERT INTO takes
 VALUES (9, 325);
+
+INSERT INTO takes
+VALUES (100, 326);
+
+INSERT INTO takes
+VALUES (105, 327);
+
+INSERT INTO takes
+VALUES (176, 328);
+
+INSERT INTO takes
+VALUES (234, 329);
+
+INSERT INTO takes
+VALUES (206, 330);
 
 
 
@@ -611,6 +712,20 @@ VALUES (7, 31);
 INSERT INTO paid_by
 VALUES (9, 21);
 
+INSERT INTO paid_by
+VALUES (100, 44);
+
+INSERT INTO paid_by
+VALUES (105, 91);
+
+INSERT INTO paid_by
+VALUES (176, 43);
+
+INSERT INTO paid_by
+VALUES (234, 31);
+
+INSERT INTO paid_by
+VALUES (206, 21);
 
 
 
@@ -639,4 +754,3 @@ VALUES (435788, 4102);
 
 INSERT INTO course_knowledge
 VALUES (435789, 4208);
-
