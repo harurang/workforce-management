@@ -238,10 +238,7 @@ VALUES ('Defining Computer Security Criteria');
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
 
@@ -269,12 +266,6 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO career_cluster
 VALUES ('Database Development and Administration');
 
@@ -342,11 +333,7 @@ VALUES (435788, 'Defining Computer Security Criteria', 'Technical Writing', 'Tie
 
 INSERT INTO knowledge_skill
 VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
-<<<<<<< HEAD
-=======
 
-
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 
 
 
@@ -389,11 +376,7 @@ VALUES (12, 10, 60000, 50000, 'Computer Systems Analysts', 435784);
 
 INSERT INTO job_category 
 VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435788);
-<<<<<<< HEAD
 
-
-=======
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 
 
 
@@ -431,11 +414,7 @@ VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician', 17);
 
 
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO comp_job
 VALUES(12, 31);
 
@@ -462,13 +441,9 @@ VALUES(20, 91);
 
 
 
-<<<<<<< HEAD
 
 
 
-
-=======
->>>>>>> c86645f6e8c50a44095ce76724d1faea7ad5e807
 INSERT INTO person_skill
 VALUES(2, 435789);
 
@@ -546,6 +521,12 @@ INSERT INTO job_skill
 VALUES(43, 435785, 'preferred');
 
 
+
+
+
+
+
+
 INSERT INTO course
 VALUES (1543, 'Introduction to Web Development', 1000, 'Learn
 the basics of web development. Languages such as CSS, HTML5, Javascript, etc.',
@@ -591,6 +572,10 @@ the design of mobile and ubiquitous computing systems.', 'Closed', 400, null);
 
 
 
+
+
+
+
 INSERT INTO section
 VALUES (321,'05/05/2014', '01/12/2014', 'online', 'University', 1543 );
 
@@ -620,6 +605,10 @@ VALUES (329, '01/13/2016', '05/04/2016', 'online', 'University', 4325);
 
 INSERT INTO section
 VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786);
+
+
+
+
 
 
 
@@ -689,6 +678,9 @@ VALUES ('05/14/2013', '08/04/2015', 73, 206);
 
 
 
+
+
+
 INSERT INTO takes
 VALUES (2, 321);
 
@@ -721,6 +713,11 @@ VALUES (206, 330);
 
 
 
+
+
+
+
+
 INSERT INTO paid_by
 VALUES (2, 44);
 
@@ -750,6 +747,9 @@ VALUES (234, 31);
 
 INSERT INTO paid_by
 VALUES (206, 21);
+
+
+
 
 
 
