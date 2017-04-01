@@ -248,9 +248,6 @@ INSERT INTO company
 VALUES (15, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com');
 
 INSERT INTO company
-VALUES (16, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com');
-
-INSERT INTO company
 VALUES (17, 'Amazon Web Services', 518210, 'New Orleans', 'LA', 70232, 'www.aws.com');
 
 INSERT INTO company
@@ -308,34 +305,34 @@ VALUES (13, 2, '70,000', '50,000', 'Computer and Information Research Scientists
 
 
 INSERT INTO job
-VALUES(82, 60000, 'salary', 11, 'Cyber Security Specialist Junior');
+VALUES(82, 60000, 'salary', 11, 'Cyber Security Specialist Junior', 12);
 
 INSERT INTO job
-VALUES(73, 15, 'hourly', 4, 'Geek Squad Agent');
+VALUES(73, 15, 'hourly', 4, 'Geek Squad Agent', 13);
 
 INSERT INTO job
-VALUES(31, 80000, 'salary', 5, 'Java Developer');
+VALUES(31, 80000, 'salary', 5, 'Java Developer', 14);
 
 INSERT INTO job
-VALUES(67, 73000, 'salary', 10, 'Network Engineer');
+VALUES(67, 73000, 'salary', 10, 'Network Engineer', 15);
 
 INSERT INTO job
-VALUES(75, 70000, 'salary', 9, 'Software Developer');
+VALUES(75, 70000, 'salary', 9, 'Software Developer', 17);
 
 INSERT INTO job
-VALUES(43, 85000, 'salary', 11, 'IT Security Analyst');
+VALUES(43, 85000, 'salary', 11, 'IT Security Analyst', 18);
 
 INSERT INTO job
-VALUES(91, 62000, 'salary', 6,'Front End Web Developer');
+VALUES(91, 62000, 'salary', 6,'Front End Web Developer', 19);
 
 INSERT INTO job
-VALUES(44, 69000, 'salary', 6, 'Backend End Web Developer');
+VALUES(44, 69000, 'salary', 6, 'Backend End Web Developer', 20);
 
 INSERT INTO job
-VALUES(52, 56000, 'contract', 8, '.NET Developer');
+VALUES(52, 56000, 'contract', 8, '.NET Developer', 20);
 
 INSERT INTO job
-VALUES(21, 57000, 'salary', 13, 'Bioinformatician');
+VALUES(21, 57000, 'salary', 13, 'Bioinformatician', 17);
 
 
 
