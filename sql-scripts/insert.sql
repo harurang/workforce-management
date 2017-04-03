@@ -533,44 +533,44 @@ VALUES(43, 435785, 'preferred');
 INSERT INTO course
 VALUES (1543, 'Introduction to Web Development', 1000, 'Learn
 the basics of web development. Languages such as CSS, HTML5, Javascript, etc.',
- 'Open', 200, null);
+ 'Open', null);
 
 INSERT INTO course
 VALUES (2106, 'Computer Architecture', 2000, 'Learn the what computer architecture
 is and understand the functions that make up the architecture', 
-'Open', 200, 1543);
+'Open', 1543);
 
 INSERT INTO course
 VALUES (2114, 'Introduction to Programming Languages', 2000, 'Learn about the
-core programming languages and what they consist of.', 'Open', 200, 2106);
+core programming languages and what they consist of.', 'Open', 2106);
 
 INSERT INTO course
 VALUES (2345, 'Reverse Engineering', 2000, 'Learn how to work with existing
-code and how to interpret them.', 'Open', 300, null);
+code and how to interpret them.', 'Open', null);
 
 INSERT INTO course
 VALUES (3024, 'Algorithms and Data Structures', 3000, 'Learn about different algorithms as well as
-different data structures and ways to implement them', 'Open', 300, 2114);
+different data structures and ways to implement them', 'Open', 2114);
 
 INSERT INTO course
 VALUES (3120, 'Introduction to Networking', 3000, 'Learn about the depths of networking and how
-computers depend on the network, learn terminolgy and the basics', 'Closed', 300, null);
+computers depend on the network, learn terminolgy and the basics', 'Closed', null);
 
 INSERT INTO course
 VALUES (4102, 'Introduction to Database Systems', 4000, 'Learn the basis of SQL, Relational 
-Algebra and how to implement them', 'Open', 400, null);
+Algebra and how to implement them', 'Open', null);
 
 INSERT INTO course
 VALUES (4208, 'Introducion to Software Engineering', 4000, 'Focus in the fundamentals of 
-computing and programming, using an exploratory problem-based approach', 'Closed', 400, null);
+computing and programming, using an exploratory problem-based approach', 'Closed', null);
 
 INSERT INTO course
 VALUES (4325, 'Computer Systems Principles and Programming', 4000, 'Systems programming in C, 
-memory management, basics of machine organization, etc.', 'Open', 400, null);
+memory management, basics of machine organization, etc.', 'Open', null);
 
 INSERT INTO course
 VALUES (4786, 'Social and Mobile Computing', 4000, 'Topics in social computing. Consideration in
-the design of mobile and ubiquitous computing systems.', 'Closed', 400, null);
+the design of mobile and ubiquitous computing systems.', 'Closed', null);
 
 
 
@@ -580,37 +580,37 @@ the design of mobile and ubiquitous computing systems.', 'Closed', 400, null);
 
 
 INSERT INTO section
-VALUES (321,'05/05/2014', '01/12/2014', 'online', 'University', 1543 );
+VALUES (321,'05/05/2014', '01/12/2014', 'online', 'University', 1543, 200 );
 
 INSERT INTO section
-VALUES (322, '01/06/2014', '05/14/2014', 'classroom', 'University', 2106 );
+VALUES (322, '01/06/2014', '05/14/2014', 'classroom', 'University', 2106, 200 );
 
 INSERT INTO section
-VALUES (323, '01/06/2014', '05/14/2014', 'classroom', 'University', 2114 );
+VALUES (323, '01/06/2014', '05/14/2014', 'classroom', 'University', 2114, 300 );
 
 INSERT INTO section
-VALUES (324, '01/06/2015', '05/14/2015', 'classroom', 'University', 2345);
+VALUES (324, '01/06/2015', '05/14/2015', 'classroom', 'University', 2345, 400);
 
 INSERT INTO section
-VALUES (325, '08/12/2015', '12/08/2015', 'online', 'University', 3024);
+VALUES (325, '08/12/2015', '12/08/2015', 'online', 'University', 3024, 200);
 
 INSERT INTO section
-VALUES (326, '08/12/2015', '12/08/2015', 'classroom', 'University', 3120);
+VALUES (326, '08/12/2015', '12/08/2015', 'classroom', 'University', 3120, 300);
 
 INSERT INTO section
-VALUES (327, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD'), 'classroom', 'University', 4102);
+VALUES (327, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD'), 'classroom', 'University', 4102, 200);
 
 INSERT INTO section
-VALUES (328, '01/13/2016', '05/04/2016', 'classroom', 'University', 4208);
+VALUES (328, '01/13/2016', '05/04/2016', 'classroom', 'University', 4208, 300);
 
 INSERT INTO section
-VALUES (329, '01/13/2016', '05/04/2016', 'online', 'University', 4325);
+VALUES (329, '01/13/2016', '05/04/2016', 'online', 'University', 4325, 200);
 
 INSERT INTO section
-VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786);
+VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786, 300);
 
 INSERT INTO section
-VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102);
+VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102, 300);
 
 
 

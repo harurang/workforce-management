@@ -100,7 +100,6 @@ CREATE TABLE course(
     course_level varchar(70),
     description varchar(200),
     status varchar(70),
-    price number,
     prereq number,
     primary key (c_code),
     foreign key (prereq) references course(c_code)
@@ -113,6 +112,7 @@ CREATE TABLE section (
   format varchar(40),
   offered_by varchar(40),
   c_code number,
+  price number,
   primary key (sec_id),
   foreign key (c_code) references course(c_code)
 );
