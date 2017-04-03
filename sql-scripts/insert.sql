@@ -598,7 +598,7 @@ INSERT INTO section
 VALUES (326, '08/12/2015', '12/08/2015', 'classroom', 'University', 3120);
 
 INSERT INTO section
-VALUES (327, '08/12/2016', '12/08/2016', 'classroom', 'University', 4102);
+VALUES (327, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD'), 'classroom', 'University', 4102);
 
 INSERT INTO section
 VALUES (328, '01/13/2016', '05/04/2016', 'classroom', 'University', 4208);
@@ -608,6 +608,9 @@ VALUES (329, '01/13/2016', '05/04/2016', 'online', 'University', 4325);
 
 INSERT INTO section
 VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786);
+
+INSERT INTO section
+VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102);
 
 
 
