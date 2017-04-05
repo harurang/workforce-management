@@ -1,12 +1,12 @@
 
-Description: Gets list of company's workers by name
+Description: Gets list of a company workers by name
 --1
 SELECT NAME
 FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB
 WHERE JOB.COMP_ID='14';
 
 
-Description: Gets list of a company's staff by salary in descending order
+Description: Gets list of a company staff by salary in descending order
 --2
 SELECT PAY_RATE, NAME
 FROM JOB NATURAL JOIN PAID_BY NATURAL JOIN PERSON
@@ -14,7 +14,7 @@ WHERE COMP_ID='14'
 ORDER BY PAY_RATE DESC
 
 
-Description: Gets list of companies' labor cost in descending order
+Description: Gets list of companies labor cost in descending order
 --3
 SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE
 FROM JOB NATURAL JOIN COMPANY NATURAL JOIN PAID_BY
