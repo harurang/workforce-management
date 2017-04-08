@@ -18,18 +18,18 @@ CREATE TABLE phone_number (
 );
 
 CREATE TABLE soc (
-  title varchar(70),
+  soc_title varchar(70),
   primary key (title)
 );
 
 CREATE TABLE nwcet (
-  title varchar(70),
+  nwcet_title varchar(70),
   primary key (title)
 );
 
 CREATE TABLE career_tier (
     tier_level varchar(30),
-    description varchar(400),
+    tier_description varchar(400),
     primary key (tier_level)
 );
 

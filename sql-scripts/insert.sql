@@ -334,6 +334,9 @@ VALUES (435788, 'Defining Computer Security Criteria', 'Technical Writing', 'Tie
 INSERT INTO knowledge_skill
 VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
 
+INSERT INTO knowledge_skill
+VALUES (435790, 'Spring Framework', 'Programming/Software Engineering', 'Tier II');
+
 
 
 
@@ -523,6 +526,8 @@ VALUES(21, 435788, 'preferred');
 INSERT INTO job_skill
 VALUES(43, 435785, 'preferred');
 
+INSERT INTO job_skill
+VALUES(31, 435790, 'preferred');
 
 
 
@@ -787,3 +792,6 @@ VALUES (435786, 4102);
  
 INSERT INTO course_knowledge
 VALUES (435784, 4102); 
+
+INSERT INTO course_knowledge
+VALUES (435790, 1543);
