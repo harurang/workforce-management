@@ -263,6 +263,11 @@ VALUES (19, 'Twitter', 541513, 'New Orleans', 'LA', 72421, 'www.twitter.com');
 INSERT INTO company
 VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.compdesign.com');
 
+INSERT INTO company
+VALUES (22, 'ContingaSoft', 541511, 'New Orleans', 'LA', 70130, 'www.contingasoft.com');
+
+
+
 
 
 
@@ -414,7 +419,8 @@ VALUES(52, 56000, 'contract', null, 8, '.NET Developer', 20);
 INSERT INTO job
 VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician', 17);
 
-
+INSERT INTO job
+VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer', 22);
 
 
 
@@ -442,7 +448,8 @@ VALUES(19, 91);
 INSERT INTO comp_job
 VALUES(20, 91);
 
-
+INSERT INTO comp_job 
+VALUES (22, 23);
 
 
 
@@ -526,8 +533,13 @@ VALUES(21, 435788, 'preferred');
 INSERT INTO job_skill
 VALUES(43, 435785, 'preferred');
 
+<<<<<<< HEAD
 INSERT INTO job_skill
 VALUES(31, 435790, 'preferred');
+=======
+INSERT INTO job_skill 
+VALUES (23, 435786, 'required');
+>>>>>>> 075dd8e0bc9185f86ddb3e318c230da0ce94540e
 
 
 
