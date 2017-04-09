@@ -619,7 +619,7 @@ INSERT INTO section
 VALUES (324, TO_DATE('2014/01/06','YYYY/MM/DD'), TO_DATE('2014/05/14','YYYY/MM/DD'), 'classroom', 'University', 2345, 400);
 
 INSERT INTO section
-VALUES (325, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD') 'online', 'University', 3024, 200);
+VALUES (325, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD'), 'online', 'University', 3024, 200);
 
 INSERT INTO section
 VALUES (326, TO_DATE('2015/08/12','YYYY/MM/DD'), TO_DATE('2015/12/08','YYYY/MM/DD'), 'classroom', 'University', 3120, 300);

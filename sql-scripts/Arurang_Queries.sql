@@ -123,56 +123,72 @@ WITH COURSES AS (
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
 -- 12
-WITH COURSES AS (
-  SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (
-    SELECT DISTINCT C.TITLE, C.C_CODE
-    FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S
-    ON C.C_CODE = S.C_CODE
-    WHERE NOT EXISTS (
-    
-      SELECT JOB_SKILL.KS_CODE
-      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL 
-      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
-      WHERE JOB_CODE=31
-      MINUS
-      SELECT PERSON_SKILL.KS_CODE 
-      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL 
-      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
-      WHERE PER_ID=176
-      
-      MINUS
-      (SELECT KS_CODE
-      FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B
-      ON A.C_CODE = B.C_CODE
-      WHERE C.TITLE = A.TITLE)
-    )
-  )
+-- Incorrect. Answer will be provided.
+-- WITH COURSES AS (
+--   SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (
+--     SELECT DISTINCT C.TITLE, C.C_CODE
+--     FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S
+--     ON C.C_CODE = S.C_CODE
+--     WHERE NOT EXISTS (
+--     
+--       SELECT JOB_SKILL.KS_CODE
+--       FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL 
+--       ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
+--       WHERE JOB_CODE=31
+--       MINUS
+--       SELECT PERSON_SKILL.KS_CODE 
+--       FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL 
+--       ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
+--       WHERE PER_ID=176
+--       
+--       MINUS
+--       (SELECT KS_CODE
+--       FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B
+--       ON A.C_CODE = B.C_CODE
+--       WHERE C.TITLE = A.TITLE)
+--     )
+--   )
+-- )
+-- 
+-- select course_knowledge.c_code
+-- from job_skill natural join course_knowledge
+-- where not exists (select * from courses); --and rownum <= 4;
+
+-- DECLARE 
+--   cnt VARCHAR2(4000);
+-- 
+-- BEGIN
+--   SELECT COUNT(*)
+--   INTO cnt
+--   FROM courses;
+-- 
+--   IF( cnt = 0 ) 
+--   THEN
+--     insert into courses 
+--   --ELSIF
+--     --select * from soc
+--     
+--   END IF;
+-- END;
+
+-- 23
+--a 
+WITH NUMB_PEOPLE AS (
+  SELECT comp_name, COUNT(*) AS NUMB FROM 
+  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN company
+  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME
 )
 
+SELECT COMP_NAME, NUMB FROM NUMB_PEOPLE WHERE NUMB = (SELECT MAX(NUMB) FROM NUMB_PEOPLE)
 
-select course_knowledge.c_code
-from job_skill natural join course_knowledge
-where not exists (select * from courses); --and rownum <= 4;
+--b
+WITH SUM_SALARIES AS (
+  SELECT COMP_NAME, SUM(PAY_RATE) AS SUM_OF_SAL FROM 
+  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY 
+  ON PERSON.PER_ID = PAID_BY.PER_ID WHERE PAY_TYPE='salary' GROUP BY COMP_NAME
+)
 
-
-
-DECLARE 
-  cnt VARCHAR2(4000);
-
-BEGIN
-  SELECT COUNT(*)
-  INTO cnt
-  FROM courses;
-
-  IF( cnt = 0 ) 
-  THEN
-    insert into courses 
-  --ELSIF
-    --select * from soc
-    
-  END IF;
-END;
-
+SELECT COMP_NAME, SUM_OF_SAL FROM SUM_SALARIES WHERE SUM_OF_SAL = (SELECT MAX(SUM_OF_SAL) FROM SUM_SALARIES);
 
 
 
