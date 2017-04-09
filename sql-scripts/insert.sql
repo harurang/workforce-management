@@ -30,6 +30,8 @@ VALUES (206, 'Ashton', 'New York', '763 7th Ave.', 'FL', 10001, 'ashton@gmail.co
 
 
 
+
+
 INSERT INTO phone_number
 VALUES (2, '702-324-2342', '124-854-2342');
 
@@ -59,6 +61,9 @@ VALUES (234, '324-643-6326', '325-563-2636');
 
 INSERT INTO phone_number
 VALUES (206, '563-627-2674', '463-632-7463');
+
+
+
 
 
 
@@ -102,6 +107,7 @@ VALUES ('Computer User Support Specialists');
 
 
 
+
 INSERT INTO naics
 VALUES (61, 'Fuels, utilities, waste management, and environmental remediation services, and related products and services', null);
 
@@ -137,6 +143,9 @@ VALUES (541715, 'Aerospace research and development (except prototype production
 
 INSERT INTO naics
 VALUES (611420, 'Computer operator training', 61);
+
+
+
 
 
 
@@ -239,6 +248,8 @@ VALUES ('Defining Computer Security Criteria');
 
 
 
+
+
 INSERT INTO company
 VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
 
@@ -271,6 +282,7 @@ VALUES (22, 'ContingaSoft', 541511, 'New Orleans', 'LA', 70130, 'www.contingasof
 
 
 
+
 INSERT INTO career_cluster
 VALUES ('Database Development and Administration');
 
@@ -297,7 +309,6 @@ VALUES ('Web Development and Administration');
 
 
 
-
 INSERT INTO career_tier
 VALUES ('Tier III', 'Industry-specific technical skills, knowledge, and
 abilities unique to individual industries and organization.');
@@ -310,8 +321,6 @@ INSERT INTO career_tier
 VALUES ('Tier I', 'The set of foundation skills (SCANS), knowledge, abilities,
 and personal qualities required of all workers to be successful in the
 workplace.');
-
-
 
 
 
@@ -341,6 +350,7 @@ VALUES (435789, 'CSS', 'Web Development and Administration', 'Tier II');
 
 INSERT INTO knowledge_skill
 VALUES (435790, 'Spring Framework', 'Programming/Software Engineering', 'Tier II');
+
 
 
 
@@ -424,6 +434,9 @@ VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer', 22);
 
 
 
+
+
+
 INSERT INTO comp_job
 VALUES(12, 31);
 
@@ -492,8 +505,6 @@ VALUES(206, 435784);
 
 
 
-
-
 INSERT INTO job_skill
 VALUES(82, 435786, 'required');
 
@@ -533,13 +544,12 @@ VALUES(21, 435788, 'preferred');
 INSERT INTO job_skill
 VALUES(43, 435785, 'preferred');
 
-<<<<<<< HEAD
 INSERT INTO job_skill
 VALUES(31, 435790, 'preferred');
-=======
+
 INSERT INTO job_skill 
 VALUES (23, 435786, 'required');
->>>>>>> 075dd8e0bc9185f86ddb3e318c230da0ce94540e
+
 
 
 
@@ -597,34 +607,34 @@ the design of mobile and ubiquitous computing systems.', 'Closed', null);
 
 
 INSERT INTO section
-VALUES (321,'05/05/2014', '01/12/2014', 'online', 'University', 1543, 200 );
+VALUES (321, TO_DATE('2014/05/05','YYYY/MM/DD'), TO_DATE('2014/12/01','YYYY/MM/DD'), 'online', 'University', 1543, 200 );
 
 INSERT INTO section
-VALUES (322, '01/06/2014', '05/14/2014', 'classroom', 'University', 2106, 200 );
+VALUES (322, TO_DATE('2014/01/06','YYYY/MM/DD'), TO_DATE('2014/05/14','YYYY/MM/DD'), 'classroom', 'University', 2106, 200 );
 
 INSERT INTO section
-VALUES (323, '01/06/2014', '05/14/2014', 'classroom', 'University', 2114, 300 );
+VALUES (323, TO_DATE('2014/01/06','YYYY/MM/DD'), TO_DATE('2014/05/14','YYYY/MM/DD'), 'classroom', 'University', 2114, 300 );
 
 INSERT INTO section
-VALUES (324, '01/06/2015', '05/14/2015', 'classroom', 'University', 2345, 400);
+VALUES (324, TO_DATE('2014/01/06','YYYY/MM/DD'), TO_DATE('2014/05/14','YYYY/MM/DD'), 'classroom', 'University', 2345, 400);
 
 INSERT INTO section
-VALUES (325, '08/12/2015', '12/08/2015', 'online', 'University', 3024, 200);
+VALUES (325, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD') 'online', 'University', 3024, 200);
 
 INSERT INTO section
-VALUES (326, '08/12/2015', '12/08/2015', 'classroom', 'University', 3120, 300);
+VALUES (326, TO_DATE('2015/08/12','YYYY/MM/DD'), TO_DATE('2015/12/08','YYYY/MM/DD'), 'classroom', 'University', 3120, 300);
 
 INSERT INTO section
 VALUES (327, TO_DATE('2016/08/12','YYYY/MM/DD'), TO_DATE('2016/12/08','YYYY/MM/DD'), 'classroom', 'University', 4102, 200);
 
 INSERT INTO section
-VALUES (328, '01/13/2016', '05/04/2016', 'classroom', 'University', 4208, 300);
+VALUES (328, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'classroom', 'University', 4208, 300);
 
 INSERT INTO section
-VALUES (329, '01/13/2016', '05/04/2016', 'online', 'University', 4325, 200);
+VALUES (329, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4325, 200);
 
 INSERT INTO section
-VALUES (330, '01/13/2016', '05/04/2016', 'online', 'University', 4786, 300);
+VALUES (330, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4786, 300);
 
 INSERT INTO section
 VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102, 300);

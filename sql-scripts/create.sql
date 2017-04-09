@@ -19,12 +19,12 @@ CREATE TABLE phone_number (
 
 CREATE TABLE soc (
   soc_title varchar(70),
-  primary key (title)
+  primary key (soc_title)
 );
 
 CREATE TABLE nwcet (
   nwcet_title varchar(70),
-  primary key (title)
+  primary key (nwcet_title)
 );
 
 CREATE TABLE career_tier (
@@ -46,7 +46,7 @@ CREATE TABLE knowledge_skill (
   primary key (ks_code),
   foreign key (cluster_title) references career_cluster(cluster_title),
   foreign key (tier_level) references career_tier(tier_level),
-  foreign key (title) references nwcet(title)
+  foreign key (title) references nwcet(nwcet_title)
 );
 
 CREATE TABLE job_category (
@@ -58,7 +58,7 @@ CREATE TABLE job_category (
   ks_code number,
   primary key (cate_code),
   foreign key (parent_cate) references job_category(cate_code),
-  foreign key (title) references soc(title),
+  foreign key (title) references soc(soc_title),
   foreign key (ks_code) references knowledge_skill(ks_code)
 );
 
