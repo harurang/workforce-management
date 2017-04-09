@@ -2,10 +2,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- * Created by hillaryarurang on 4/8/17.
- */
-public class Queries {
+public class HarurangQueries {
     private static Connection conn;
 
     public static void main(String args[]) {
