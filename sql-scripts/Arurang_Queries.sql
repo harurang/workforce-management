@@ -172,28 +172,18 @@ SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM C
 -- END;
 
 -- 23
---a 
-WITH NUMB_PEOPLE AS (
-  SELECT comp_name, COUNT(*) AS NUMB FROM 
-  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN company
-  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME
-)
+with comp_paychecks as (
+  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, comp_name from person left join paid_by natural join job natural join company
+  on person.per_id = paid_by.per_id group by comp_name
+),
 
-SELECT COMP_NAME, NUMB FROM NUMB_PEOPLE WHERE NUMB = (SELECT MAX(NUMB) FROM NUMB_PEOPLE)
+comp_employee_count as 
+(select comp_name, count(*) as numb_employees from 
+  person left join paid_by natural join job natural join company
+  on person.per_id = paid_by.per_id group by comp_name)
 
---b
-WITH SUM_SALARIES AS (
-  SELECT COMP_NAME, SUM(PAY_RATE) AS SUM_OF_SAL FROM 
-  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY 
-  ON PERSON.PER_ID = PAID_BY.PER_ID WHERE PAY_TYPE='salary' GROUP BY COMP_NAME
-)
-
-SELECT COMP_NAME, SUM_OF_SAL FROM SUM_SALARIES WHERE SUM_OF_SAL = (SELECT MAX(SUM_OF_SAL) FROM SUM_SALARIES);
-
-
-
-
-
+select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count
+  where sum_sal = (select max(sum_sal) from comp_paychecks) or numb_employees = (select max(numb_employees) from comp_employee_count);
 
 
 

@@ -781,6 +781,8 @@ VALUES (234, 31);
 INSERT INTO paid_by
 VALUES (206, 21);
 
+INSERT INTO paid_by 
+VALUES (105, 73);
 
 
 
