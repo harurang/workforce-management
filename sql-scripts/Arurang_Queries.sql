@@ -185,6 +185,7 @@ comp_employee_count as
 select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count
   where sum_sal = (select max(sum_sal) from comp_paychecks) or numb_employees = (select max(numb_employees) from comp_employee_count);
 
+-- 24
 
 
 

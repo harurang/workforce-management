@@ -21,6 +21,7 @@ public class EpoliteQueries {
 
     // example
     public static void query5 () {
+        System.out.println("\nQuery 5: \n");
         try {
             Statement stmt = conn.createStatement();
 
@@ -31,7 +32,7 @@ public class EpoliteQueries {
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 Integer skill = rset.getInt("ks_code");
-                System.out.println(name + " : " + skill);
+                System.out.println("Name: " + name + "Knowledge Skill: " + skill + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 5: " + e);
