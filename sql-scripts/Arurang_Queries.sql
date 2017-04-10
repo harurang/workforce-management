@@ -128,6 +128,7 @@ SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM C
 -- Provided query. 
 
 -- 23
+-- Description: Gets max salary or max number of employees of company
 with comp_paychecks as (
   select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, comp_name from person left join paid_by natural join job natural join company
   on person.per_id = paid_by.per_id group by comp_name
@@ -144,6 +145,7 @@ where sum_sal =
 numb_employees = (select max(numb_employees) from comp_employee_count);
 
 -- 24
+-- Description: Gets max salary or max number of employees of sector
 with job_count as (
   select count(*) as numb_jobs, job_title
   from comp_job left join job
@@ -176,5 +178,4 @@ where sum_sal =
 (select max(sum_sal) from sector_paychecks) or 
 numb_employees = (select max(numb_employees) from sector_employee_count);
 
-
-
+-- 25
