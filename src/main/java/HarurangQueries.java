@@ -10,13 +10,15 @@ public class HarurangQueries {
         try {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
-//            query5();
-//            query6();
-//            query7a();
-//            query7b();
-//            query8();
-//            query9();
+            query5();
+            query6();
+            query7a();
+            query7b();
+            query8();
+            query9();
             query10();
+            query11();
+            query23();
 
             conn.close();
         } catch(Exception e) {
@@ -209,6 +211,84 @@ public class HarurangQueries {
             }
         } catch(Exception e) {
             System.out.println("\nError at query 10: " + e);
+        }
+    }
+
+    public static void query11 () {
+        System.out.println("\nQuery 11: \n");
+        try {
+            Statement stmt = conn.createStatement();
+
+            ResultSet rset = stmt.executeQuery(
+                    "WITH COURSES AS (\n" +
+                            "  SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (\n" +
+                            "    SELECT DISTINCT C.TITLE, C.C_CODE\n" +
+                            "    FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S\n" +
+                            "    ON C.C_CODE = S.C_CODE\n" +
+                            "    WHERE NOT EXISTS (\n" +
+                            "    \n" +
+                            "      SELECT JOB_SKILL.KS_CODE\n" +
+                            "      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "      WHERE JOB_CODE=44\n" +
+                            "      MINUS\n" +
+                            "      SELECT PERSON_SKILL.KS_CODE \n" +
+                            "      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "      WHERE PER_ID=176\n" +
+                            "      \n" +
+                            "      MINUS\n" +
+                            "      (SELECT KS_CODE\n" +
+                            "      FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B\n" +
+                            "      ON A.C_CODE = B.C_CODE\n" +
+                            "      WHERE C.TITLE = A.TITLE)\n" +
+                            "    )\n" +
+                            "  )\n" +
+                            ")\n" +
+                            "\n" +
+                            "SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES)");
+            while ( rset.next() ) {
+                String title = rset.getString("title");
+                String price = rset.getString("price");
+                Integer sec_id = rset.getInt("sec_id");
+                System.out.println("Course Title: " + title + "\n" + "Price: " + price + "\n"+
+                        "Section Id: " + sec_id + "\n");
+            }
+        } catch(Exception e) {
+            System.out.println("\nError at query 11: " + e);
+        }
+    }
+
+
+    public static void query23 () {
+        System.out.println("\nQuery 23: \n");
+        try {
+            Statement stmt = conn.createStatement();
+
+            ResultSet rset = stmt.executeQuery(
+                    "with comp_paychecks as (\n" +
+                            "  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, comp_name from person left join paid_by natural join job natural join company\n" +
+                            "  on person.per_id = paid_by.per_id group by comp_name\n" +
+                            "),\n" +
+                            "\n" +
+                            "comp_employee_count as \n" +
+                            "(select comp_name, count(*) as numb_employees from \n" +
+                            "  person left join paid_by natural join job natural join company\n" +
+                            "  on person.per_id = paid_by.per_id group by comp_name)\n" +
+                            "\n" +
+                            "select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count\n" +
+                            "where sum_sal = \n" +
+                            "(select max(sum_sal) from comp_paychecks) or \n" +
+                            "numb_employees = (select max(numb_employees) from comp_employee_count)");
+            while ( rset.next() ) {
+                String compName = rset.getString("comp_name");
+                String sumSal = rset.getString("sum_sal");
+                Integer numbEmployees = rset.getInt("numb_employees");
+                System.out.println("Company Name: " + compName + "\n" + "Paycheck Sum: " + sumSal + "\n"+
+                        "Number of Employees: " + numbEmployees + "\n");
+            }
+        } catch(Exception e) {
+            System.out.println("\nError at query 23: " + e);
         }
     }
 }
