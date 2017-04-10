@@ -179,3 +179,23 @@ where sum_sal =
 numb_employees = (select max(numb_employees) from sector_employee_count);
 
 -- 25
+-- Not completed.
+with sum_of_old_sal as (
+  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal 
+  from person natural join job_history 
+  natural join job
+  where end_date != 'Currently'
+  group by name
+)
+
+with sum_of_current_sal as (
+  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as current_sal 
+  from person natural join job_history 
+  natural join job
+  where end_date = 'Currently'
+  group by name
+)
+
+select * from sum_of_old_sal;
+
+
