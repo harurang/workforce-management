@@ -164,7 +164,15 @@ public class EpoliteQueries {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT DISTINCT PERSON_SKILL.KS_CODE, COUNT(DISTINCT NAME) AS TOTAL_COUNT \n" +
-                            "FROM (SELECT NAME FROM PERSON NATURAL JOIN JOB WHERE JOB_CODE=67 MINUS SELECT NAME FROM PERSON NATURAL JOIN PERSON_SKILL WHERE PERSON_SKILL.KS_CODE=435785), PERSON_SKILL, JOB \n" +
+                            "FROM (\n" +
+                                "\n" +
+                                " SELECT NAME \n" + 
+                                " FROM PERSON NATURAL JOIN JOB \n" + 
+                                " WHERE JOB_CODE=67 \n" + 
+                                " MINUS \n" +
+                                " SELECT NAME \n" +
+                                " FROM PERSON NATURAL JOIN PERSON_SKILL \n" + 
+                                "WHERE PERSON_SKILL.KS_CODE=435785), PERSON_SKILL, JOB \n" +
                             "WHERE JOB_CODE=91" + 
                             "GROUP BY PERSON_SKILL.KS_CODE" +
                             "ORDER BY TOTAL_COUNT ASC");
