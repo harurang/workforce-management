@@ -125,53 +125,7 @@ WITH COURSES AS (
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
 -- 12
--- Incorrect. Answer will be provided.
--- WITH COURSES AS (
---   SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (
---     SELECT DISTINCT C.TITLE, C.C_CODE
---     FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S
---     ON C.C_CODE = S.C_CODE
---     WHERE NOT EXISTS (
---     
---       SELECT JOB_SKILL.KS_CODE
---       FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL 
---       ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
---       WHERE JOB_CODE=31
---       MINUS
---       SELECT PERSON_SKILL.KS_CODE 
---       FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL 
---       ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
---       WHERE PER_ID=176
---       
---       MINUS
---       (SELECT KS_CODE
---       FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B
---       ON A.C_CODE = B.C_CODE
---       WHERE C.TITLE = A.TITLE)
---     )
---   )
--- )
--- 
--- select course_knowledge.c_code
--- from job_skill natural join course_knowledge
--- where not exists (select * from courses); --and rownum <= 4;
-
--- DECLARE 
---   cnt VARCHAR2(4000);
--- 
--- BEGIN
---   SELECT COUNT(*)
---   INTO cnt
---   FROM courses;
--- 
---   IF( cnt = 0 ) 
---   THEN
---     insert into courses 
---   --ELSIF
---     --select * from soc
---     
---   END IF;
--- END;
+-- Provided query. 
 
 -- 23
 with comp_paychecks as (
@@ -185,9 +139,42 @@ comp_employee_count as
   on person.per_id = paid_by.per_id group by comp_name)
 
 select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count
-  where sum_sal = (select max(sum_sal) from comp_paychecks) or numb_employees = (select max(numb_employees) from comp_employee_count);
+where sum_sal = 
+(select max(sum_sal) from comp_paychecks) or 
+numb_employees = (select max(numb_employees) from comp_employee_count);
 
 -- 24
+with job_count as (
+  select count(*) as numb_jobs, job_title
+  from comp_job left join job
+  on comp_job.job_code = job.job_code group by job_title
+),
+
+job_distribution as (
+  select cluster_title, job_count.job_title, job_count.numb_jobs
+  from job_count left join job 
+  on job_count.job_title = job.job_title natural join job_skill natural join knowledge_skill
+),
+
+sector_paychecks as (
+  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, cluster_title 
+  from paid_by left join job 
+  on paid_by.job_code = job.job_code 
+  natural join job_distribution
+  group by cluster_title
+),
+
+sector_employee_count as 
+(select cluster_title, count(*) as numb_employees 
+  from paid_by left join job 
+  on paid_by.job_code = job.job_code 
+  natural join job_distribution
+  group by cluster_title)
+
+select cluster_title, sum_sal, numb_employees from sector_paychecks natural join sector_employee_count
+where sum_sal = 
+(select max(sum_sal) from sector_paychecks) or 
+numb_employees = (select max(numb_employees) from sector_employee_count);
 
 
 

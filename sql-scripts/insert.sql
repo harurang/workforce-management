@@ -435,8 +435,6 @@ VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer', 22);
 
 
 
-
-
 INSERT INTO comp_job
 VALUES(12, 31);
 
