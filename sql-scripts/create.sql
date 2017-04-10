@@ -89,7 +89,6 @@ CREATE TABLE job (
   hours number,
   cate_code number,
   job_title varchar(70),
-  comp_id number,
   primary key (job_code),
   foreign key (cate_code) references job_category(cate_code)
 );
