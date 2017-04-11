@@ -129,54 +129,54 @@ SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM C
 
 -- 23
 -- Description: Gets max salary or max number of employees of company
-with comp_paychecks as (
-  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, comp_name from person left join paid_by natural join job natural join company
-  on person.per_id = paid_by.per_id group by comp_name
+WITH COMP_PAYCHECKS AS (
+  SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, COMP_NAME FROM PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY
+  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME
 ),
 
-comp_employee_count as 
-(select comp_name, count(*) as numb_employees from 
-  person left join paid_by natural join job natural join company
-  on person.per_id = paid_by.per_id group by comp_name)
+COMP_EMPLOYEE_COUNT AS 
+(SELECT COMP_NAME, COUNT(*) AS NUMB_EMPLOYEES FROM 
+  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY
+  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME)
 
-select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count
-where sum_sal = 
-(select max(sum_sal) from comp_paychecks) or 
-numb_employees = (select max(numb_employees) from comp_employee_count);
+SELECT COMP_NAME, SUM_SAL, NUMB_EMPLOYEES FROM COMP_PAYCHECKS NATURAL JOIN COMP_EMPLOYEE_COUNT
+WHERE SUM_SAL = 
+(SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR 
+NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT);
 
 -- 24
 -- Description: Gets max salary or max number of employees of sector
-with job_count as (
-  select count(*) as numb_jobs, job_title
-  from comp_job left join job
-  on comp_job.job_code = job.job_code group by job_title
+WITH JOB_COUNT AS (
+  SELECT COUNT(*) AS NUMB_JOBS, JOB_TITLE
+  FROM COMP_JOB LEFT JOIN JOB
+  ON COMP_JOB.JOB_CODE = JOB.JOB_CODE GROUP BY JOB_TITLE
 ),
 
-job_distribution as (
-  select cluster_title, job_count.job_title, job_count.numb_jobs
-  from job_count left join job 
-  on job_count.job_title = job.job_title natural join job_skill natural join knowledge_skill
+JOB_DISTRIBUTION AS (
+  SELECT CLUSTER_TITLE, JOB_COUNT.JOB_TITLE, JOB_COUNT.NUMB_JOBS
+  FROM JOB_COUNT LEFT JOIN JOB 
+  ON JOB_COUNT.JOB_TITLE = JOB.JOB_TITLE NATURAL JOIN JOB_SKILL NATURAL JOIN KNOWLEDGE_SKILL
 ),
 
-sector_paychecks as (
-  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, cluster_title 
-  from paid_by left join job 
-  on paid_by.job_code = job.job_code 
-  natural join job_distribution
-  group by cluster_title
+SECTOR_PAYCHECKS AS (
+  SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, CLUSTER_TITLE 
+  FROM PAID_BY LEFT JOIN JOB 
+  ON PAID_BY.JOB_CODE = JOB.JOB_CODE 
+  NATURAL JOIN JOB_DISTRIBUTION
+  GROUP BY CLUSTER_TITLE
 ),
 
-sector_employee_count as 
-(select cluster_title, count(*) as numb_employees 
-  from paid_by left join job 
-  on paid_by.job_code = job.job_code 
-  natural join job_distribution
-  group by cluster_title)
+SECTOR_EMPLOYEE_COUNT AS 
+(SELECT CLUSTER_TITLE, COUNT(*) AS NUMB_EMPLOYEES 
+  FROM PAID_BY LEFT JOIN JOB 
+  ON PAID_BY.JOB_CODE = JOB.JOB_CODE 
+  NATURAL JOIN JOB_DISTRIBUTION
+  GROUP BY CLUSTER_TITLE)
 
-select cluster_title, sum_sal, numb_employees from sector_paychecks natural join sector_employee_count
-where sum_sal = 
-(select max(sum_sal) from sector_paychecks) or 
-numb_employees = (select max(numb_employees) from sector_employee_count);
+SELECT CLUSTER_TITLE, SUM_SAL, NUMB_EMPLOYEES FROM SECTOR_PAYCHECKS NATURAL JOIN SECTOR_EMPLOYEE_COUNT
+WHERE SUM_SAL = 
+(SELECT MAX(SUM_SAL) FROM SECTOR_PAYCHECKS) OR 
+NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
 -- 25
 -- Not completed.

@@ -19,6 +19,7 @@ public class HarurangQueries {
             query10();
             query11();
             query23();
+            query24();
 
             conn.close();
         } catch(Exception e) {
@@ -266,20 +267,20 @@ public class HarurangQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "with comp_paychecks as (\n" +
-                            "  select sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as sum_sal, comp_name from person left join paid_by natural join job natural join company\n" +
-                            "  on person.per_id = paid_by.per_id group by comp_name\n" +
+                    "WITH COMP_PAYCHECKS AS (\n" +
+                            "  SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, COMP_NAME FROM PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY\n" +
+                            "  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME\n" +
                             "),\n" +
                             "\n" +
-                            "comp_employee_count as \n" +
-                            "(select comp_name, count(*) as numb_employees from \n" +
-                            "  person left join paid_by natural join job natural join company\n" +
-                            "  on person.per_id = paid_by.per_id group by comp_name)\n" +
+                            "COMP_EMPLOYEE_COUNT AS \n" +
+                            "(SELECT COMP_NAME, COUNT(*) AS NUMB_EMPLOYEES FROM \n" +
+                            "  PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY\n" +
+                            "  ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME)\n" +
                             "\n" +
-                            "select comp_name, sum_sal, numb_employees from comp_paychecks natural join comp_employee_count\n" +
-                            "where sum_sal = \n" +
-                            "(select max(sum_sal) from comp_paychecks) or \n" +
-                            "numb_employees = (select max(numb_employees) from comp_employee_count)");
+                            "SELECT COMP_NAME, SUM_SAL, NUMB_EMPLOYEES FROM COMP_PAYCHECKS NATURAL JOIN COMP_EMPLOYEE_COUNT\n" +
+                            "WHERE SUM_SAL = \n" +
+                            "(SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR \n" +
+                            "NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT)\n");
             while ( rset.next() ) {
                 String compName = rset.getString("comp_name");
                 String sumSal = rset.getString("sum_sal");
@@ -289,6 +290,55 @@ public class HarurangQueries {
             }
         } catch(Exception e) {
             System.out.println("\nError at query 23: " + e);
+        }
+    }
+
+    public static void query24 () {
+        System.out.println("\nQuery 24: \n");
+        try {
+            Statement stmt = conn.createStatement();
+
+            ResultSet rset = stmt.executeQuery(
+                    "WITH JOB_COUNT AS (\n" +
+                            "  SELECT COUNT(*) AS NUMB_JOBS, JOB_TITLE\n" +
+                            "  FROM COMP_JOB LEFT JOIN JOB\n" +
+                            "  ON COMP_JOB.JOB_CODE = JOB.JOB_CODE GROUP BY JOB_TITLE\n" +
+                            "),\n" +
+                            "\n" +
+                            "JOB_DISTRIBUTION AS (\n" +
+                            "  SELECT CLUSTER_TITLE, JOB_COUNT.JOB_TITLE, JOB_COUNT.NUMB_JOBS\n" +
+                            "  FROM JOB_COUNT LEFT JOIN JOB \n" +
+                            "  ON JOB_COUNT.JOB_TITLE = JOB.JOB_TITLE NATURAL JOIN JOB_SKILL NATURAL JOIN KNOWLEDGE_SKILL\n" +
+                            "),\n" +
+                            "\n" +
+                            "SECTOR_PAYCHECKS AS (\n" +
+                            "  SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, CLUSTER_TITLE \n" +
+                            "  FROM PAID_BY LEFT JOIN JOB \n" +
+                            "  ON PAID_BY.JOB_CODE = JOB.JOB_CODE \n" +
+                            "  NATURAL JOIN JOB_DISTRIBUTION\n" +
+                            "  GROUP BY CLUSTER_TITLE\n" +
+                            "),\n" +
+                            "\n" +
+                            "SECTOR_EMPLOYEE_COUNT AS \n" +
+                            "(SELECT CLUSTER_TITLE, COUNT(*) AS NUMB_EMPLOYEES \n" +
+                            "  FROM PAID_BY LEFT JOIN JOB \n" +
+                            "  ON PAID_BY.JOB_CODE = JOB.JOB_CODE \n" +
+                            "  NATURAL JOIN JOB_DISTRIBUTION\n" +
+                            "  GROUP BY CLUSTER_TITLE)\n" +
+                            "\n" +
+                            "SELECT CLUSTER_TITLE, SUM_SAL, NUMB_EMPLOYEES FROM SECTOR_PAYCHECKS NATURAL JOIN SECTOR_EMPLOYEE_COUNT\n" +
+                            "WHERE SUM_SAL = \n" +
+                            "(SELECT MAX(SUM_SAL) FROM SECTOR_PAYCHECKS) OR \n" +
+                            "NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT)\n");
+            while ( rset.next() ) {
+                String clusterTitle = rset.getString("cluster_title");
+                Integer numbEmployees = rset.getInt("numb_employees");
+                Integer sumSal = rset.getInt("sum_sal");
+                System.out.println("Cluster Title: " + clusterTitle + "\n" + "Number of Employees: " + numbEmployees + "\n"+
+                        "Sum of Paychecks: " + sumSal + "\n");
+            }
+        } catch(Exception e) {
+            System.out.println("\nError at query 24: " + e);
         }
     }
 }
