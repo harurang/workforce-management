@@ -434,6 +434,8 @@ VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
 
 
+INSERT INTO COMP_JOB
+VALUES(19, 23);
 
 INSERT INTO comp_job
 VALUES(12, 31);
@@ -747,7 +749,8 @@ VALUES (206, 330);
 
 
 
-
+INSERT INTO PAID_BY
+VALUES(2, 23);
 
 INSERT INTO paid_by
 VALUES (2, 44);
