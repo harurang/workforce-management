@@ -33,8 +33,8 @@ public class EpoliteQueries {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT NAME \n" +
-                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
-                            "WHERE JOB.COMP_ID=14");
+                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN COMP_JOB \n" +
+                            "WHERE JOB.COMP_ID=19");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -52,8 +52,8 @@ public class EpoliteQueries {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT PAY_RATE, NAME \n" +
-                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
-                            "WHERE JOB.COMP_ID=14" +
+                            "FROM COMP_JOB NATURAL JOIN PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
+                            "WHERE JOB.COMP_ID=19" +
                             "ORDER BY PAY_RATE DESC");
             while ( rset.next() ) {
                 String name = rset.getString("name");
@@ -73,7 +73,7 @@ public class EpoliteQueries {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE\n" +
-                            "FROM JOB NATURAL JOIN COMPANY NATURAL JOIN PAID_BY\n" +
+                            "FROM JOB NATURAL JOIN COMP_JOB  NATURAL JOIN PAID_BY\n" +
                             "GROUP BY COMP_ID\n" +
                             "ORDER BY TOTAL_RATE DESC");
             while ( rset.next() ) {
