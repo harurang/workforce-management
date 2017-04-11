@@ -25,7 +25,6 @@ public class EpoliteQueries {
         }
     }
 
-    // example
     public static void query1 () {
         System.out.println("\nQuery 1: \n");
         try {
@@ -78,14 +77,17 @@ public class EpoliteQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE\n" +
-                            "FROM JOB NATURAL JOIN COMP_JOB  NATURAL JOIN PAID_BY\n" +
+                    "SELECT COMP_ID, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL\n" +
+                            "FROM PAID_BY INNER JOIN COMP_JOB\n" +
+                            "ON PAID_BY.JOB_CODE = COMP_JOB.JOB_CODE\n" +
+                            "INNER JOIN JOB\n" +
+                            "ON JOB.JOB_CODE = COMP_JOB.JOB_CODE\n" +
                             "GROUP BY COMP_ID\n" +
-                            "ORDER BY TOTAL_RATE DESC");
+                            "ORDER BY TOTAL_SAL DESC");
             while ( rset.next() ) {
                 Integer compId = rset.getInt("comp_id");
-                Integer payRate = rset.getInt("total_rate");
-                System.out.println("Company Id: " + compId + "\n" + "Total Rate: " + payRate + "\n");
+                Integer totalSal = rset.getInt("total_sal");
+                System.out.println("Company Id: " + compId + "\n" + "Total Paycheck: " + totalSal + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 3: " + e);
