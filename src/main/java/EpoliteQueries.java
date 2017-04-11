@@ -8,7 +8,6 @@ public class EpoliteQueries {
     public static void main(String args[]) {
         DBConnection dbCon = new DBConnection("dbsvcs.cs.uno.edu", "1521", "orcl");
         try {
-            // TODO: put your username and password here
             conn = dbCon.getDBConnection("epolite", "wjXXw4t7");
 
             query1();
@@ -73,14 +72,14 @@ public class EpoliteQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE \n" +
-                            "FROM COMPANY NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
-                            "GROUP BY COMP_ID \n" +
+                    "SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE\n" +
+                            "FROM JOB NATURAL JOIN COMPANY NATURAL JOIN PAID_BY\n" +
+                            "GROUP BY COMP_ID\n" +
                             "ORDER BY TOTAL_RATE DESC");
             while ( rset.next() ) {
                 Integer compId = rset.getInt("comp_id");
-                Integer payRate = rset.getInt("pay_rate");
-                System.out.println("Comp_Id: " + compId + "\n" + "Pay_Rate" + payRate + "\n");
+                Integer payRate = rset.getInt("total_rate");
+                System.out.println("Company Id: " + compId + "\n" + "Total Rate: " + payRate + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 3: " + e);
@@ -103,7 +102,8 @@ public class EpoliteQueries {
                 String jobTitle = rset.getString("job_title");
                 String startDate = rset.getString("start_date");
                 String endDate = rset.getString("end_date");
-                System.out.println("Per_Id: " + perId + "\n" + "Job_Title:" + jobTitle + "\n" + "Start_Date:" + startDate + "\n" + "End_Date:" + endDate + "\n");
+                System.out.println("Person Id: " + perId + "\n" + "Job Title:" + jobTitle + "\n" + "Start Date:" +
+                        startDate + "\n" + "End Date:" + endDate + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 4: " + e);
@@ -124,7 +124,7 @@ public class EpoliteQueries {
                 String name = rset.getString("name");
                 String email = rset.getString("email");
                 String jobTitle = rset.getString("job_title");
-                System.out.println("Name: " + name + "\n" + "Email:" + email + "\n" + "Job_Title:" + jobTitle + "\n");
+                System.out.println("Name: " + name + "\n" + "Email:" + email + "\n" + "Job Title:" + jobTitle + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 15: " + e);
@@ -139,12 +139,12 @@ public class EpoliteQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT NAME \n" +
-                            "FROM PERSON  NATURAL JOIN JOB \n" +
-                            "WHERE JOB.CODE=67" +
-                            "MINUS \n" +
-                            "SELECT NAME \n" +
-                            "FROM PERSON NATURAL JOIN PERSON_SKILL \n" +
+                    "SELECT NAME\n" +
+                            "FROM PERSON NATURAL JOIN JOB\n" +
+                            "WHERE JOB_CODE=67\n" +
+                            "MINUS\n" +
+                            "SELECT NAME\n" +
+                            "FROM PERSON NATURAL JOIN PERSON_SKILL\n" +
                             "WHERE PERSON_SKILL.KS_CODE=435785");
             while ( rset.next() ) {
                 String name = rset.getString("name");
@@ -163,23 +163,21 @@ public class EpoliteQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT DISTINCT PERSON_SKILL.KS_CODE, COUNT(DISTINCT NAME) AS TOTAL_COUNT \n" +
-                            "FROM (\n" +
-                                "\n" +
-                                " SELECT NAME \n" + 
-                                " FROM PERSON NATURAL JOIN JOB \n" + 
-                                " WHERE JOB_CODE=67 \n" + 
-                                " MINUS \n" +
-                                " SELECT NAME \n" +
-                                " FROM PERSON NATURAL JOIN PERSON_SKILL \n" + 
-                                "WHERE PERSON_SKILL.KS_CODE=435785), PERSON_SKILL, JOB \n" +
-                            "WHERE JOB_CODE=91" + 
-                            "GROUP BY PERSON_SKILL.KS_CODE" +
+                    "SELECT DISTINCT PERSON_SKILL.KS_CODE, COUNT(DISTINCT NAME) AS TOTAL_COUNT\n" +
+                            "FROM (SELECT NAME\n" +
+                            "      FROM PERSON NATURAL JOIN JOB\n" +
+                            "      WHERE JOB_CODE=67\n" +
+                            "      MINUS\n" +
+                            "      SELECT NAME\n" +
+                            "      FROM PERSON NATURAL JOIN PERSON_SKILL\n" +
+                            "      WHERE PERSON_SKILL.KS_CODE=435785), PERSON_SKILL, JOB\n" +
+                            "WHERE JOB_CODE=91\n" +
+                            "GROUP BY PERSON_SKILL.KS_CODE\n" +
                             "ORDER BY TOTAL_COUNT ASC");
             while ( rset.next() ) {
-                Integer perCode = rset.getInt("person_skill.ks_code");
-                String name = rset.getString("name");
-                System.out.println("Person_Skill.Ks_Code:" + perCode + "\n" + "Name: " + name + "\n");
+                Integer perCode = rset.getInt("ks_code");
+                Integer totalCount = rset.getInt("total_count");
+                System.out.println("Knowledge Code:" + perCode + "\n" + "Total Count: " + totalCount + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 17: " + e);
@@ -194,18 +192,18 @@ public class EpoliteQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT NAME, COUNT(KNOWLEDGE_SKILL.KS_CODE) \n" +
+                    "SELECT NAME, COUNT(KNOWLEDGE_SKILL.KS_CODE) AS NUMB_SKILLS \n" +
                             "FROM PERSON NATURAL JOIN KNOWLEDGE_SKILL \n" +
                             "WHERE KNOWLEDGE_SKILL.KS_CODE=435786 \n" +
-                            "GROUP BY NAME \n"
+                            "GROUP BY NAME \n" +
                             "MINUS \n" +
                             "SELECT NAME, PERSON_SKILL.KS_CODE \n" +
                             "FROM PERSON NATURAL JOIN PERSON_SKILL \n" +
                             "WHERE PERSON_SKILL.KS_CODE=435786");
             while ( rset.next() ) {
                 String name = rset.getString("name");
-                Integer ksCode = rset.getInt("ks_code");
-                System.out.println("Name: " + name + "\n" + "Knowledge Code:" + ksCode + "\n");
+                Integer numbSkills = rset.getInt("numb_skills");
+                System.out.println("Name: " + name + "\n" + "Number of Skills:" + numbSkills + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 18: " + e);
