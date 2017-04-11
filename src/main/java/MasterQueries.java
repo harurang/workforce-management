@@ -384,12 +384,17 @@ public class MasterQueries {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT NAME\n" +
-                            "FROM PERSON NATURAL JOIN JOB\n" +
-                            "WHERE JOB_CODE=67\n" +
+                            "FROM PERSON \n" +
+                            "WHERE NOT EXISTS (\n" +
+                            "\n" +
+                            "SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE \n" +
+                            "WHERE JOB_CODE=67 \n" +
                             "MINUS\n" +
-                            "SELECT NAME\n" +
-                            "FROM PERSON NATURAL JOIN PERSON_SKILL\n" +
-                            "WHERE PERSON_SKILL.KS_CODE=435785");
+                            "SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -407,19 +412,25 @@ public class MasterQueries {
             ResultSet rset = stmt.executeQuery(
                     "SELECT DISTINCT PERSON_SKILL.KS_CODE, COUNT(DISTINCT NAME) AS TOTAL_COUNT\n" +
                             "FROM (SELECT NAME\n" +
-                            "      FROM PERSON NATURAL JOIN JOB\n" +
-                            "      WHERE JOB_CODE=67\n" +
+                            "      FROM PERSON \n" +
+                            "      WHERE NOT EXISTS (\n" +
+                            "      \n" +
+                            "      SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE \n" +
+                            "      WHERE JOB_CODE=67 \n" +
                             "      MINUS\n" +
-                            "      SELECT NAME\n" +
-                            "      FROM PERSON NATURAL JOIN PERSON_SKILL\n" +
-                            "      WHERE PERSON_SKILL.KS_CODE=435785), PERSON_SKILL, JOB\n" +
+                            "      SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE)\n" +
+                            "), PERSON_SKILL, JOB \n" +
                             "WHERE JOB_CODE=91\n" +
                             "GROUP BY PERSON_SKILL.KS_CODE\n" +
                             "ORDER BY TOTAL_COUNT ASC");
             while ( rset.next() ) {
                 Integer perCode = rset.getInt("ks_code");
                 Integer totalCount = rset.getInt("total_count");
-                System.out.println("Knowledge Code:" + perCode + "\n" + "Total Count: " + totalCount + "\n");
+                System.out.println("knowledge Code:" + perCode + "\n" + "Total Count: " + totalCount + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 17: " + e);
@@ -432,14 +443,19 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT NAME, COUNT(KNOWLEDGE_SKILL.KS_CODE) AS NUMB_SKILLS \n" +
-                            "FROM PERSON NATURAL JOIN KNOWLEDGE_SKILL \n" +
-                            "WHERE KNOWLEDGE_SKILL.KS_CODE=435786 \n" +
-                            "GROUP BY NAME \n" +
+                    "SELECT NAME, COUNT( DISTINCT JOB_SKILL.KS_CODE) AS NUMB_SKILLS \n" +
+                            "FROM PERSON, JOB_SKILL \n" +
+                            "WHERE NOT EXISTS ( \n" +
+                            "\n" +
+                            "SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE \n" +
+                            "WHERE JOB_CODE=23 \n" +
                             "MINUS \n" +
-                            "SELECT NAME, PERSON_SKILL.KS_CODE \n" +
-                            "FROM PERSON NATURAL JOIN PERSON_SKILL \n" +
-                            "WHERE PERSON_SKILL.KS_CODE=435786");
+                            "SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
+                            "FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
+                            "ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE) \n" +
+                            "GROUP BY NAME");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 Integer numbSkills = rset.getInt("numb_skills");
