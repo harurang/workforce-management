@@ -41,9 +41,9 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT NAME \n" +
-                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
-                            "WHERE JOB.COMP_ID=14");
+                    "SELECT NAME\n" +
+                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN COMP_JOB\n" +
+                            "WHERE COMP_ID=19");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -59,9 +59,15 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT PAY_RATE, NAME \n" +
-                            "FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB \n" +
-                            "WHERE JOB.COMP_ID=14" +
+                    "SELECT NAME, PAY_RATE\n" +
+                            "FROM PERSON INNER JOIN PAID_BY\n" +
+                            "ON PERSON.PER_ID = PAID_BY.PER_ID\n" +
+                            "INNER JOIN JOB\n" +
+                            "ON PAID_BY.JOB_CODE = JOB.JOB_CODE\n" +
+                            "INNER JOIN COMP_JOB\n" +
+                            "ON PAID_BY.JOB_CODE = COMP_JOB.JOB_CODE\n" +
+                            "WHERE COMP_ID = 19\n" +
+                            "AND PAY_TYPE = 'salary'\n" +
                             "ORDER BY PAY_RATE DESC");
             while ( rset.next() ) {
                 String name = rset.getString("name");
