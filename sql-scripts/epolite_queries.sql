@@ -2,24 +2,25 @@
 Description: Gets list of a company workers by name
 --1
 SELECT NAME
-FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN JOB
-WHERE JOB.COMP_ID='14';
+FROM PERSON NATURAL JOIN PAID_BY NATURAL JOIN COMP_JOB
+WHERE COMP_ID=19;
 
 
 Description: Gets list of a company staff by salary in descending order
 --2
 SELECT PAY_RATE, NAME
-FROM JOB NATURAL JOIN PAID_BY NATURAL JOIN PERSON
-WHERE COMP_ID='14'
-ORDER BY PAY_RATE DESC
+FROM COMP_JOB NATURAL JOIN PAID_BY NATURAL JOIN PERSON NATURAL JOIN JOB
+WHERE COMP_ID=19
+ORDER BY PAY_RATE DESC;
 
 
 Description: Gets list of companies labor cost in descending order
 --3
 SELECT COMP_ID, SUM(PAY_RATE) AS TOTAL_RATE
-FROM JOB NATURAL JOIN COMPANY NATURAL JOIN PAID_BY
+FROM JOB NATURAL JOIN COMP_JOB NATURAL JOIN PAID_BY
 GROUP BY COMP_ID
 ORDER BY TOTAL_RATE DESC;
+
 
 
 Description: Gets all jobs a person is currently holding and worked in the
@@ -88,7 +89,14 @@ SELECT NAME, PERSON_SKILL.KS_CODE
 FROM PERSON NATURAL JOIN PERSON_SKILL
 WHERE PERSON_SKILL.KS_CODE=435786;
 
+
+Description: Gets a list of the people IDs and the number of missing skills
+for the people who miss only up to 2-skills in ascending order of missing
+skills
 --19
 
 
+
+Description: Gets a list of each skillID and the number of people who need
+it in descending order of the people counts
 --20
