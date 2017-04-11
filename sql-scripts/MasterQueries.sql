@@ -178,6 +178,15 @@ WITH COURSES AS (
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
 
+--15
+--Description: Gets a list of all the names along with emails of the persons
+according to his/her skill qualification
+
+SELECT DISTINCT  NAME, EMAIL, JOB_TITLE
+FROM PERSON NATURAL JOIN PERSON_SKILL NATURAL JOIN JOB
+
+
+
 --16
 --Description: Gets a list of people who miss only one skill for a specified job
 
