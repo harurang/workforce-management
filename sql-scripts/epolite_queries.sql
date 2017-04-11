@@ -37,14 +37,14 @@ past
 --4
 SELECT PER_ID, JOB_TITLE, START_DATE, END_DATE
 FROM JOB_HISTORY NATURAL JOIN JOB
-WHERE PER_ID='2';
+WHERE PER_ID=2;
 
 
 Description: Gets a list of all job categories that a person is qualified for
 --13
 SELECT PER_ID, TITLE
 FROM PERSON_SKILL NATURAL JOIN JOB_CATEGORY
-WHERE PER_ID='7';
+WHERE PER_ID=7;
 
 
 --14
