@@ -261,6 +261,8 @@ public class HarurangQueries {
     }
 
 
+
+
     public static void query23 () {
         System.out.println("\nQuery 23: \n");
         try {
