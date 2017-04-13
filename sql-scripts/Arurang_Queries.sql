@@ -127,6 +127,38 @@ SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM C
 -- 12
 -- Provided query. 
 
+-- 21
+-- Description: Finds people who once held a job of specific job category.
+select name 
+from person inner join job_history 
+on person.per_id = job_history.per_id
+inner join job
+on job_history.job_code = job.job_code
+inner join job_category
+on job.cate_code = job_category.cate_code 
+where job_category.title = 'Computer User Support Specialists';
+
+-- 22
+-- Description: Finds unemployed people who once held a job of a specific job cateogry. 
+with unemployed as (
+  select per_id, name 
+  from person
+  minus 
+  select person.per_id, person.name
+  from paid_by inner join person
+  on paid_by.per_id = person.per_id
+)
+
+select name 
+from unemployed inner join job_history 
+on unemployed.per_id = job_history.per_id
+inner join job
+on job_history.job_code = job.job_code
+inner join job_category
+on job.cate_code = job_category.cate_code 
+where job_category.title = 'Computer User Support Specialists';
+
+
 -- 23
 -- Description: Gets max salary or max number of employees of company
 WITH COMP_PAYCHECKS AS (
@@ -225,6 +257,60 @@ increase as (
 )
 
 select avg(ratio) as average_increase from increase;
+
+ 
+-- 26
+-- Not complete.
+-- Description: Find a job category that has the largest difference between
+-- vacancies and the number of jobless people who are qualified for the jobs of this category.
+
+-- vacant jobs
+with vacant_jobs as (
+  select job_code, cate_code
+  from job 
+  minus
+  select paid_by.job_code, job.cate_code
+  from paid_by inner join job
+  on paid_by.job_code = job.job_code
+),
+
+-- people who do not have a job
+jobless as (
+  select per_id, name 
+  from person
+  minus 
+  select person.per_id, person.name
+  from paid_by inner join person
+  on paid_by.per_id = person.per_id
+)
+
+-- find qualified ppl per job 
+
+
+-- how to find vacancies 
+-- find qualified ppl 
+max(vacancies - qualified ppl)
+
+-- Get count of qualified people per job
+
+-- for each job
+SELECT JOB_CODE, COUNT(*) AS QUAL_PPL
+FROM JOB A 
+WHERE NOT EXISTS (
+  -- get skills of each person 
+  SELECT KS_CODE 
+  FROM PERSON INNER JOIN PERSON_SKILL
+  ON PERSON.PER_ID = PERSON_SKILL.PER_ID
+  
+  MINUS
+  
+  -- get skills of job
+  SELECT KS_CODE 
+  FROM JOB B INNER JOIN JOB_SKILL
+  ON B.JOB_CODE = JOB_SKILL.JOB_CODE
+  WHERE A.JOB_CODE = B.JOB_CODE)
+GROUP BY JOB_CODE;
+  
 
 
 

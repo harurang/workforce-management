@@ -28,6 +28,15 @@ VALUES (234, 'Lily', 'Miami', '3245 Brussel', 'FL', 33018, 'lily@yahoo.com', 'fe
 INSERT INTO person
 VALUES (206, 'Ashton', 'New York', '763 7th Ave.', 'FL', 10001, 'ashton@gmail.com', 'male');
 
+INSERT INTO person
+VALUES (207, 'Jaimie', 'Houston', '980 Sugar', 'TX', 908879, 'jaime@aol.com', 'female');
+
+INSERT INTO person
+VALUES (208, 'Dominique', 'Modesto', '9232 Tully', 'CA', 34532, 'dom@gmail.com', 'female');
+
+INSERT INTO person
+VALUES (209, 'Herschel', 'Houston', '2342 Bowling', 'TX', 235423, 'herschel@aol.com', 'male');
+
 
 
 
@@ -399,6 +408,16 @@ VALUES (13, 2, 70000, 50000, 'Computer and Information Research Scientists', 435
 
 
 
+
+INSERT INTO job
+VALUES(83, 69000, 'salary', null, 11, 'Information Security Engineer');
+
+INSERT INTO job
+VALUES(84, 45000, 'salary', null, 3, 'Help Desk Specialist');
+
+INSERT INTO job
+VALUES(86, 70000, 'salary', null, 11, 'Information Security Analyst III');
+
 INSERT INTO job
 VALUES(82, 60000, 'salary', null, 11, 'Cyber Security Specialist Junior');
 
@@ -647,6 +666,8 @@ VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/
 
 
 
+INSERT INTO job_history
+VALUES ('02/15/2013', '04/23/2015', 73, 207);
 
 INSERT INTO job_history
 VALUES ('05/10/2013', '01/23/2015', 82, 2);
