@@ -251,31 +251,31 @@ VALUES ('Defining Computer Security Criteria');
 
 
 INSERT INTO company
-VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com');
+VALUES (12, 'Geocent', 541511, 'Metairie', 'LA', 70001, 'www.geocent.com', 'Software Engineering');
 
 INSERT INTO company
-VALUES (13, 'Nasa', 541715, 'Stennis Space Center', 'MS', 70001, 'www.nasa.com');
+VALUES (13, 'Nasa', 541715, 'Stennis Space Center', 'MS', 70001, 'www.nasa.com', 'Scientific Support');
 
 INSERT INTO company
-VALUES (14, 'Computer Education', 541513, 'New Orleans', 'LA', 70131, 'www.comp.edu.com');
+VALUES (14, 'Computer Education', 541513, 'New Orleans', 'LA', 70131, 'www.comp.edu.com', 'Education');
 
 INSERT INTO company
-VALUES (15, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com');
+VALUES (15, 'Computer Recovery', 541519, 'New Orleans', 'LA', 70092, 'www.comprecovery.com', 'Computer Repair');
 
 INSERT INTO company
-VALUES (17, 'Amazon Web Services', 518210, 'New Orleans', 'LA', 70232, 'www.aws.com');
+VALUES (17, 'Amazon Web Services', 518210, 'New Orleans', 'LA', 70232, 'www.aws.com', 'Infrastructure');
 
 INSERT INTO company
-VALUES (18, 'Oracle', 511210, 'New Orleans', 'LA', 782341, 'www.oracle.com');
+VALUES (18, 'Oracle', 511210, 'New Orleans', 'LA', 782341, 'www.oracle.com', 'Databases');
 
 INSERT INTO company
-VALUES (19, 'Twitter', 541513, 'New Orleans', 'LA', 72421, 'www.twitter.com');
+VALUES (19, 'Twitter', 541513, 'New Orleans', 'LA', 72421, 'www.twitter.com', 'Social Media');
 
 INSERT INTO company
-VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.compdesign.com');
+VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.compdesign.com', 'Computer Design');
 
 INSERT INTO company
-VALUES (22, 'ContingaSoft', 541511, 'New Orleans', 'LA', 70130, 'www.contingasoft.com');
+VALUES (22, 'ContingaSoft', 541511, 'New Orleans', 'LA', 70130, 'www.contingasoft.com', 'Software Engineering');
 
 
 
@@ -647,62 +647,33 @@ VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/
 
 
 
-INSERT INTO job_history
-VALUES ('03/10/2015', 'Currently', 44, 2);
 
 INSERT INTO job_history
 VALUES ('05/10/2013', '01/23/2015', 82, 2);
 
 INSERT INTO job_history
-VALUES ('01/23/2014', 'Currently', 91, 4);
-
-INSERT INTO job_history
 VALUES ('06/11/2012', '12/05/2013', 73, 4);
-
-INSERT INTO job_history
-VALUES ('05/16/2015', 'Currently', 43, 5);
 
 INSERT INTO job_history
 VALUES ('02/24/2013', '02/27/2015', 91, 5);
 
 INSERT INTO job_history
-VALUES ('01/09/2016', 'Currently', 31, 7);
-
-INSERT INTO job_history
 VALUES ('04/13/2014', '11/23/2015', 44, 7);
-
-INSERT INTO job_history
-VALUES ('04/21/2016', 'Currently', 21, 9);
 
 INSERT INTO job_history
 VALUES ('08/12/2013', '03/05/2016', 73, 9);
 
 INSERT INTO job_history
-VALUES ('03/24/2015', 'Currently', 44, 100);
-
-INSERT INTO job_history
 VALUES ('01/27/2103', '02/15/2015', 52, 100);
-
-INSERT INTO job_history
-VALUES ('06/21/2016', 'Currently', 91, 105);
 
 INSERT INTO job_history
 VALUES ('04/23/2014', '04/12/2016', 21, 105);
 
 INSERT INTO job_history
-VALUES ('03/23/2013', 'Currently', 43, 176);
-
-INSERT INTO job_history
 VALUES ('07/17/2012', '02/13/2013', 82, 176);
 
 INSERT INTO job_history
-VALUES ('04/23/2016', 'Currently', 31, 234);
-
-INSERT INTO job_history
 VALUES ('08/15/2014', '03/23/2016', 67, 234);
-
-INSERT INTO job_history
-VALUES ('09/23/2015', 'Currently', 21, 206);
 
 INSERT INTO job_history
 VALUES ('05/14/2013', '08/04/2015', 73, 206);

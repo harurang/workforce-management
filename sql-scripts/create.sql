@@ -78,6 +78,7 @@ CREATE TABLE company (
   state varchar(2),
   zip number,
   website varchar(70),
+  primary_sector varchar(40),
   primary key (comp_id),
   foreign key (n_code) references naics(n_code)
 );
