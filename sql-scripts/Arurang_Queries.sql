@@ -179,23 +179,52 @@ WHERE SUM_SAL =
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
 -- 25
--- Not completed.
-with sum_of_old_sal as (
-  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal 
-  from person natural join job_history 
-  natural join job
-  where end_date != 'Currently'
+-- Test Data:
+-- Job's associated with Software Enginnering sector: 31, 23
+-- People assocaited with jobs 31 and 23: 2 (Jane), 7 (Vanessa), 234 (Lily)
+
+-- Gets the previous salary of employees in the Database primary sector
+with previous_sal as (
+  -- get the previous salary or get the previous pay rate * hours
+  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal
+  from person 
+  inner join job_history 
+  on person.per_id = job_history.per_id
+  inner join job
+  on job_history.job_code = job.job_code
+  inner join comp_job
+  on job.job_code = comp_job.job_code
+  inner join company
+  on comp_job.comp_id = company.comp_id
+  where primary_sector = 'Software Engineering'
   group by name
+),
+
+-- Gets the current salary of employees in the Database primary sector
+current_sal as (
+  -- get the current salary or get the current pay rate * hours
+  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as new_sal 
+  from person 
+  inner join paid_by 
+  on person.per_id = paid_by.per_id
+  inner join job
+  on paid_by.job_code = job.job_code
+  inner join comp_job
+  on job.job_code = comp_job.job_code
+  inner join company
+  on comp_job.comp_id = company.comp_id
+  where primary_sector = 'Software Engineering'
+  group by name
+),
+
+increase as (
+  select previous_sal.name, new_sal/old_sal as ratio from previous_sal 
+  inner join current_sal
+  on previous_sal.name = current_sal.name
+  where new_sal/old_sal > 1
 )
 
-with sum_of_current_sal as (
-  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as current_sal 
-  from person natural join job_history 
-  natural join job
-  where end_date = 'Currently'
-  group by name
-)
+select avg(ratio) as average_increase from increase;
 
-select * from sum_of_old_sal;
 
 
