@@ -124,15 +124,6 @@ CREATE TABLE takes (
   foreign key (per_id) references person(per_id)
 );
 
-CREATE TABLE job_history (
-  start_date varchar(50),
-  end_date varchar(50),
-  job_code number,
-  per_id number,
-  foreign key (per_id) references person(per_id),
-  foreign key (job_code) references job(job_code)
-);
-
 CREATE TABLE course_knowledge(
    ks_code number,
    c_code number,
@@ -147,6 +138,15 @@ CREATE TABLE job_listing (
     primary key (listing_id),
     foreign key (comp_id) references company(comp_id),
     foreign key (job_code) references job(job_code)
+);
+
+CREATE TABLE job_history (
+  start_date varchar(50),
+  end_date varchar(50),
+  listing_id number,
+  per_id number,
+  foreign key (per_id) references person(per_id),
+  foreign key (listing_id) references job_listing(listing_id)
 );
 
 CREATE TABLE paid_by(

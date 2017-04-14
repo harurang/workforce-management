@@ -222,37 +222,38 @@ NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
 -- 25
 -- Finds the average salary increase for workers in a specific sector. 
+-- TODO: Create better test data
 
--- Gets the previous salary of employees in the Database primary sector
+-- Gets the previous salary of employees in the Software Engineering primary sector
 with previous_sal as (
   -- get the previous salary or get the previous pay rate * hours
   select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal
   from person 
   inner join job_history 
   on person.per_id = job_history.per_id
+  inner join job_listing
+  on job_history.listing_id = job_listing.listing_id
   inner join job
-  on job_history.job_code = job.job_code
-  inner join comp_job
-  on job.job_code = comp_job.job_code
+  on job.job_code = job_listing.job_code
   inner join company
-  on comp_job.comp_id = company.comp_id
+  on job_listing.comp_id = company.comp_id
   where primary_sector = 'Software Engineering'
   group by name
 ),
 
--- Gets the current salary of employees in the Database primary sector
+-- Gets the current salary of employees in the Software Engineering primary sector
 current_sal as (
   -- get the current salary or get the current pay rate * hours
   select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as new_sal 
   from person 
   inner join paid_by 
   on person.per_id = paid_by.per_id
+  inner join job_listing
+  on job_listing.listing_id = paid_by.listing_id
   inner join job
-  on paid_by.job_code = job.job_code
-  inner join comp_job
-  on job.job_code = comp_job.job_code
+  on job_listing.job_code = job.job_code
   inner join company
-  on comp_job.comp_id = company.comp_id
+  on job_listing.comp_id = company.comp_id
   where primary_sector = 'Software Engineering'
   group by name
 ),
