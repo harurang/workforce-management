@@ -286,6 +286,7 @@ select avg(ratio) as average_increase from increase;
 -- vacancies and the number of jobless people who are qualified for the jobs of this category.
 
 -- vacant jobs
+-- fix using job listing
 with vacant_jobs as (
   select job_code, cate_code
   from job 
@@ -308,11 +309,14 @@ jobless as (
 -- find qualified ppl per job 
 
 
--- how to find vacancies 
+-- get vacancies using job listing 
 -- find qualified ppl 
 max(vacancies - qualified ppl)
 
 -- Get count of qualified people per job
+
+-- combine job and ppl 
+-- 
 
 -- for each job
 SELECT JOB_CODE, COUNT(*) AS QUAL_PPL

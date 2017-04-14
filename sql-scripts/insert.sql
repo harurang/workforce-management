@@ -452,38 +452,38 @@ INSERT INTO job
 VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
 
-INSERT INTO COMP_JOB
-VALUES(13, 21);
+INSERT INTO job_profile
+VALUES(1,13, 21);
 
-INSERT INTO COMP_JOB
-VALUES(19, 23);
+INSERT INTO job_profile
+VALUES(2, 19, 23);
 
-INSERT INTO comp_job
-VALUES(12, 31);
+INSERT INTO job_profile
+VALUES(3, 12, 31);
 
-INSERT INTO comp_job
-VALUES(13, 43);
+INSERT INTO job_profile
+VALUES(4, 13, 43);
 
-INSERT INTO comp_job
-VALUES(14, 75);
+INSERT INTO job_profile
+VALUES(5, 14, 75);
 
-INSERT INTO comp_job
-VALUES(15, 73);
+INSERT INTO job_profile
+VALUES(6, 15, 73);
 
-INSERT INTO comp_job
-VALUES(17, 67);
+INSERT INTO job_profile
+VALUES(7, 17, 67);
 
-INSERT INTO comp_job
-VALUES(18, 44);
+INSERT INTO job_profile
+VALUES(8, 18, 44);
 
-INSERT INTO comp_job
-VALUES(19, 91);
+INSERT INTO job_profile
+VALUES(9, 19, 91);
 
-INSERT INTO comp_job
-VALUES(20, 91);
+INSERT INTO job_profile
+VALUES(10, 20, 91);
 
-INSERT INTO comp_job 
-VALUES (22, 23);
+INSERT INTO job_profile 
+VALUES (11, 22, 23);
 
 
 
@@ -743,80 +743,41 @@ VALUES (206, 330);
 
 
 
-INSERT INTO PAID_BY
-VALUES(2, 23);
+INSERT INTO paid_by
+VALUES(2, 11);
 
 INSERT INTO paid_by
-VALUES (2, 44);
+VALUES (2, 8);
 
 INSERT INTO paid_by
-VALUES (4, 91);
+VALUES (4, 10);
 
 INSERT INTO paid_by
-VALUES (5, 43);
+VALUES (5, 3);
 
 INSERT INTO paid_by
-VALUES (7, 31);
+VALUES (7, 3);
 
 INSERT INTO paid_by
-VALUES (9, 21);
+VALUES (9, 1);
 
 INSERT INTO paid_by
-VALUES (100, 44);
+VALUES (100, 8);
 
 INSERT INTO paid_by
-VALUES (105, 91);
+VALUES (105, 10);
 
 INSERT INTO paid_by
-VALUES (176, 43);
+VALUES (176, 4);
 
 INSERT INTO paid_by
-VALUES (234, 31);
+VALUES (234, 3);
 
 INSERT INTO paid_by
-VALUES (206, 21);
+VALUES (206, 1);
 
 INSERT INTO paid_by 
-VALUES (105, 73);
-
-
--- person job comp
-INSERT INTO job_listing
-VALUES (2, 23, 22);
-
-INSERT INTO job_listing
-VALUES (2, 44, 18);
-
-INSERT INTO job_listing
-VALUES (4, 91, 19);
-
-INSERT INTO job_listing
-VALUES (5, 43, 13);
-
-INSERT INTO job_listing
-VALUES (7, 31, 12);
-
-INSERT INTO job_listing
-VALUES (9, 21, 13);
-
-INSERT INTO job_listing
-VALUES (100, 44, 18);
-
-INSERT INTO job_listing
-VALUES (105, 91, 20);
-
-INSERT INTO job_listing
-VALUES (176, 43, 13);
-
-INSERT INTO job_listing
-VALUES (234, 31, 12);
-
-INSERT INTO job_listing
-VALUES (206, 21, 13);
-
-INSERT INTO job_listing
-VALUES (105, 73, 15);
-
+VALUES (105, 6);
 
 
 

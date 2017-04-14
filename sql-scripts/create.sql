@@ -94,15 +94,6 @@ CREATE TABLE job (
   foreign key (cate_code) references job_category(cate_code)
 );
 
-CREATE TABLE job_listing (
-  per_id number,
-  job_code number,
-  comp_id number,
-  foreign key (comp_id) references company(comp_id),
-  foreign key (per_id) references person(per_id),
-  foreign key (job_code) references job(job_code)
-);
-
 CREATE TABLE course(
     c_code number,
     title varchar(70),
@@ -149,11 +140,20 @@ CREATE TABLE course_knowledge(
    foreign key (c_code) references course(c_code)
 );
 
+CREATE TABLE job_profile (
+    profile_id number,
+    comp_id number,
+    job_code number,
+    primary key (profile_id),
+    foreign key (comp_id) references company(comp_id),
+    foreign key (job_code) references job(job_code)
+);
+
 CREATE TABLE paid_by(
   per_id number,
-  job_code number,
+  profile_id number,
   foreign key (per_id) references person(per_id),
-  foreign key (job_code) references job(job_code)
+  foreign key (profile_id) references job_profile(profile_id)
 );
 
 CREATE TABLE person_skill (
@@ -171,9 +171,3 @@ CREATE TABLE job_skill (
   foreign key (ks_code) references knowledge_skill(ks_code)
 );
 
-CREATE TABLE comp_job (
-    comp_id number,
-    job_code number,
-    foreign key (comp_id) references company(comp_id),
-    foreign key (job_code) references job(job_code)
-);

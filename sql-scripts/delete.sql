@@ -2,9 +2,9 @@ drop table phone_number;
 
 drop table job_history;
 
-drop table job_listing;
+drop table paid_by;
 
-drop table comp_job;
+drop table job_profile;
 
 drop table company;
 
@@ -15,8 +15,6 @@ drop table course_knowledge;
 drop table job_skill;
 
 drop table person_skill;
-
-drop table paid_by;
 
 drop table job;
 
