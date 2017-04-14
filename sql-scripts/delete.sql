@@ -2,6 +2,8 @@ drop table phone_number;
 
 drop table job_history;
 
+drop table job_listing;
+
 drop table comp_job;
 
 drop table company;

@@ -452,6 +452,8 @@ INSERT INTO job
 VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
 
+INSERT INTO COMP_JOB
+VALUES(13, 21);
 
 INSERT INTO COMP_JOB
 VALUES(19, 23);
@@ -778,6 +780,42 @@ INSERT INTO paid_by
 VALUES (105, 73);
 
 
+-- person job comp
+INSERT INTO job_listing
+VALUES (2, 23, 22);
+
+INSERT INTO job_listing
+VALUES (2, 44, 18);
+
+INSERT INTO job_listing
+VALUES (4, 91, 19);
+
+INSERT INTO job_listing
+VALUES (5, 43, 13);
+
+INSERT INTO job_listing
+VALUES (7, 31, 12);
+
+INSERT INTO job_listing
+VALUES (9, 21, 13);
+
+INSERT INTO job_listing
+VALUES (100, 44, 18);
+
+INSERT INTO job_listing
+VALUES (105, 91, 20);
+
+INSERT INTO job_listing
+VALUES (176, 43, 13);
+
+INSERT INTO job_listing
+VALUES (234, 31, 12);
+
+INSERT INTO job_listing
+VALUES (206, 21, 13);
+
+INSERT INTO job_listing
+VALUES (105, 73, 15);
 
 
 

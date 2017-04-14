@@ -94,6 +94,15 @@ CREATE TABLE job (
   foreign key (cate_code) references job_category(cate_code)
 );
 
+CREATE TABLE job_listing (
+  per_id number,
+  job_code number,
+  comp_id number,
+  foreign key (comp_id) references company(comp_id),
+  foreign key (per_id) references person(per_id),
+  foreign key (job_code) references job(job_code)
+);
+
 CREATE TABLE course(
     c_code number,
     title varchar(70),
