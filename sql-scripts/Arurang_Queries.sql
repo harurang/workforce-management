@@ -234,9 +234,7 @@ WHERE SUM_SAL =
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
 -- 25
--- Test Data:
--- Job's associated with Software Enginnering sector: 31, 23
--- People assocaited with jobs 31 and 23: 2 (Jane), 7 (Vanessa), 234 (Lily)
+-- Finds the average salary increase for workers in a specific sector. 
 
 -- Gets the previous salary of employees in the Database primary sector
 with previous_sal as (
