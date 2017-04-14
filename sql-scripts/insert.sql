@@ -452,37 +452,37 @@ INSERT INTO job
 VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(1,13, 21);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(2, 19, 23);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(3, 12, 31);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(4, 13, 43);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(5, 14, 75);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(6, 15, 73);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(7, 17, 67);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(8, 18, 44);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(9, 19, 91);
 
-INSERT INTO job_profile
+INSERT INTO job_listing
 VALUES(10, 20, 91);
 
-INSERT INTO job_profile 
+INSERT INTO job_listing 
 VALUES (11, 22, 23);
 
 

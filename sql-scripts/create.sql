@@ -140,20 +140,20 @@ CREATE TABLE course_knowledge(
    foreign key (c_code) references course(c_code)
 );
 
-CREATE TABLE job_profile (
-    profile_id number,
+CREATE TABLE job_listing (
+    listing_id number,
     comp_id number,
     job_code number,
-    primary key (profile_id),
+    primary key (listing_id),
     foreign key (comp_id) references company(comp_id),
     foreign key (job_code) references job(job_code)
 );
 
 CREATE TABLE paid_by(
   per_id number,
-  profile_id number,
+  listing_id number,
   foreign key (per_id) references person(per_id),
-  foreign key (profile_id) references job_profile(profile_id)
+  foreign key (listing_id) references job_listing(listing_id)
 );
 
 CREATE TABLE person_skill (

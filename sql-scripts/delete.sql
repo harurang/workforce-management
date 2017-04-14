@@ -4,7 +4,7 @@ drop table job_history;
 
 drop table paid_by;
 
-drop table job_profile;
+drop table job_listing;
 
 drop table company;
 
