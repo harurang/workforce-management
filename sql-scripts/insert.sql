@@ -422,7 +422,7 @@ INSERT INTO job
 VALUES(82, 60000, 'salary', null, 11, 'Cyber Security Specialist Junior');
 
 INSERT INTO job
-VALUES(73, 15, 'hourly', 40, 4, 'Geek Squad Agent');
+VALUES(73, 15, 'hourly', 2080 , 4, 'Geek Squad Agent');
 
 INSERT INTO job
 VALUES(31, 80000, 'salary', null, 5, 'Java Developer');

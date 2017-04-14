@@ -161,11 +161,13 @@ where job_category.title = 'Computer User Support Specialists';
 
 -- 23
 -- Description: Gets max salary or max number of employees of company
+-- gets sum of salary or wages for each company
 WITH COMP_PAYCHECKS AS (
   SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, COMP_NAME FROM PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY
   ON PERSON.PER_ID = PAID_BY.PER_ID GROUP BY COMP_NAME
 ),
 
+-- gets number of employees for each company
 COMP_EMPLOYEE_COUNT AS 
 (SELECT COMP_NAME, COUNT(*) AS NUMB_EMPLOYEES FROM 
   PERSON LEFT JOIN PAID_BY NATURAL JOIN JOB NATURAL JOIN COMPANY
