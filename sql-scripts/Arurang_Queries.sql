@@ -6,9 +6,17 @@ LEFT JOIN KNOWLEDGE_SKILL ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE;
 
 -- 6 
 -- Description: Gets the skill gap between a worker and their job.
-SELECT KS_CODE FROM PAID_BY LEFT JOIN JOB_SKILL ON PAID_BY.JOB_CODE = JOB_SKILL.JOB_CODE
+-- get job skills of person
+SELECT KS_CODE 
+FROM PAID_BY INNER JOIN JOB_LISTING 
+ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
+INNER JOIN JOB_SKILL
+ON JOB_SKILL.JOB_CODE = JOB_LISTING.JOB_CODE
 WHERE PER_ID=2 
+
 MINUS
+
+-- get person skills 
 SELECT KS_CODE FROM PERSON_SKILL WHERE PER_ID=2;
 
 -- 7
@@ -124,19 +132,49 @@ WITH COURSES AS (
 
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
+
+
 -- 12
 -- Provided query. 
+
+
+
+-- Description: Gets a list of people and their email who are qualified for a specific job. 
+--15
+SELECT DISTINCT NAME, EMAIL 
+FROM PERSON A INNER JOIN PERSON_SKILL B
+ON A.PER_ID = B.PER_ID 
+WHERE NOT EXISTS (
+
+  -- get skills of specific job
+  SELECT JOB_SKILL.KS_CODE
+  FROM JOB_SKILL
+  WHERE JOB_CODE=44
+  
+  MINUS
+  
+  -- get skills of person 
+  (SELECT KS_CODE
+  FROM PERSON C INNER JOIN PERSON_SKILL D 
+  ON C.PER_ID = D.PER_ID
+  WHERE A.NAME = C.NAME)
+);
+
+
 
 -- 21
 -- Description: Finds people who once held a job of specific job category.
 select name 
-from person inner join job_history 
+from job_history inner join person
 on person.per_id = job_history.per_id
+inner join job_listing 
+on job_history.listing_id = job_listing.listing_id
 inner join job
-on job_history.job_code = job.job_code
+on job_listing.job_code = job.job_code
 inner join job_category
 on job.cate_code = job_category.cate_code 
 where job_category.title = 'Computer User Support Specialists';
+
 
 -- 22
 -- Description: Finds unemployed people who once held a job of a specific job cateogry. 
@@ -151,9 +189,11 @@ with unemployed as (
 
 select name 
 from unemployed inner join job_history 
-on unemployed.per_id = job_history.per_id
+on job_history.per_id = unemployed.per_id
+inner join job_listing
+on job_listing.listing_id = job_history.listing_id
 inner join job
-on job_history.job_code = job.job_code
+on job_listing.job_code = job.job_code
 inner join job_category
 on job.cate_code = job_category.cate_code 
 where job_category.title = 'Computer User Support Specialists';
@@ -188,6 +228,8 @@ SELECT COMP_NAME, SUM_SAL, NUMB_EMPLOYEES FROM COMP_PAYCHECKS NATURAL JOIN COMP_
 WHERE SUM_SAL = 
 (SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR 
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT);
+
+
 
 -- 24
 -- Description: Gets max salary or max number of employees of sector

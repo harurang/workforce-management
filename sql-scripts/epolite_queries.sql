@@ -22,6 +22,7 @@ WHERE COMP_ID = 13
 AND PAY_TYPE = 'salary'
 ORDER BY PAY_RATE DESC;
 
+
 Description: Gets list of companies labor cost in descending order
 --3
 SELECT COMP_ID, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL
@@ -51,28 +52,6 @@ WHERE PER_ID=7;
 
 --14
 
-
-
-Description: Gets a list of people and their email who are qualified for a specific job. 
---15
-SELECT DISTINCT NAME, EMAIL 
-FROM PERSON A INNER JOIN PERSON_SKILL B
-ON A.PER_ID = B.PER_ID 
-WHERE NOT EXISTS (
-
-  -- get skills of specific job
-  SELECT JOB_SKILL.KS_CODE
-  FROM JOB_SKILL
-  WHERE JOB_CODE=44
-  
-  MINUS
-  
-  -- get skills of person 
-  (SELECT KS_CODE
-  FROM PERSON C INNER JOIN PERSON_SKILL D 
-  ON C.PER_ID = D.PER_ID
-  WHERE A.NAME = C.NAME)
-);
 
 
 Description: Gets a list of people who miss only one skill for a specified job
