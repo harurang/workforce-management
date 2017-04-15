@@ -53,11 +53,26 @@ WHERE PER_ID=7;
 
 
 
-Description: Gets a list of all the names along with emails of the persons
-according to his/her skill qualification
+Description: Gets a list of people and their email who are qualified for a specific job. 
 --15
-SELECT DISTINCT  NAME, EMAIL, JOB_TITLE
-FROM PERSON NATURAL JOIN PERSON_SKILL NATURAL JOIN JOB
+SELECT DISTINCT NAME, EMAIL 
+FROM PERSON A INNER JOIN PERSON_SKILL B
+ON A.PER_ID = B.PER_ID 
+WHERE NOT EXISTS (
+
+  -- get skills of specific job
+  SELECT JOB_SKILL.KS_CODE
+  FROM JOB_SKILL
+  WHERE JOB_CODE=44
+  
+  MINUS
+  
+  -- get skills of person 
+  (SELECT KS_CODE
+  FROM PERSON C INNER JOIN PERSON_SKILL D 
+  ON C.PER_ID = D.PER_ID
+  WHERE A.NAME = C.NAME)
+);
 
 
 Description: Gets a list of people who miss only one skill for a specified job

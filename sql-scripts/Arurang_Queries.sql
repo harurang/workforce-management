@@ -274,18 +274,23 @@ select avg(ratio) as average_increase from increase;
 -- vacancies and the number of jobless people who are qualified for the jobs of this category.
 
 -- vacant jobs
--- fix using job listing
 with vacant_jobs as (
-  select job_code, cate_code
-  from job 
+  -- all job listings
+  select job.job_code, job.cate_code
+  from job inner join job_listing
+  on job.job_code = job_listing.job_code
   minus
-  select paid_by.job_code, job.cate_code
-  from paid_by inner join job
-  on paid_by.job_code = job.job_code
+  -- filled job listings
+  select job.job_code, job.cate_code
+  from paid_by inner join job_listing
+  on paid_by.listing_id = job_listing.listing_id
+  inner join job
+  on job_listing.job_code = job.job_code
 ),
 
+
 -- people who do not have a job
-jobless as (
+unemployed as (
   select per_id, name 
   from person
   minus 
