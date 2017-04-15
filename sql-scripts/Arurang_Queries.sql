@@ -1,3 +1,14 @@
+-- 3
+-- Description: List companies’ labor cost (total salaries and wage rates by 1920 hours) in descending order. 
+SELECT COMP_ID, SUM(nvl((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, 
+SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL
+FROM PAID_BY INNER JOIN JOB_LISTING
+ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
+INNER JOIN JOB
+ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+GROUP BY COMP_ID
+ORDER BY TOTAL_SAL DESC;
+
 -- 5
 -- Description: Gets the skills for each person.
 SELECT PERSON.NAME, KNOWLEDGE_SKILL.KS_CODE 
@@ -132,12 +143,8 @@ WITH COURSES AS (
 
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
-
-
 -- 12
 -- Provided query. 
-
-
 
 -- Description: Gets a list of people and their email who are qualified for a specific job. 
 --15
@@ -160,8 +167,6 @@ WHERE NOT EXISTS (
   WHERE A.NAME = C.NAME)
 );
 
-
-
 -- 21
 -- Description: Finds people who once held a job of specific job category.
 select name 
@@ -174,7 +179,6 @@ on job_listing.job_code = job.job_code
 inner join job_category
 on job.cate_code = job_category.cate_code 
 where job_category.title = 'Computer User Support Specialists';
-
 
 -- 22
 -- Description: Finds unemployed people who once held a job of a specific job cateogry. 
@@ -197,7 +201,6 @@ on job_listing.job_code = job.job_code
 inner join job_category
 on job.cate_code = job_category.cate_code 
 where job_category.title = 'Computer User Support Specialists';
-
 
 -- 23
 -- Description: Gets max salary or max number of employees of company
@@ -229,8 +232,6 @@ WHERE SUM_SAL =
 (SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR 
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT);
 
-
-
 -- 24
 -- Description: Gets max salary or max number of employees of sector
 
@@ -261,10 +262,8 @@ WHERE SUM_SAL =
 (SELECT MAX(SUM_SAL) FROM SECTOR_PAYCHECKS) OR 
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
-
 -- 25
 -- Finds the average salary increase for workers in a specific sector. 
--- TODO: Create better test data
 
 -- Gets the previous salary of employees in the Software Engineering primary sector
 with previous_sal as (
@@ -308,7 +307,6 @@ increase as (
 )
 
 select avg(ratio) as average_increase from increase;
-
  
 -- 26
 -- Not complete.

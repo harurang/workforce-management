@@ -91,17 +91,20 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT COMP_ID, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL\n" +
-                            "FROM PAID_BY INNER JOIN COMP_JOB\n" +
-                            "ON PAID_BY.JOB_CODE = COMP_JOB.JOB_CODE\n" +
+                    "SELECT COMP_ID, SUM(nvl((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, \n" +
+                            "SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL\n" +
+                            "FROM PAID_BY INNER JOIN JOB_LISTING\n" +
+                            "ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
                             "INNER JOIN JOB\n" +
-                            "ON JOB.JOB_CODE = COMP_JOB.JOB_CODE\n" +
+                            "ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
                             "GROUP BY COMP_ID\n" +
                             "ORDER BY TOTAL_SAL DESC");
             while ( rset.next() ) {
                 Integer compId = rset.getInt("comp_id");
                 Integer totalSal = rset.getInt("total_sal");
-                System.out.println("Company Id: " + compId + "\n" + "Total Paycheck: " + totalSal + "\n");
+                Float totalWage = rset.getFloat("total_wage");
+                System.out.println("Company Id: " + compId + "\n" + "Total Salary: " + totalSal + "\n" +
+                "Total Wage Rate: " + totalWage + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 3: " + e);
@@ -687,7 +690,7 @@ public class MasterQueries {
                             "\n" +
                             "select avg(ratio) as average_increase from increase");
             while ( rset.next() ) {
-                Integer averageIncrease = rset.getInt("average_increase");
+                Float averageIncrease = rset.getFloat("average_increase");
                 System.out.println("Average Increase: " + averageIncrease + "\n");
             }
         } catch(Exception e) {

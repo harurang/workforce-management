@@ -23,18 +23,6 @@ AND PAY_TYPE = 'salary'
 ORDER BY PAY_RATE DESC;
 
 
-Description: Gets list of companies labor cost in descending order
---3
-SELECT COMP_ID, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL
-FROM PAID_BY INNER JOIN COMP_JOB
-ON PAID_BY.JOB_CODE = COMP_JOB.JOB_CODE
-INNER JOIN JOB
-ON JOB.JOB_CODE = COMP_JOB.JOB_CODE
-GROUP BY COMP_ID
-ORDER BY TOTAL_SAL DESC;
-
-
-
 Description: Gets all jobs a person is currently holding and worked in the
 past
 --4
@@ -43,15 +31,13 @@ FROM JOB_HISTORY NATURAL JOIN JOB
 WHERE PER_ID=2;
 
 
-Description: Gets a list of all job categories that a person is qualified for
+
 --13
-SELECT PER_ID, TITLE
-FROM PERSON_SKILL NATURAL JOIN JOB_CATEGORY
-WHERE PER_ID=7;
+-- Provided query. 
 
 
 --14
-
+-- Provided query.
 
 
 Description: Gets a list of people who miss only one skill for a specified job
