@@ -153,7 +153,8 @@ CREATE TABLE paid_by(
   per_id number,
   listing_id number,
   foreign key (per_id) references person(per_id),
-  foreign key (listing_id) references job_listing(listing_id)
+  foreign key (listing_id) references job_listing(listing_id),
+  unique (listing_id)
 );
 
 CREATE TABLE person_skill (

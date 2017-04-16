@@ -375,7 +375,6 @@ select avg(ratio) as average_increase from increase;
 -- Description: Find a job category that has the largest difference between
 -- vacancies and the number of jobless people who are qualified for the jobs of this category.
 
--- vacant jobs
 with openings as (
   -- all job listings
   select job.job_code, job.cate_code
@@ -420,7 +419,7 @@ numbSkillsByJob as (
   group by openings.job_code
 )
 
--- qualified ppl 
+-- unemployed ppl that are qualified for an opening
 select numbSkillsByPerson.name, numbSkillsByJob.job_code 
 from numbSkillsByPerson inner join  numbSkillsByJob
 on numbSkillsByPerson.job_code = numbSkillsByJob.job_code

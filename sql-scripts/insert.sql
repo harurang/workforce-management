@@ -452,6 +452,8 @@ INSERT INTO job
 VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
 
+
+
 INSERT INTO job_listing
 VALUES(1,13, 21);
 
@@ -485,7 +487,38 @@ VALUES(10, 20, 91);
 INSERT INTO job_listing 
 VALUES (11, 22, 23);
 
+INSERT INTO job_listing 
+VALUES (12, 15, 67);
 
+INSERT INTO job_listing 
+VALUES (13, 15, 75);
+
+INSERT INTO job_listing 
+VALUES (14, 18, 75);
+
+INSERT INTO job_listing 
+VALUES (15, 19, 75);
+
+INSERT INTO job_listing 
+VALUES (16, 15, 73);
+
+INSERT INTO job_listing 
+VALUES (17, 22, 23);
+
+INSERT INTO job_listing 
+VALUES (18, 13, 21);
+
+INSERT INTO job_listing 
+VALUES (19, 18, 44);
+
+
+
+
+INSERT INTO person_skill
+VALUES(209, 435786);
+
+INSERT INTO person_skill
+VALUES(209, 435785);
 
 INSERT INTO person_skill
 VALUES(4, 435786);
@@ -527,6 +560,9 @@ INSERT INTO person_skill
 VALUES(206, 435784);
 
 
+
+INSERT INTO job_skill
+VALUES(75, 435785, 'required');
 
 INSERT INTO job_skill
 VALUES(82, 435786, 'required');
@@ -764,19 +800,19 @@ INSERT INTO paid_by
 VALUES (9, 1);
 
 INSERT INTO paid_by
-VALUES (100, 8);
+VALUES (100, 19);
 
 INSERT INTO paid_by
-VALUES (105, 10);
+VALUES (105, 16);
 
 INSERT INTO paid_by
 VALUES (176, 4);
 
 INSERT INTO paid_by
-VALUES (234, 3);
+VALUES (234, 17);
 
 INSERT INTO paid_by
-VALUES (206, 1);
+VALUES (206, 18);
 
 INSERT INTO paid_by 
 VALUES (105, 6);
