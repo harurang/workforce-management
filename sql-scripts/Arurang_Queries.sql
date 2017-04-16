@@ -376,7 +376,7 @@ select avg(ratio) as average_increase from increase;
 -- vacancies and the number of jobless people who are qualified for the jobs of this category.
 
 -- vacant jobs
-with vacant_jobs as (
+with openings as (
   -- all job listings
   select job.job_code, job.cate_code
   from job inner join job_listing
@@ -390,7 +390,6 @@ with vacant_jobs as (
   on job_listing.job_code = job.job_code
 ),
 
-
 -- people who do not have a job
 unemployed as (
   select per_id, name 
@@ -399,8 +398,32 @@ unemployed as (
   select person.per_id, person.name
   from paid_by inner join person
   on paid_by.per_id = person.per_id
+),
+
+-- number skills each unemployed person has in common with an opening
+numbSkillsByPerson as (
+  select unemployed.name, openings.job_code, count(job_skill.ks_code) as numbPerSkills
+  from unemployed inner join person_skill
+  on unemployed.per_id = person_skill.per_id
+  inner join job_skill 
+  on person_skill.ks_code = job_skill.ks_code
+  inner join openings
+  on job_skill.job_code = openings.job_code
+  group by name, openings.job_code
+),
+
+-- number of skills required for each opening 
+numbSkillsByJob as (
+  select openings.job_code, count(job_skill.ks_code) as numbJobSkills
+  from job_skill inner join openings
+  on job_skill.job_code = openings.job_code
+  group by openings.job_code
 )
 
-max(vacancies - qualified ppl)
+-- qualified ppl 
+select numbSkillsByPerson.name, numbSkillsByJob.job_code 
+from numbSkillsByPerson inner join  numbSkillsByJob
+on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
+where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0;
 
--- Get count of qualified people per job
+--max(vacancies - qualified ppl)
