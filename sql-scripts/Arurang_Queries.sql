@@ -371,22 +371,26 @@ increase as (
 select avg(ratio) as average_increase from increase;
  
 -- 26
--- Not complete.
 -- Description: Find a job category that has the largest difference between
 -- vacancies and the number of jobless people who are qualified for the jobs of this category.
 
+-- jobs with openings not numb of openings 
 with openings as (
-  -- all job listings
-  select job.job_code, job.cate_code
-  from job inner join job_listing
-  on job.job_code = job_listing.job_code
-  minus
-  -- filled job listings
-  select job.job_code, job.cate_code
-  from paid_by inner join job_listing
-  on paid_by.listing_id = job_listing.listing_id
-  inner join job
-  on job_listing.job_code = job.job_code
+  select job_code, count(job_code) as numb_openings
+  from job_listing
+  natural join (
+    -- all job listings
+    select job.job_code
+    from job inner join job_listing
+    on job.job_code = job_listing.job_code
+    minus
+    -- filled job listings
+    select job.job_code
+    from paid_by inner join job_listing
+    on paid_by.listing_id = job_listing.listing_id
+    inner join job
+    on job_listing.job_code = job.job_code)
+    group by job_code
 ),
 
 -- people who do not have a job
@@ -417,12 +421,27 @@ numbSkillsByJob as (
   from job_skill inner join openings
   on job_skill.job_code = openings.job_code
   group by openings.job_code
-)
+),
 
 -- unemployed ppl that are qualified for an opening
-select numbSkillsByPerson.name, numbSkillsByJob.job_code 
-from numbSkillsByPerson inner join  numbSkillsByJob
-on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
-where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0;
+qualified as (
+  select numbSkillsByPerson.name, numbSkillsByJob.job_code, count(numbSkillsByJob.job_code) as numb_qualified
+  from numbSkillsByPerson inner join  numbSkillsByJob
+  on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
+  where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0
+  group by numbSkillsByPerson.name, numbSkillsByJob.job_code
+),
 
---max(vacancies - qualified ppl)
+-- sum(vacancies - qualified) according to job cateogry 
+differences as (
+  select cate_code, sum(openings.numb_openings - qualified.numb_qualified) as diff
+  from openings natural join qualified natural join job
+  group by cate_code
+)  
+
+-- select max difference
+select cate_code
+from differences 
+where diff = (select max(diff) from differences);
+
+
