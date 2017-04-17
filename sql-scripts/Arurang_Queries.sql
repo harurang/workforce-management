@@ -403,7 +403,7 @@ unemployed as (
   on paid_by.per_id = person.per_id
 ),
 
--- number skills each unemployed person has in common with an opening
+-- number skills each unemployed person has in common with each opening
 numbSkillsByPerson as (
   select unemployed.name, openings.job_code, count(job_skill.ks_code) as numbPerSkills
   from unemployed inner join person_skill
@@ -444,4 +444,113 @@ select cate_code
 from differences 
 where diff = (select max(diff) from differences);
 
+-- 27
 
+-- jobs with openings not numb of openings 
+with openings as (
+  select job_code, count(job_code) as numb_openings
+  from job_listing
+  natural join (
+    -- all job listings
+    select job.job_code
+    from job inner join job_listing
+    on job.job_code = job_listing.job_code
+    minus
+    -- filled job listings
+    select job.job_code
+    from paid_by inner join job_listing
+    on paid_by.listing_id = job_listing.listing_id
+    inner join job
+    on job_listing.job_code = job.job_code)
+    group by job_code
+),
+
+-- people who do not have a job
+unemployed as (
+  select per_id, name 
+  from person
+  minus 
+  select person.per_id, person.name
+  from paid_by inner join person
+  on paid_by.per_id = person.per_id
+),
+
+-- number skills each unemployed person has in common with each opening
+numbSkillsByPerson as (
+  select unemployed.name, openings.job_code, count(job_skill.ks_code) as numbPerSkills
+  from unemployed inner join person_skill
+  on unemployed.per_id = person_skill.per_id
+  inner join job_skill 
+  on person_skill.ks_code = job_skill.ks_code
+  inner join openings
+  on job_skill.job_code = openings.job_code
+  group by name, openings.job_code
+),
+
+-- number of skills required for each opening 
+numbSkillsByJob as (
+  select openings.job_code, count(job_skill.ks_code) as numbJobSkills
+  from job_skill inner join openings
+  on job_skill.job_code = openings.job_code
+  group by openings.job_code
+),
+
+-- unemployed ppl that are qualified for an opening
+qualified as (
+  select numbSkillsByPerson.name, numbSkillsByJob.job_code, count(numbSkillsByJob.job_code) as numb_qualified
+  from numbSkillsByPerson inner join  numbSkillsByJob
+  on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
+  where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0
+  group by numbSkillsByPerson.name, numbSkillsByJob.job_code
+),
+
+-- sum(vacancies - qualified) according to job cateogry 
+differences as (
+  select cate_code, sum(openings.numb_openings - qualified.numb_qualified) as diff
+  from openings natural join qualified natural join job
+  group by cate_code
+),
+
+COURSES AS (
+  SELECT C.TITLE, C.C_CODE, count(distinct E.PER_ID) numb_ppl_course_qualifies
+  FROM COURSE C INNER JOIN COURSE_KNOWLEDGE S
+  ON C.C_CODE = S.C_CODE
+  INNER JOIN PERSON_SKILL
+  ON PERSON_SKILL.KS_CODE = S.KS_CODE
+  INNER JOIN UNEMPLOYED E
+  ON PERSON_SKILL.PER_ID = E.PER_ID
+  WHERE NOT EXISTS (
+  
+    -- get all skills required by job category 
+    SELECT JOB_SKILL.KS_CODE
+    FROM JOB_SKILL INNER JOIN JOB
+    ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE
+    WHERE JOB.CATE_CODE = (
+      select cate_code
+      from differences 
+      where diff = (select max(diff) from differences))
+    MINUS
+    -- get all skills an unemployed person has
+    SELECT PERSON_SKILL.KS_CODE  
+    FROM UNEMPLOYED INNER JOIN PERSON_SKILL
+    ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID
+    
+    MINUS
+    -- get all the skills a course offers 
+    (SELECT PERSON_SKILL.KS_CODE
+    FROM COURSE A INNER JOIN COURSE_KNOWLEDGE B
+    ON A.C_CODE = B.C_CODE
+    INNER JOIN PERSON_SKILL
+    ON PERSON_SKILL.KS_CODE = B.KS_CODE
+    INNER JOIN UNEMPLOYED D
+    ON PERSON_SKILL.PER_ID = D.PER_ID
+    WHERE C.TITLE = A.TITLE
+    AND D.PER_ID = E.PER_ID)
+  )
+  group by C.TITLE, C.C_CODE
+)
+
+select title, numb_ppl_course_qualifies
+from courses
+where numb_ppl_course_qualifies = 
+  (select max(numb_ppl_course_qualifies) from courses);
