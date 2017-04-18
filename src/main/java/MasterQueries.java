@@ -12,7 +12,7 @@ public class MasterQueries {
 
             query1();
             query2();
-            query3();          // incorrect
+            query3();
             query4();
             query5();
             query6();
@@ -23,9 +23,9 @@ public class MasterQueries {
             query10();
             query11();
             query15();
-            query16();          // incorrect
-            query17();          // incorrect
-            query18();          // incorrect
+            query16();          
+            query17();          
+            query18();          
             query19();
             query20();
             query21();
@@ -93,7 +93,7 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT COMP_ID, SUM(nvl((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, \n" +
+                    "SELECT COMP_ID, SUM(NVL((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, \n" +
                             "SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL\n" +
                             "FROM PAID_BY INNER JOIN JOB_LISTING\n" +
                             "ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
@@ -119,8 +119,8 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT PER_ID, JOB_TITLE, START_DATE, END_DATE \n" +
-                            "FROM JOB_HISTORY  NATURAL JOIN JOB \n" +
+                    "SELECT PER_ID, JOB_TITLE, START_DATE, END_DATE\n" +
+                            "FROM JOB_HISTORY NATURAL JOIN JOB\n" +
                             "WHERE PER_ID=2");
             while ( rset.next() ) {
                 Integer perId = rset.getInt("per_id");
@@ -170,7 +170,7 @@ public class MasterQueries {
                             "\n" +
                             "MINUS\n" +
                             "\n" +
-                            "-- get person skills \n" +
+                            "-- ger person skills\n" +
                             "SELECT KS_CODE FROM PERSON_SKILL WHERE PER_ID=2");
             while ( rset.next() ) {
                 Integer skillCode = rset.getInt("ks_code");
@@ -256,13 +256,11 @@ public class MasterQueries {
                             "WHERE NOT EXISTS (\n" +
                             "\n" +
                             "  SELECT JOB_SKILL.KS_CODE\n" +
-                            "  FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "  ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "  FROM JOB_SKILL \n" +
                             "  WHERE JOB_CODE=44\n" +
                             "  MINUS\n" +
                             "  SELECT PERSON_SKILL.KS_CODE \n" +
-                            "  FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "  ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "  FROM PERSON_SKILL\n" +
                             "  WHERE PER_ID=176\n" +
                             "  \n" +
                             "  MINUS\n" +
@@ -345,13 +343,11 @@ public class MasterQueries {
                             "    WHERE NOT EXISTS (\n" +
                             "    \n" +
                             "      SELECT JOB_SKILL.KS_CODE\n" +
-                            "      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "      FROM JOB_SKILL \n" +
                             "      WHERE JOB_CODE=44\n" +
                             "      MINUS\n" +
                             "      SELECT PERSON_SKILL.KS_CODE \n" +
-                            "      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "      FROM PERSON_SKILL\n" +
                             "      WHERE PER_ID=176\n" +
                             "      \n" +
                             "      MINUS\n" +
@@ -394,7 +390,7 @@ public class MasterQueries {
                             "  \n" +
                             "  MINUS\n" +
                             "  \n" +
-                            "  -- get skills of person \n" +
+                            "  -- get skills of person\n" +
                             "  (SELECT KS_CODE\n" +
                             "  FROM PERSON C INNER JOIN PERSON_SKILL D \n" +
                             "  ON C.PER_ID = D.PER_ID\n" +
@@ -416,18 +412,18 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT NAME\n" +
-                            "FROM PERSON \n" +
-                            "WHERE NOT EXISTS (\n" +
+                    "WITH PERSON_REQUIRED_SKILL_CNT AS (\n" +
+                            "  SELECT PER_ID, COUNT(KS_CODE) AS SKILL_COUNT\n" +
+                            "  FROM PERSON_SKILL NATURAL JOIN JOB_SKILL\n" +
+                            "  WHERE JOB_CODE = 31\n" +
+                            "  GROUP BY PER_ID\n" +
+                            ")\n" +
                             "\n" +
-                            "SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE \n" +
-                            "WHERE JOB_CODE=67 \n" +
-                            "MINUS\n" +
-                            "SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE");
+                            "SELECT PER_ID\n" +
+                            "FROM PERSON_REQUIRED_SKILL_CNT\n" +
+                            "WHERE SKILL_COUNT = (SELECT COUNT(*) - 1\n" +
+                            "FROM JOB_SKILL\n" +
+                            "WHERE JOB_CODE = 31)");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -443,23 +439,51 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT DISTINCT PERSON_SKILL.KS_CODE, COUNT(DISTINCT NAME) AS TOTAL_COUNT\n" +
-                            "FROM (SELECT NAME\n" +
-                            "      FROM PERSON \n" +
-                            "      WHERE NOT EXISTS (\n" +
-                            "      \n" +
-                            "      SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE \n" +
-                            "      WHERE JOB_CODE=67 \n" +
-                            "      MINUS\n" +
-                            "      SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE)\n" +
-                            "), PERSON_SKILL, JOB \n" +
-                            "WHERE JOB_CODE=91\n" +
-                            "GROUP BY PERSON_SKILL.KS_CODE\n" +
-                            "ORDER BY TOTAL_COUNT ASC");
+                    "WITH PERSON_REQUIRED_SKILL_CNT AS (\n" +
+                            "  SELECT PER_ID, COUNT(KS_CODE) AS SKILL_COUNT\n" +
+                            "  FROM PERSON_SKILL NATURAL JOIN JOB_SKILL\n" +
+                            "  WHERE JOB_CODE = 31\n" +
+                            "  GROUP BY PER_ID\n" +
+                            "),\n" +
+                            "\n" +
+                            "MISSING_ONE AS (\n" +
+                            "  SELECT PER_ID\n" +
+                            "  FROM PERSON_REQUIRED_SKILL_CNT\n" +
+                            "  WHERE SKILL_COUNT = (SELECT COUNT(*) - 1\n" +
+                            "  FROM JOB_SKILL\n" +
+                            "  WHERE JOB_CODE = 31)\n" +
+                            "),\n" +
+                            "\n" +
+                            "MISSING_AND_SUPRLUS_SKILLS AS (\n" +
+                            "  SELECT KS_CODE\n" +
+                            "  FROM PERSON_SKILL A INNER JOIN MISSING_ONE\n" +
+                            "  ON A.PER_ID = MISSING_ONE.PER_ID\n" +
+                            "  \n" +
+                            "  WHERE EXISTS (\n" +
+                            "    -- get skills of job\n" +
+                            "    SELECT KS_CODE \n" +
+                            "    FROM JOB_SKILL\n" +
+                            "    WHERE JOB_CODE = 31\n" +
+                            "    \n" +
+                            "    MINUS\n" +
+                            "    \n" +
+                            "    -- skills of people\n" +
+                            "    SELECT KS_CODE\n" +
+                            "    FROM MISSING_ONE\n" +
+                            "    INNER JOIN PERSON \n" +
+                            "    ON MISSING_ONE.PER_ID = PERSON.PER_ID\n" +
+                            "    INNER JOIN PERSON_SKILL B\n" +
+                            "    ON PERSON.PER_ID = B.PER_ID\n" +
+                            "    WHERE A.KS_CODE = B.KS_CODE\n" +
+                            "  )\n" +
+                            ")\n" +
+                            "\n" +
+                            "SELECT JOB_SKILL.KS_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMB_MISSING_SKILL\n" +
+                            "FROM JOB_SKILL INNER JOIN MISSING_AND_SUPRLUS_SKILLS\n" +
+                            "ON JOB_SKILL.KS_CODE = MISSING_AND_SUPRLUS_SKILLS.KS_CODE\n" +
+                            "WHERE JOB_SKILL.JOB_CODE = 31\n" +
+                            "GROUP BY JOB_SKILL.KS_CODE\n" +
+                            "ORDER BY NUMB_MISSING_SKILL ASC");
             while ( rset.next() ) {
                 Integer perCode = rset.getInt("ks_code");
                 Integer totalCount = rset.getInt("total_count");
@@ -475,7 +499,7 @@ public class MasterQueries {
         try {
             Statement stmt = conn.createStatement();
 
-            ResultSet rset = stmt.executeQuery(
+            ResultSet rset = stmt.executeQuer{
                     "WITH NEEDED_SKILLS AS ( \n" +
                     "\n" +
                     "SELECT KS_CODE \n" +
@@ -600,12 +624,11 @@ public class MasterQueries {
                 Integer ksCode = rset.getString("ks_code");
                 Integer skillsCount = rset.getString("skills_count");
                 System.out.println("Ks_Code: " + ksCode + "\n" + "Skills_Count:" + skillsCount + "\n");
-            }
+             }
         } catch(Exception e) {
             System.out.println("\nError at query 20: " + e);
         }
     }
- 
 
 
     public static void query21 () {
@@ -614,16 +637,16 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "select name \n" +
-                            "from job_history inner join person\n" +
-                            "on person.per_id = job_history.per_id\n" +
-                            "inner join job_listing \n" +
-                            "on job_history.listing_id = job_listing.listing_id\n" +
-                            "inner join job\n" +
-                            "on job_listing.job_code = job.job_code\n" +
-                            "inner join job_category\n" +
-                            "on job.cate_code = job_category.cate_code \n" +
-                            "where job_category.title = 'Computer User Support Specialists'\n");
+                    "SELECT NAME \n" +
+                            "FROM JOB_HISTORY INNER JOIN PERSON\n" +
+                            "ON PERSON.PER_ID = JOB_HISTORY.PER_ID\n" +
+                            "INNER JOIN JOB_LISTING \n" +
+                            "ON JOB_HISTORY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
+                            "INNER JOIN JOB\n" +
+                            "ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE\n" +
+                            "INNER JOIN JOB_CATEGORY\n" +
+                            "ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE \n" +
+                            "WHERE JOB_CATEGORY.TITLE = 'Computer User Support Specialists'");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -639,25 +662,25 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "with unemployed as (\n" +
-                            "  select per_id, name \n" +
-                            "  from person\n" +
-                            "  minus \n" +
-                            "  select person.per_id, person.name\n" +
-                            "  from paid_by inner join person\n" +
-                            "  on paid_by.per_id = person.per_id\n" +
+                    "WITH UNEMPLOYED AS (\n" +
+                            "  SELECT PER_ID, NAME \n" +
+                            "  FROM PERSON\n" +
+                            "  MINUS \n" +
+                            "  SELECT PERSON.PER_ID, PERSON.NAME\n" +
+                            "  FROM PAID_BY INNER JOIN PERSON\n" +
+                            "  ON PAID_BY.PER_ID = PERSON.PER_ID\n" +
                             ")\n" +
                             "\n" +
-                            "select name \n" +
-                            "from unemployed inner join job_history \n" +
-                            "on job_history.per_id = unemployed.per_id\n" +
-                            "inner join job_listing\n" +
-                            "on job_listing.listing_id = job_history.listing_id\n" +
-                            "inner join job\n" +
-                            "on job_listing.job_code = job.job_code\n" +
-                            "inner join job_category\n" +
-                            "on job.cate_code = job_category.cate_code \n" +
-                            "where job_category.title = 'Computer User Support Specialists'");
+                            "SELECT NAME \n" +
+                            "FROM UNEMPLOYED INNER JOIN JOB_HISTORY \n" +
+                            "ON JOB_HISTORY.PER_ID = UNEMPLOYED.PER_ID\n" +
+                            "INNER JOIN JOB_LISTING\n" +
+                            "ON JOB_LISTING.LISTING_ID = JOB_HISTORY.LISTING_ID\n" +
+                            "INNER JOIN JOB\n" +
+                            "ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE\n" +
+                            "INNER JOIN JOB_CATEGORY\n" +
+                            "ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE \n" +
+                            "WHERE JOB_CATEGORY.TITLE = 'Computer User Support Specialists'");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 System.out.println("Name: " + name + "\n");
@@ -684,7 +707,7 @@ public class MasterQueries {
                             "  GROUP BY COMP_NAME\n" +
                             "),\n" +
                             "\n" +
-                            "-- gets number of employees for each company\n" +
+                            "-- Gets number of employees for each company \n" +
                             "COMP_EMPLOYEE_COUNT AS (\n" +
                             "SELECT COMP_NAME, COUNT(*) AS NUMB_EMPLOYEES \n" +
                             "  FROM PAID_BY INNER JOIN JOB_LISTING\n" +
@@ -727,7 +750,7 @@ public class MasterQueries {
                             "  GROUP BY PRIMARY_SECTOR\n" +
                             "),\n" +
                             "\n" +
-                            "-- number of employees by sector\n" +
+                            "-- Number of employees by sector \n" +
                             "SECTOR_EMPLOYEE_COUNT AS (\n" +
                             "  SELECT PRIMARY_SECTOR, COUNT(*) AS NUMB_EMPLOYEES \n" +
                             "  FROM PAID_BY INNER JOIN JOB_LISTING\n" +
@@ -759,47 +782,47 @@ public class MasterQueries {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "with previous_sal as (\n" +
+                    "WITH PREVIOUS_SAL AS (\n" +
                             "  -- get the previous salary or get the previous pay rate * hours\n" +
-                            "  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal\n" +
-                            "  from person \n" +
-                            "  inner join job_history \n" +
-                            "  on person.per_id = job_history.per_id\n" +
-                            "  inner join job_listing\n" +
-                            "  on job_history.listing_id = job_listing.listing_id\n" +
-                            "  inner join job\n" +
-                            "  on job.job_code = job_listing.job_code\n" +
-                            "  inner join company\n" +
-                            "  on job_listing.comp_id = company.comp_id\n" +
-                            "  where primary_sector = 'Software Engineering'\n" +
-                            "  group by name\n" +
+                            "  SELECT NAME, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS OLD_SAL\n" +
+                            "  FROM PERSON \n" +
+                            "  INNER JOIN JOB_HISTORY \n" +
+                            "  ON PERSON.PER_ID = JOB_HISTORY.PER_ID\n" +
+                            "  INNER JOIN JOB_LISTING\n" +
+                            "  ON JOB_HISTORY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
+                            "  INNER JOIN JOB\n" +
+                            "  ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
+                            "  INNER JOIN COMPANY\n" +
+                            "  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID\n" +
+                            "  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'\n" +
+                            "  GROUP BY NAME\n" +
                             "),\n" +
                             "\n" +
-                            "-- Gets the current salary of employees in the Software Engineering primary sector\n" +
-                            "current_sal as (\n" +
-                            "  -- get the current salary or get the current pay rate * hours\n" +
-                            "  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as new_sal \n" +
-                            "  from person \n" +
-                            "  inner join paid_by \n" +
-                            "  on person.per_id = paid_by.per_id\n" +
-                            "  inner join job_listing\n" +
-                            "  on job_listing.listing_id = paid_by.listing_id\n" +
-                            "  inner join job\n" +
-                            "  on job_listing.job_code = job.job_code\n" +
-                            "  inner join company\n" +
-                            "  on job_listing.comp_id = company.comp_id\n" +
-                            "  where primary_sector = 'Software Engineering'\n" +
-                            "  group by name\n" +
+                            "-- gets the current salary of employes in the software engineering primary sector \n" +
+                            "CURRENT_SAL AS (\n" +
+                            "  -- Get the current salary or get the current pay rate * hours \n" +
+                            "  SELECT NAME, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS NEW_SAL \n" +
+                            "  FROM PERSON \n" +
+                            "  INNER JOIN PAID_BY \n" +
+                            "  ON PERSON.PER_ID = PAID_BY.PER_ID\n" +
+                            "  INNER JOIN JOB_LISTING\n" +
+                            "  ON JOB_LISTING.LISTING_ID = PAID_BY.LISTING_ID\n" +
+                            "  INNER JOIN JOB\n" +
+                            "  ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE\n" +
+                            "  INNER JOIN COMPANY\n" +
+                            "  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID\n" +
+                            "  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'\n" +
+                            "  GROUP BY NAME\n" +
                             "),\n" +
                             "\n" +
-                            "increase as (\n" +
-                            "  select previous_sal.name, new_sal/old_sal as ratio from previous_sal \n" +
-                            "  inner join current_sal\n" +
-                            "  on previous_sal.name = current_sal.name\n" +
-                            "  where new_sal/old_sal > 1\n" +
+                            "INCREASE AS (\n" +
+                            "  SELECT PREVIOUS_SAL.NAME, NEW_SAL/OLD_SAL AS RATIO FROM PREVIOUS_SAL \n" +
+                            "  INNER JOIN CURRENT_SAL\n" +
+                            "  ON PREVIOUS_SAL.NAME = CURRENT_SAL.NAME\n" +
+                            "  WHERE NEW_SAL/OLD_SAL > 1\n" +
                             ")\n" +
                             "\n" +
-                            "select avg(ratio) as average_increase from increase");
+                            "SELECT AVG(RATIO) AS AVERAGE_INCREASE FROM INCREASE");
             while ( rset.next() ) {
                 Float averageIncrease = rset.getFloat("average_increase");
                 System.out.println("Average Increase: " + averageIncrease + "\n");
