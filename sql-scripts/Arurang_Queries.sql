@@ -1,6 +1,6 @@
 -- 3
--- Description: List companies’ labor cost (total salaries and wage rates by 1920 hours) in descending order. 
-SELECT COMP_ID, SUM(nvl((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, 
+-- DESCRIPTION: LIST COMPANIES’ LABOR COST (TOTAL SALARIES AND WAGE RATES BY 1920 HOURS) IN DESCENDING ORDER. 
+SELECT COMP_ID, SUM(NVL((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, 
 SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL
 FROM PAID_BY INNER JOIN JOB_LISTING
 ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
@@ -10,14 +10,14 @@ GROUP BY COMP_ID
 ORDER BY TOTAL_SAL DESC;
 
 -- 5
--- Description: Gets the skills for each person.
+-- DESCRIPTION: GETS THE SKILLS FOR EACH PERSON.
 SELECT PERSON.NAME, KNOWLEDGE_SKILL.KS_CODE 
 FROM PERSON LEFT JOIN PERSON_SKILL ON PERSON.PER_ID = PERSON_SKILL.PER_ID 
 LEFT JOIN KNOWLEDGE_SKILL ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE;
 
 -- 6 
--- Description: Gets the skill gap between a worker and their job.
--- get job skills of person
+-- DESCRIPTION: GETS THE SKILL GAP BETWEEN A WORKER AND THEIR JOB.
+-- GET JOB SKILLS OF PERSON
 SELECT KS_CODE 
 FROM PAID_BY INNER JOIN JOB_LISTING 
 ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
@@ -27,25 +27,25 @@ WHERE PER_ID=2
 
 MINUS
 
--- get person skills 
+-- GET PERSON SKILLS 
 SELECT KS_CODE FROM PERSON_SKILL WHERE PER_ID=2;
 
 -- 7
--- a
--- Description: Gets required skills for each job.
+-- A
+-- DESCRIPTION: GETS REQUIRED SKILLS FOR EACH JOB.
 SELECT JOB_TITLE, TITLE AS SKILL 
 FROM JOB_SKILL LEFT JOIN JOB ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE 
 LEFT JOIN KNOWLEDGE_SKILL ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
-WHERE IMPORTANCE='required';
+WHERE IMPORTANCE='REQUIRED';
 
 -- 7
--- b
--- Description: Gets the core skill for each job category.
+-- B
+-- DESCRIPTION: GETS THE CORE SKILL FOR EACH JOB CATEGORY.
 SELECT JOB_CATEGORY.TITLE AS JOB_CATEGORY_TITLE, KNOWLEDGE_SKILL.TITLE AS SKILL_TITLE
 FROM JOB_CATEGORY LEFT JOIN KNOWLEDGE_SKILL ON JOB_CATEGORY.KS_CODE = KNOWLEDGE_SKILL.KS_CODE;
 
 -- 8
--- Description: Gets the difference between skills required by a job and skills a person has.
+-- DESCRIPTION: GETS THE DIFFERENCE BETWEEN SKILLS REQUIRED BY A JOB AND SKILLS A PERSON HAS.
 SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE 
 FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL 
 ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
@@ -57,7 +57,7 @@ ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
 WHERE PER_ID=5;
 
 -- 9
--- Description: Gets the course that provides all the skills a person needs for a certain job.
+-- DESCRIPTION: GETS THE COURSE THAT PROVIDES ALL THE SKILLS A PERSON NEEDS FOR A CERTAIN JOB.
 SELECT DISTINCT C.TITLE, C.C_CODE
 FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S
 ON C.C_CODE = S.C_CODE
@@ -79,8 +79,8 @@ WHERE NOT EXISTS (
 );
 
 -- 10
--- Description: Gets the earliest course date that provides all the skills a person needs for a 
--- certain job.
+-- DESCRIPTION: GETS THE EARLIEST COURSE DATE THAT PROVIDES ALL THE SKILLS A PERSON NEEDS FOR A 
+-- CERTAIN JOB.
 WITH COURSES AS (
   SELECT TITLE, SECTION.START_DATE, SECTION.END_DATE, SECTION.FORMAT, SECTION.OFFERED_BY FROM SECTION NATURAL JOIN (
     SELECT DISTINCT C.TITLE, C.C_CODE
@@ -112,7 +112,7 @@ FROM COURSES
 WHERE START_DATE = (SELECT MIN(TO_DATE(START_DATE)) FROM COURSES);
 
 -- 11 
--- Description: Gets the cheapest course that provides all the skills a person needs for a specific job.
+-- DESCRIPTION: GETS THE CHEAPEST COURSE THAT PROVIDES ALL THE SKILLS A PERSON NEEDS FOR A SPECIFIC JOB.
 WITH COURSES AS (
   SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (
     SELECT DISTINCT C.TITLE, C.C_CODE
@@ -140,23 +140,23 @@ WITH COURSES AS (
 SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES);
 
 -- 12
--- Provided query. 
+-- PROVIDED QUERY. 
 
--- Description: Gets a list of people and their email who are qualified for a specific job. 
+-- DESCRIPTION: GETS A LIST OF PEOPLE AND THEIR EMAIL WHO ARE QUALIFIED FOR A SPECIFIC JOB. 
 --15
 SELECT DISTINCT NAME, EMAIL 
 FROM PERSON A INNER JOIN PERSON_SKILL B
 ON A.PER_ID = B.PER_ID 
 WHERE NOT EXISTS (
 
-  -- get skills of specific job
+  -- GET SKILLS OF SPECIFIC JOB
   SELECT JOB_SKILL.KS_CODE
   FROM JOB_SKILL
   WHERE JOB_CODE=44
   
   MINUS
   
-  -- get skills of person 
+  -- GET SKILLS OF PERSON 
   (SELECT KS_CODE
   FROM PERSON C INNER JOIN PERSON_SKILL D 
   ON C.PER_ID = D.PER_ID
@@ -177,7 +177,6 @@ WHERE SKILL_COUNT = (SELECT COUNT(*) - 1
 FROM JOB_SKILL
 WHERE JOB_CODE = 31);
 
-
 -- 17
 WITH PERSON_REQUIRED_SKILL_CNT AS (
   SELECT PER_ID, COUNT(KS_CODE) AS SKILL_COUNT
@@ -186,7 +185,7 @@ WITH PERSON_REQUIRED_SKILL_CNT AS (
   GROUP BY PER_ID
 ),
 
-MISSING_ONE as (
+MISSING_ONE AS (
   SELECT PER_ID
   FROM PERSON_REQUIRED_SKILL_CNT
   WHERE SKILL_COUNT = (SELECT COUNT(*) - 1
@@ -200,14 +199,14 @@ MISSING_AND_SUPRLUS_SKILLS AS (
   ON A.PER_ID = MISSING_ONE.PER_ID
   
   WHERE EXISTS (
-    -- get skills of job
+    -- GET SKILLS OF JOB
     SELECT KS_CODE 
     FROM JOB_SKILL
     WHERE JOB_CODE = 31
     
     MINUS
     
-    -- skills of people
+    -- SKILLS OF PEOPLE
     SELECT KS_CODE
     FROM MISSING_ONE
     INNER JOIN PERSON 
@@ -226,44 +225,44 @@ GROUP BY JOB_SKILL.KS_CODE
 ORDER BY NUMB_MISSING_SKILL ASC;
 
 -- 21
--- Description: Finds people who once held a job of specific job category.
-select name 
-from job_history inner join person
-on person.per_id = job_history.per_id
-inner join job_listing 
-on job_history.listing_id = job_listing.listing_id
-inner join job
-on job_listing.job_code = job.job_code
-inner join job_category
-on job.cate_code = job_category.cate_code 
-where job_category.title = 'Computer User Support Specialists';
+-- DESCRIPTION: FINDS PEOPLE WHO ONCE HELD A JOB OF SPECIFIC JOB CATEGORY.
+SELECT NAME 
+FROM JOB_HISTORY INNER JOIN PERSON
+ON PERSON.PER_ID = JOB_HISTORY.PER_ID
+INNER JOIN JOB_LISTING 
+ON JOB_HISTORY.LISTING_ID = JOB_LISTING.LISTING_ID
+INNER JOIN JOB
+ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE
+INNER JOIN JOB_CATEGORY
+ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE 
+WHERE JOB_CATEGORY.TITLE = 'COMPUTER USER SUPPORT SPECIALISTS';
 
 -- 22
--- Description: Finds unemployed people who once held a job of a specific job cateogry. 
-with unemployed as (
-  select per_id, name 
-  from person
-  minus 
-  select person.per_id, person.name
-  from paid_by inner join person
-  on paid_by.per_id = person.per_id
+-- DESCRIPTION: FINDS UNEMPLOYED PEOPLE WHO ONCE HELD A JOB OF A SPECIFIC JOB CATEOGRY. 
+WITH UNEMPLOYED AS (
+  SELECT PER_ID, NAME 
+  FROM PERSON
+  MINUS 
+  SELECT PERSON.PER_ID, PERSON.NAME
+  FROM PAID_BY INNER JOIN PERSON
+  ON PAID_BY.PER_ID = PERSON.PER_ID
 )
 
-select name 
-from unemployed inner join job_history 
-on job_history.per_id = unemployed.per_id
-inner join job_listing
-on job_listing.listing_id = job_history.listing_id
-inner join job
-on job_listing.job_code = job.job_code
-inner join job_category
-on job.cate_code = job_category.cate_code 
-where job_category.title = 'Computer User Support Specialists';
+SELECT NAME 
+FROM UNEMPLOYED INNER JOIN JOB_HISTORY 
+ON JOB_HISTORY.PER_ID = UNEMPLOYED.PER_ID
+INNER JOIN JOB_LISTING
+ON JOB_LISTING.LISTING_ID = JOB_HISTORY.LISTING_ID
+INNER JOIN JOB
+ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE
+INNER JOIN JOB_CATEGORY
+ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE 
+WHERE JOB_CATEGORY.TITLE = 'COMPUTER USER SUPPORT SPECIALISTS';
 
 -- 23
--- Description: Gets max salary or max number of employees of company
+-- DESCRIPTION: GETS MAX SALARY OR MAX NUMBER OF EMPLOYEES OF COMPANY
 
--- gets sum of salary or wages for each company
+-- GETS SUM OF SALARY OR WAGES FOR EACH COMPANY
 WITH COMP_PAYCHECKS AS (
   SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, COMP_NAME 
   FROM PAID_BY INNER JOIN JOB_LISTING
@@ -275,7 +274,7 @@ WITH COMP_PAYCHECKS AS (
   GROUP BY COMP_NAME
 ),
 
--- gets number of employees for each company
+-- GETS NUMBER OF EMPLOYEES FOR EACH COMPANY
 COMP_EMPLOYEE_COUNT AS (
 SELECT COMP_NAME, COUNT(*) AS NUMB_EMPLOYEES 
   FROM PAID_BY INNER JOIN JOB_LISTING
@@ -291,9 +290,9 @@ WHERE SUM_SAL =
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT);
 
 -- 24
--- Description: Gets max salary or max number of employees of sector
+-- DESCRIPTION: GETS MAX SALARY OR MAX NUMBER OF EMPLOYEES OF SECTOR
 
--- total paycheck by sector
+-- TOTAL PAYCHECK BY SECTOR
 WITH SECTOR_PAYCHECKS AS (
   SELECT SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS SUM_SAL, PRIMARY_SECTOR 
   FROM PAID_BY INNER JOIN JOB_LISTING
@@ -305,7 +304,7 @@ WITH SECTOR_PAYCHECKS AS (
   GROUP BY PRIMARY_SECTOR
 ),
 
--- number of employees by sector
+-- NUMBER OF EMPLOYEES BY SECTOR
 SECTOR_EMPLOYEE_COUNT AS (
   SELECT PRIMARY_SECTOR, COUNT(*) AS NUMB_EMPLOYEES 
   FROM PAID_BY INNER JOIN JOB_LISTING
@@ -321,194 +320,194 @@ WHERE SUM_SAL =
 NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM SECTOR_EMPLOYEE_COUNT);
 
 -- 25
--- Finds the average salary increase for workers in a specific sector. 
+-- FINDS THE AVERAGE SALARY INCREASE FOR WORKERS IN A SPECIFIC SECTOR. 
 
--- Gets the previous salary of employees in the Software Engineering primary sector
-with previous_sal as (
-  -- get the previous salary or get the previous pay rate * hours
-  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as old_sal
-  from person 
-  inner join job_history 
-  on person.per_id = job_history.per_id
-  inner join job_listing
-  on job_history.listing_id = job_listing.listing_id
-  inner join job
-  on job.job_code = job_listing.job_code
-  inner join company
-  on job_listing.comp_id = company.comp_id
-  where primary_sector = 'Software Engineering'
-  group by name
+-- GETS THE PREVIOUS SALARY OF EMPLOYEES IN THE SOFTWARE ENGINEERING PRIMARY SECTOR
+WITH PREVIOUS_SAL AS (
+  -- GET THE PREVIOUS SALARY OR GET THE PREVIOUS PAY RATE * HOURS
+  SELECT NAME, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS OLD_SAL
+  FROM PERSON 
+  INNER JOIN JOB_HISTORY 
+  ON PERSON.PER_ID = JOB_HISTORY.PER_ID
+  INNER JOIN JOB_LISTING
+  ON JOB_HISTORY.LISTING_ID = JOB_LISTING.LISTING_ID
+  INNER JOIN JOB
+  ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+  INNER JOIN COMPANY
+  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID
+  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'
+  GROUP BY NAME
 ),
 
--- Gets the current salary of employees in the Software Engineering primary sector
-current_sal as (
-  -- get the current salary or get the current pay rate * hours
-  select name, sum(nvl(pay_rate,0) + nvl(hours * pay_rate, 0)) as new_sal 
-  from person 
-  inner join paid_by 
-  on person.per_id = paid_by.per_id
-  inner join job_listing
-  on job_listing.listing_id = paid_by.listing_id
-  inner join job
-  on job_listing.job_code = job.job_code
-  inner join company
-  on job_listing.comp_id = company.comp_id
-  where primary_sector = 'Software Engineering'
-  group by name
+-- GETS THE CURRENT SALARY OF EMPLOYEES IN THE SOFTWARE ENGINEERING PRIMARY SECTOR
+CURRENT_SAL AS (
+  -- GET THE CURRENT SALARY OR GET THE CURRENT PAY RATE * HOURS
+  SELECT NAME, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS NEW_SAL 
+  FROM PERSON 
+  INNER JOIN PAID_BY 
+  ON PERSON.PER_ID = PAID_BY.PER_ID
+  INNER JOIN JOB_LISTING
+  ON JOB_LISTING.LISTING_ID = PAID_BY.LISTING_ID
+  INNER JOIN JOB
+  ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE
+  INNER JOIN COMPANY
+  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID
+  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'
+  GROUP BY NAME
 ),
 
-increase as (
-  select previous_sal.name, new_sal/old_sal as ratio from previous_sal 
-  inner join current_sal
-  on previous_sal.name = current_sal.name
-  where new_sal/old_sal > 1
+INCREASE AS (
+  SELECT PREVIOUS_SAL.NAME, NEW_SAL/OLD_SAL AS RATIO FROM PREVIOUS_SAL 
+  INNER JOIN CURRENT_SAL
+  ON PREVIOUS_SAL.NAME = CURRENT_SAL.NAME
+  WHERE NEW_SAL/OLD_SAL > 1
 )
 
-select avg(ratio) as average_increase from increase;
+SELECT AVG(RATIO) AS AVERAGE_INCREASE FROM INCREASE;
  
 -- 26
--- Description: Find a job category that has the largest difference between
--- vacancies and the number of jobless people who are qualified for the jobs of this category.
+-- DESCRIPTION: FIND A JOB CATEGORY THAT HAS THE LARGEST DIFFERENCE BETWEEN
+-- VACANCIES AND THE NUMBER OF JOBLESS PEOPLE WHO ARE QUALIFIED FOR THE JOBS OF THIS CATEGORY.
 
--- jobs with openings not numb of openings 
-with openings as (
-  select job_code, count(job_code) as numb_openings
-  from job_listing
-  natural join (
-    -- all job listings
-    select job.job_code
-    from job inner join job_listing
-    on job.job_code = job_listing.job_code
-    minus
-    -- filled job listings
-    select job.job_code
-    from paid_by inner join job_listing
-    on paid_by.listing_id = job_listing.listing_id
-    inner join job
-    on job_listing.job_code = job.job_code)
-    group by job_code
+-- JOBS WITH OPENINGS NOT NUMB OF OPENINGS 
+WITH OPENINGS AS (
+  SELECT JOB_CODE, COUNT(JOB_CODE) AS NUMB_OPENINGS
+  FROM JOB_LISTING
+  NATURAL JOIN (
+    -- ALL JOB LISTINGS
+    SELECT JOB.JOB_CODE
+    FROM JOB INNER JOIN JOB_LISTING
+    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+    MINUS
+    -- FILLED JOB LISTINGS
+    SELECT JOB.JOB_CODE
+    FROM PAID_BY INNER JOIN JOB_LISTING
+    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
+    INNER JOIN JOB
+    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)
+    GROUP BY JOB_CODE
 ),
 
--- people who do not have a job
-unemployed as (
-  select per_id, name 
-  from person
-  minus 
-  select person.per_id, person.name
-  from paid_by inner join person
-  on paid_by.per_id = person.per_id
+-- PEOPLE WHO DO NOT HAVE A JOB
+UNEMPLOYED AS (
+  SELECT PER_ID, NAME 
+  FROM PERSON
+  MINUS 
+  SELECT PERSON.PER_ID, PERSON.NAME
+  FROM PAID_BY INNER JOIN PERSON
+  ON PAID_BY.PER_ID = PERSON.PER_ID
 ),
 
--- number skills each unemployed person has in common with each opening
-numbSkillsByPerson as (
-  select unemployed.name, openings.job_code, count(job_skill.ks_code) as numbPerSkills
-  from unemployed inner join person_skill
-  on unemployed.per_id = person_skill.per_id
-  inner join job_skill 
-  on person_skill.ks_code = job_skill.ks_code
-  inner join openings
-  on job_skill.job_code = openings.job_code
-  group by name, openings.job_code
+-- NUMBER SKILLS EACH UNEMPLOYED PERSON HAS IN COMMON WITH EACH OPENING
+NUMBSKILLSBYPERSON AS (
+  SELECT UNEMPLOYED.NAME, OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBPERSKILLS
+  FROM UNEMPLOYED INNER JOIN PERSON_SKILL
+  ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID
+  INNER JOIN JOB_SKILL 
+  ON PERSON_SKILL.KS_CODE = JOB_SKILL.KS_CODE
+  INNER JOIN OPENINGS
+  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE
+  GROUP BY NAME, OPENINGS.JOB_CODE
 ),
 
--- number of skills required for each opening 
-numbSkillsByJob as (
-  select openings.job_code, count(job_skill.ks_code) as numbJobSkills
-  from job_skill inner join openings
-  on job_skill.job_code = openings.job_code
-  group by openings.job_code
+-- NUMBER OF SKILLS REQUIRED FOR EACH OPENING 
+NUMBSKILLSBYJOB AS (
+  SELECT OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBJOBSKILLS
+  FROM JOB_SKILL INNER JOIN OPENINGS
+  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE
+  GROUP BY OPENINGS.JOB_CODE
 ),
 
--- unemployed ppl that are qualified for an opening
-qualified as (
-  select numbSkillsByPerson.name, numbSkillsByJob.job_code, count(numbSkillsByJob.job_code) as numb_qualified
-  from numbSkillsByPerson inner join  numbSkillsByJob
-  on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
-  where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0
-  group by numbSkillsByPerson.name, numbSkillsByJob.job_code
+-- UNEMPLOYED PPL THAT ARE QUALIFIED FOR AN OPENING
+QUALIFIED AS (
+  SELECT NUMBSKILLSBYPERSON.NAME, NUMBSKILLSBYJOB.JOB_CODE, COUNT(NUMBSKILLSBYJOB.JOB_CODE) AS NUMB_QUALIFIED
+  FROM NUMBSKILLSBYPERSON INNER JOIN  NUMBSKILLSBYJOB
+  ON NUMBSKILLSBYPERSON.JOB_CODE = NUMBSKILLSBYJOB.JOB_CODE
+  WHERE (NUMBSKILLSBYJOB.NUMBJOBSKILLS - NUMBSKILLSBYPERSON.NUMBPERSKILLS) = 0
+  GROUP BY NUMBSKILLSBYPERSON.NAME, NUMBSKILLSBYJOB.JOB_CODE
 ),
 
--- sum(vacancies - qualified) according to job cateogry 
-differences as (
-  select cate_code, sum(openings.numb_openings - qualified.numb_qualified) as diff
-  from openings natural join qualified natural join job
-  group by cate_code
+-- SUM(VACANCIES - QUALIFIED) ACCORDING TO JOB CATEOGRY 
+DIFFERENCES AS (
+  SELECT CATE_CODE, SUM(OPENINGS.NUMB_OPENINGS - QUALIFIED.NUMB_QUALIFIED) AS DIFF
+  FROM OPENINGS NATURAL JOIN QUALIFIED NATURAL JOIN JOB
+  GROUP BY CATE_CODE
 )  
 
--- select max difference
-select cate_code
-from differences 
-where diff = (select max(diff) from differences);
+-- SELECT MAX DIFFERENCE
+SELECT CATE_CODE
+FROM DIFFERENCES 
+WHERE DIFF = (SELECT MAX(DIFF) FROM DIFFERENCES);
 
 -- 27
 
--- jobs with openings not numb of openings 
-with openings as (
-  select job_code, count(job_code) as numb_openings
-  from job_listing
-  natural join (
-    -- all job listings
-    select job.job_code
-    from job inner join job_listing
-    on job.job_code = job_listing.job_code
-    minus
-    -- filled job listings
-    select job.job_code
-    from paid_by inner join job_listing
-    on paid_by.listing_id = job_listing.listing_id
-    inner join job
-    on job_listing.job_code = job.job_code)
-    group by job_code
+-- JOBS WITH OPENINGS NOT NUMB OF OPENINGS 
+WITH OPENINGS AS (
+  SELECT JOB_CODE, COUNT(JOB_CODE) AS NUMB_OPENINGS
+  FROM JOB_LISTING
+  NATURAL JOIN (
+    -- ALL JOB LISTINGS
+    SELECT JOB.JOB_CODE
+    FROM JOB INNER JOIN JOB_LISTING
+    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+    MINUS
+    -- FILLED JOB LISTINGS
+    SELECT JOB.JOB_CODE
+    FROM PAID_BY INNER JOIN JOB_LISTING
+    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
+    INNER JOIN JOB
+    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)
+    GROUP BY JOB_CODE
 ),
 
--- people who do not have a job
-unemployed as (
-  select per_id, name 
-  from person
-  minus 
-  select person.per_id, person.name
-  from paid_by inner join person
-  on paid_by.per_id = person.per_id
+-- PEOPLE WHO DO NOT HAVE A JOB
+UNEMPLOYED AS (
+  SELECT PER_ID, NAME 
+  FROM PERSON
+  MINUS 
+  SELECT PERSON.PER_ID, PERSON.NAME
+  FROM PAID_BY INNER JOIN PERSON
+  ON PAID_BY.PER_ID = PERSON.PER_ID
 ),
 
--- number skills each unemployed person has in common with each opening
-numbSkillsByPerson as (
-  select unemployed.name, openings.job_code, count(job_skill.ks_code) as numbPerSkills
-  from unemployed inner join person_skill
-  on unemployed.per_id = person_skill.per_id
-  inner join job_skill 
-  on person_skill.ks_code = job_skill.ks_code
-  inner join openings
-  on job_skill.job_code = openings.job_code
-  group by name, openings.job_code
+-- NUMBER SKILLS EACH UNEMPLOYED PERSON HAS IN COMMON WITH EACH OPENING
+NUMBSKILLSBYPERSON AS (
+  SELECT UNEMPLOYED.NAME, OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBPERSKILLS
+  FROM UNEMPLOYED INNER JOIN PERSON_SKILL
+  ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID
+  INNER JOIN JOB_SKILL 
+  ON PERSON_SKILL.KS_CODE = JOB_SKILL.KS_CODE
+  INNER JOIN OPENINGS
+  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE
+  GROUP BY NAME, OPENINGS.JOB_CODE
 ),
 
--- number of skills required for each opening 
-numbSkillsByJob as (
-  select openings.job_code, count(job_skill.ks_code) as numbJobSkills
-  from job_skill inner join openings
-  on job_skill.job_code = openings.job_code
-  group by openings.job_code
+-- NUMBER OF SKILLS REQUIRED FOR EACH OPENING 
+NUMBSKILLSBYJOB AS (
+  SELECT OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBJOBSKILLS
+  FROM JOB_SKILL INNER JOIN OPENINGS
+  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE
+  GROUP BY OPENINGS.JOB_CODE
 ),
 
--- unemployed ppl that are qualified for an opening
-qualified as (
-  select numbSkillsByPerson.name, numbSkillsByJob.job_code, count(numbSkillsByJob.job_code) as numb_qualified
-  from numbSkillsByPerson inner join  numbSkillsByJob
-  on numbSkillsByPerson.job_code = numbSkillsByJob.job_code
-  where (numbSkillsByJob.numbJobSkills - numbSkillsByPerson.numbPerSkills) = 0
-  group by numbSkillsByPerson.name, numbSkillsByJob.job_code
+-- UNEMPLOYED PPL THAT ARE QUALIFIED FOR AN OPENING
+QUALIFIED AS (
+  SELECT NUMBSKILLSBYPERSON.NAME, NUMBSKILLSBYJOB.JOB_CODE, COUNT(NUMBSKILLSBYJOB.JOB_CODE) AS NUMB_QUALIFIED
+  FROM NUMBSKILLSBYPERSON INNER JOIN  NUMBSKILLSBYJOB
+  ON NUMBSKILLSBYPERSON.JOB_CODE = NUMBSKILLSBYJOB.JOB_CODE
+  WHERE (NUMBSKILLSBYJOB.NUMBJOBSKILLS - NUMBSKILLSBYPERSON.NUMBPERSKILLS) = 0
+  GROUP BY NUMBSKILLSBYPERSON.NAME, NUMBSKILLSBYJOB.JOB_CODE
 ),
 
--- sum(vacancies - qualified) according to job cateogry 
-differences as (
-  select cate_code, sum(openings.numb_openings - qualified.numb_qualified) as diff
-  from openings natural join qualified natural join job
-  group by cate_code
+-- SUM(VACANCIES - QUALIFIED) ACCORDING TO JOB CATEOGRY 
+DIFFERENCES AS (
+  SELECT CATE_CODE, SUM(OPENINGS.NUMB_OPENINGS - QUALIFIED.NUMB_QUALIFIED) AS DIFF
+  FROM OPENINGS NATURAL JOIN QUALIFIED NATURAL JOIN JOB
+  GROUP BY CATE_CODE
 ),
 
 COURSES AS (
-  SELECT C.TITLE, C.C_CODE, count(distinct E.PER_ID) numb_ppl_course_qualifies
+  SELECT C.TITLE, C.C_CODE, COUNT(DISTINCT E.PER_ID) NUMB_PPL_COURSE_QUALIFIES
   FROM COURSE C INNER JOIN COURSE_KNOWLEDGE S
   ON C.C_CODE = S.C_CODE
   INNER JOIN PERSON_SKILL
@@ -517,22 +516,22 @@ COURSES AS (
   ON PERSON_SKILL.PER_ID = E.PER_ID
   WHERE NOT EXISTS (
   
-    -- get all skills required by job category 
+    -- GET ALL SKILLS REQUIRED BY JOB CATEGORY 
     SELECT JOB_SKILL.KS_CODE
     FROM JOB_SKILL INNER JOIN JOB
     ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE
     WHERE JOB.CATE_CODE = (
-      select cate_code
-      from differences 
-      where diff = (select max(diff) from differences))
+      SELECT CATE_CODE
+      FROM DIFFERENCES 
+      WHERE DIFF = (SELECT MAX(DIFF) FROM DIFFERENCES))
     MINUS
-    -- get all skills an unemployed person has
+    -- GET ALL SKILLS AN UNEMPLOYED PERSON HAS
     SELECT PERSON_SKILL.KS_CODE  
     FROM UNEMPLOYED INNER JOIN PERSON_SKILL
     ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID
     
     MINUS
-    -- get all the skills a course offers 
+    -- GET ALL THE SKILLS A COURSE OFFERS 
     (SELECT PERSON_SKILL.KS_CODE
     FROM COURSE A INNER JOIN COURSE_KNOWLEDGE B
     ON A.C_CODE = B.C_CODE
@@ -543,10 +542,10 @@ COURSES AS (
     WHERE C.TITLE = A.TITLE
     AND D.PER_ID = E.PER_ID)
   )
-  group by C.TITLE, C.C_CODE
+  GROUP BY C.TITLE, C.C_CODE
 )
 
-select title, numb_ppl_course_qualifies
-from courses
-where numb_ppl_course_qualifies = 
-  (select max(numb_ppl_course_qualifies) from courses);
+SELECT TITLE, NUMB_PPL_COURSE_QUALIFIES
+FROM COURSES
+WHERE NUMB_PPL_COURSE_QUALIFIES = 
+  (SELECT MAX(NUMB_PPL_COURSE_QUALIFIES) FROM COURSES);
