@@ -63,7 +63,7 @@ SELECT KS_CODE FROM PERSON_SKILL WHERE PER_ID=2;
 SELECT JOB_TITLE, TITLE AS SKILL 
 FROM JOB_SKILL LEFT JOIN JOB ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE 
 LEFT JOIN KNOWLEDGE_SKILL ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
-WHERE IMPORTANCE='REQUIRED';
+WHERE IMPORTANCE='required';
 
 -- 7
 -- B
@@ -263,9 +263,9 @@ WHERE JOB_SKILL.JOB_CODE = 31
 GROUP BY JOB_SKILL.KS_CODE
 ORDER BY NUMB_MISSING_SKILL ASC;
 
--- Description: Gets the list of person who miss the least number of skills and 
--- reported the least number
 -- 18
+-- Description: Suppose there is a new job that has nobody qualified. List the persons who miss the least number of skills and
+-- report the “least number”. 
 WITH NEEDED_SKILLS AS (
 SELECT KS_CODE
 FROM JOB_SKILL
@@ -318,7 +318,7 @@ WHERE MISSING_AMOUNT <=2
 ORDER BY MISSING_AMOUNT ASC;
 
 -- 20
--- Description: . Given a job category code and its corresponding missing-k list specified in Question 19. Find every skill that is
+-- Description: Given a job category code and its corresponding missing-k list specified in Question 19. Find every skill that is
 -- needed by at least one person in the given missing-k list. List each skillID and the number of people who need it
 -- in the descending order of the people counts.
 WITH MISSING_SKILLS AS (
@@ -376,7 +376,7 @@ INNER JOIN JOB
 ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE
 INNER JOIN JOB_CATEGORY
 ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE 
-WHERE JOB_CATEGORY.TITLE = 'COMPUTER USER SUPPORT SPECIALISTS';
+WHERE JOB_CATEGORY.TITLE = 'Computer User Support Specialists';
 
 -- 22
 -- Description: Find all the unemployed people who once held a job of the given job identifier
@@ -398,7 +398,7 @@ INNER JOIN JOB
 ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE
 INNER JOIN JOB_CATEGORY
 ON JOB.CATE_CODE = JOB_CATEGORY.CATE_CODE 
-WHERE JOB_CATEGORY.TITLE = 'COMPUTER USER SUPPORT SPECIALISTS';
+WHERE JOB_CATEGORY.TITLE = 'Computer User Support Specialists';
 
 -- 23
 -- Description: Find out the biggest employer in terms of number of employees or the total amount of salaries and wages paid to
