@@ -1,3 +1,7 @@
+//Hillary Arurang
+//Eresha Polite
+//Spring 2017
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

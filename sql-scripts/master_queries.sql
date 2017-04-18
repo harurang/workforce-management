@@ -1,3 +1,7 @@
+-- Hillary Arurang
+-- Eresha Polite 
+-- Spring 2017
+
 -- 1
 -- Description: List a company’s workers by names. 
 SELECT PERSON.NAME
