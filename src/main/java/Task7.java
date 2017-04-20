@@ -10,11 +10,11 @@ public class Task7 {
         try {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
-            deleteJob();
-            createJob();
+//            deleteJob();
+//            createJob();
 
 //            deleteCourse();
-//            createCourse();
+            createCourse();
 //
 //            deleteJobCategory();
 //            createJobCategory();
@@ -112,15 +112,19 @@ public class Task7 {
             ResultSet rset;
 
             rset = stmt.executeQuery(
-                    "delete" +
+                    "delete " +
                             "from course_knowledge where c_code = 3120");
 
             rset = stmt.executeQuery(
-                    "delete" +
+                    "delete " +
+                            "from (select * from takes natural join section) where c_code = 3120");
+
+            rset = stmt.executeQuery(
+                    "delete " +
                             "from section where c_code = 3120");
 
             rset = stmt.executeQuery(
-                    "delete" +
+                    "delete " +
                             "from course where c_code = 3120");
 
             System.out.println("\nA " + item + " has been deleted.\n");
@@ -144,6 +148,10 @@ public class Task7 {
             rset = stmt.executeQuery(
                     "INSERT INTO section\n" +
                             "VALUES (326, TO_DATE('2015/08/12','YYYY/MM/DD'), TO_DATE('2015/12/08','YYYY/MM/DD'), 'classroom', 'University', 3120, 300)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO takes\n" +
+                            "VALUES (100, 326)");
 
             rset = stmt.executeQuery(
                     "INSERT INTO course_knowledge\n" +
