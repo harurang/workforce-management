@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MasterQueries {
+public class Task6 {
     private static Connection conn;
 
     public static void main(String args[]) {
