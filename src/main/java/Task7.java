@@ -16,6 +16,9 @@ public class Task7 {
             deleteCourse();
             createCourse();
 
+            deleteJobCategory();
+            createJobCategory();
+
             conn.close();
         } catch(Exception e) {
             System.out.println(e);
@@ -53,7 +56,7 @@ public class Task7 {
         String table = "job";
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rset
+            ResultSet rset;
 
             rset = stmt.executeQuery(
                     "CREATE TABLE job (\n" +
@@ -181,6 +184,113 @@ public class Task7 {
                             "  sec_id number,\n" +
                             "  foreign key (sec_id) references section(sec_id),\n" +
                             "  foreign key (per_id) references person(per_id)\n" +
+                            ")");
+
+            System.out.println("\n" + table + " has been created.\n");
+        } catch(Exception e) {
+            System.out.println("\nError creating " + table + ": " + e);
+        }
+    }
+
+    public static void deleteJobCategory () {
+        String table = "job_category";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "drop table job_history");
+
+            rset = stmt.executeQuery(
+                    "drop table paid_by");
+
+            rset = stmt.executeQuery(
+                    "drop table job_listing");
+
+            rset = stmt.executeQuery(
+                    "drop table job_skill");
+
+            rset = stmt.executeQuery(
+                    "drop table job");
+
+            rset = stmt.executeQuery(
+                    "drop table job_category");
+
+            System.out.println("\n" + table + " has been deleted.\n");
+        } catch(Exception e) {
+            System.out.println("\nError deleting " + table + ": " + e);
+        }
+    }
+
+    public static void createJobCategory () {
+        String table = "job_category";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job_category (\n" +
+                            "  cate_code number,\n" +
+                            "  parent_cate number,\n" +
+                            "  pay_range_high number,\n" +
+                            "  pay_range_low number,\n" +
+                            "  title varchar(70),\n" +
+                            "  ks_code number,\n" +
+                            "  primary key (cate_code),\n" +
+                            "  foreign key (parent_cate) references job_category(cate_code),\n" +
+                            "  foreign key (title) references soc(soc_title),\n" +
+                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
+                            ")");
+
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job (\n" +
+                            "  job_code number,\n" +
+                            "  pay_rate number,\n" +
+                            "  pay_type varchar(20),\n" +
+                            "  hours number,\n" +
+                            "  cate_code number,\n" +
+                            "  job_title varchar(70),\n" +
+                            "  primary key (job_code),\n" +
+                            "  foreign key (cate_code) references job_category(cate_code)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job_skill (\n" +
+                            "  job_code number,\n" +
+                            "  ks_code number,\n" +
+                            "  importance varchar(30),\n" +
+                            "  foreign key (job_code) references job(job_code),\n" +
+                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job_listing (\n" +
+                            "    listing_id number,\n" +
+                            "    comp_id number,\n" +
+                            "    job_code number,\n" +
+                            "    primary key (listing_id),\n" +
+                            "    foreign key (comp_id) references company(comp_id),\n" +
+                            "    foreign key (job_code) references job(job_code)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE paid_by(\n" +
+                            "  per_id number,\n" +
+                            "  listing_id number,\n" +
+                            "  foreign key (per_id) references person(per_id),\n" +
+                            "  foreign key (listing_id) references job_listing(listing_id),\n" +
+                            "  unique (listing_id)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job_history (\n" +
+                            "  start_date varchar(50),\n" +
+                            "  end_date varchar(50),\n" +
+                            "  listing_id number,\n" +
+                            "  per_id number,\n" +
+                            "  foreign key (per_id) references person(per_id),\n" +
+                            "  foreign key (listing_id) references job_listing(listing_id)\n" +
                             ")");
 
             System.out.println("\n" + table + " has been created.\n");
