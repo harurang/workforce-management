@@ -19,6 +19,9 @@ public class Task7 {
             deleteJobCategory();
             createJobCategory();
 
+            deletePerson();
+            createPerson();
+
             conn.close();
         } catch(Exception e) {
             System.out.println(e);
@@ -272,6 +275,105 @@ public class Task7 {
                             "    primary key (listing_id),\n" +
                             "    foreign key (comp_id) references company(comp_id),\n" +
                             "    foreign key (job_code) references job(job_code)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE paid_by(\n" +
+                            "  per_id number,\n" +
+                            "  listing_id number,\n" +
+                            "  foreign key (per_id) references person(per_id),\n" +
+                            "  foreign key (listing_id) references job_listing(listing_id),\n" +
+                            "  unique (listing_id)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE job_history (\n" +
+                            "  start_date varchar(50),\n" +
+                            "  end_date varchar(50),\n" +
+                            "  listing_id number,\n" +
+                            "  per_id number,\n" +
+                            "  foreign key (per_id) references person(per_id),\n" +
+                            "  foreign key (listing_id) references job_listing(listing_id)\n" +
+                            ")");
+
+            System.out.println("\n" + table + " has been created.\n");
+        } catch(Exception e) {
+            System.out.println("\nError creating " + table + ": " + e);
+        }
+    }
+
+    public static void deletePerson () {
+        String table = "person";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "drop table job_history");
+
+            rset = stmt.executeQuery(
+                    "drop table paid_by");
+
+            rset = stmt.executeQuery(
+                    "drop table phone_number");
+
+            rset = stmt.executeQuery(
+                    "drop table person_skill");
+
+            rset = stmt.executeQuery(
+                    "drop table takes");
+
+            rset = stmt.executeQuery(
+                    "drop table person");
+
+            System.out.println("\n" + table + " has been deleted.\n");
+        } catch(Exception e) {
+            System.out.println("\nError deleting " + table + ": " + e);
+        }
+    }
+
+    public static void createPerson () {
+        String table = "person";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE person (\n" +
+                            "  per_id number,\n" +
+                            "  name varchar(30),\n" +
+                            "  city varchar(30),\n" +
+                            "  street varchar(30),\n" +
+                            "  state varchar(2),\n" +
+                            "  zip_code varchar(10),\n" +
+                            "  email varchar(30),\n" +
+                            "  gender varchar(30),\n" +
+                            "  primary key (per_id)\n" +
+                            ")");
+
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE takes (\n" +
+                            "  per_id number,\n" +
+                            "  sec_id number,\n" +
+                            "  foreign key (sec_id) references section(sec_id),\n" +
+                            "  foreign key (per_id) references person(per_id)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE person_skill (\n" +
+                            "  per_id number,\n" +
+                            "  ks_code number,\n" +
+                            "  foreign key (per_id) references person(per_id),\n" +
+                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
+                            ")");
+
+            rset = stmt.executeQuery(
+                    "CREATE TABLE phone_number (\n" +
+                            "  per_id number,\n" +
+                            "  home varchar(30),\n" +
+                            "  work varchar(30),\n" +
+                            "  foreign key (per_id) references person(per_id)\n" +
                             ")");
 
             rset = stmt.executeQuery(
