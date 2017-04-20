@@ -11,7 +11,7 @@ public class Task7 {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
             deleteJob();
-//            createJob();
+            createJob();
 
 //            deleteCourse();
 //            createCourse();
@@ -74,7 +74,7 @@ public class Task7 {
                     "INSERT INTO job\n" +
                             "VALUES(91, 62000, 'salary', null, 6,'Front End Web Developer')");
 
-            // reset DB to original properties
+            // revert DB to original properties
             rset = stmt.executeQuery(
                     " INSERT INTO job_skill\n" +
                             "            VALUES(91, 435789, 'required')");
@@ -95,81 +95,66 @@ public class Task7 {
                     "INSERT INTO paid_by\n" +
                             "VALUES (4, 10)");
 
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_history\n" +
+                            "VALUES ('02/24/2013', '02/27/2015', 9, 5)");
+
             System.out.println("\nA " + item + " has been created.\n");
         } catch(Exception e) {
             System.out.println("\nError creating " + item + ": " + e);
         }
     }
 
-//    public static void deleteCourse () {
-//        String item = "course";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "drop item takes");
-//
-//            System.out.println("\nA " + item + " has been deleted.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError deleting " + item + ": " + e);
-//        }
-//    }
-//
-//    public static void createCourse () {
-//        String item = "course";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE course(\n" +
-//                            "    c_code number,\n" +
-//                            "    title varchar(70),\n" +
-//                            "    course_level varchar(70),\n" +
-//                            "    description varchar(200),\n" +
-//                            "    status varchar(70),\n" +
-//                            "    prereq number,\n" +
-//                            "    primary key (c_code),\n" +
-//                            "    foreign key (prereq) references course(c_code)\n" +
-//                            ")");
-//
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE course_knowledge(\n" +
-//                            "   ks_code number,\n" +
-//                            "   c_code number,\n" +
-//                            "   foreign key (ks_code) references knowledge_skill(ks_code),\n" +
-//                            "   foreign key (c_code) references course(c_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE section (\n" +
-//                            "  sec_id number,\n" +
-//                            "  start_date varchar(50),\n" +
-//                            "  end_date varchar(50),\n" +
-//                            "  format varchar(40),\n" +
-//                            "  offered_by varchar(40),\n" +
-//                            "  c_code number,\n" +
-//                            "  price number,\n" +
-//                            "  primary key (sec_id),\n" +
-//                            "  foreign key (c_code) references course(c_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE takes (\n" +
-//                            "  per_id number,\n" +
-//                            "  sec_id number,\n" +
-//                            "  foreign key (sec_id) references section(sec_id),\n" +
-//                            "  foreign key (per_id) references person(per_id)\n" +
-//                            ")");
-//
-//            System.out.println("\n" + item + " has been created.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError creating " + item + ": " + e);
-//        }
-//    }
-//
+    public static void deleteCourse () {
+        String item = "course";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "delete" +
+                            "from course_knowledge where c_code = 3120");
+
+            rset = stmt.executeQuery(
+                    "delete" +
+                            "from section where c_code = 3120");
+
+            rset = stmt.executeQuery(
+                    "delete" +
+                            "from course where c_code = 3120");
+
+            System.out.println("\nA " + item + " has been deleted.\n");
+        } catch(Exception e) {
+            System.out.println("\nError deleting " + item + ": " + e);
+        }
+    }
+
+    public static void createCourse () {
+        String item = "course";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO course\n" +
+                            "VALUES (3120, 'Introduction to Networking', 3000, 'Learn about the depths of networking and how\n" +
+                            "computers depend on the network, learn terminolgy and the basics', 'Closed', null)");
+
+            // revert DB to original properties
+            rset = stmt.executeQuery(
+                    "INSERT INTO section\n" +
+                            "VALUES (326, TO_DATE('2015/08/12','YYYY/MM/DD'), TO_DATE('2015/12/08','YYYY/MM/DD'), 'classroom', 'University', 3120, 300)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO course_knowledge\n" +
+                            "VALUES (435786, 3120)");
+
+            System.out.println("\n" + item + " has been created.\n");
+        } catch(Exception e) {
+            System.out.println("\nError creating " + item + ": " + e);
+        }
+    }
+
 //    public static void deleteJobCategory () {
 //        String item = "job_category";
 //        try {
@@ -177,29 +162,17 @@ public class Task7 {
 //            ResultSet rset;
 //
 //            rset = stmt.executeQuery(
-//                    "drop item job_history");
+//                    "delete from job where cate_code = 5");
 //
 //            rset = stmt.executeQuery(
-//                    "drop item paid_by");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item job_listing");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item job_skill");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item job");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item job_category");
+//                    "delete from job_cateogory where cate_code = 5");
 //
 //            System.out.println("\n" + item + " has been deleted.\n");
 //        } catch(Exception e) {
 //            System.out.println("\nError deleting " + item + ": " + e);
 //        }
 //    }
-//
+
 //    public static void createJobCategory () {
 //        String item = "job_category";
 //        try {
