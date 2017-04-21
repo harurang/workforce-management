@@ -16,11 +16,11 @@ public class Task7 {
 //            deleteCourse();
 //            createCourse();
 //
-            deleteJobCategory();
-            createJobCategory();
+//            deleteJobCategory();
+//            createJobCategory();
 //
-//            deletePerson();
-//            createPerson();
+            deletePerson();
+            createPerson();
 
             conn.close();
         } catch(Exception e) {
@@ -244,103 +244,71 @@ public class Task7 {
             System.out.println("\nError creating " + item + ": " + e);
         }
     }
-//
-//    public static void deletePerson () {
-//        String item = "person";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "drop item job_history");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item paid_by");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item phone_number");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item person_skill");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item takes");
-//
-//            rset = stmt.executeQuery(
-//                    "drop item person");
-//
-//            System.out.println("\n" + item + " has been deleted.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError deleting " + item + ": " + e);
-//        }
-//    }
-//
-//    public static void createPerson () {
-//        String item = "person";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE person (\n" +
-//                            "  per_id number,\n" +
-//                            "  name varchar(30),\n" +
-//                            "  city varchar(30),\n" +
-//                            "  street varchar(30),\n" +
-//                            "  state varchar(2),\n" +
-//                            "  zip_code varchar(10),\n" +
-//                            "  email varchar(30),\n" +
-//                            "  gender varchar(30),\n" +
-//                            "  primary key (per_id)\n" +
-//                            ")");
-//
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE takes (\n" +
-//                            "  per_id number,\n" +
-//                            "  sec_id number,\n" +
-//                            "  foreign key (sec_id) references section(sec_id),\n" +
-//                            "  foreign key (per_id) references person(per_id)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE person_skill (\n" +
-//                            "  per_id number,\n" +
-//                            "  ks_code number,\n" +
-//                            "  foreign key (per_id) references person(per_id),\n" +
-//                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE phone_number (\n" +
-//                            "  per_id number,\n" +
-//                            "  home varchar(30),\n" +
-//                            "  work varchar(30),\n" +
-//                            "  foreign key (per_id) references person(per_id)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE paid_by(\n" +
-//                            "  per_id number,\n" +
-//                            "  listing_id number,\n" +
-//                            "  foreign key (per_id) references person(per_id),\n" +
-//                            "  foreign key (listing_id) references job_listing(listing_id),\n" +
-//                            "  unique (listing_id)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job_history (\n" +
-//                            "  start_date varchar(50),\n" +
-//                            "  end_date varchar(50),\n" +
-//                            "  listing_id number,\n" +
-//                            "  per_id number,\n" +
-//                            "  foreign key (per_id) references person(per_id),\n" +
-//                            "  foreign key (listing_id) references job_listing(listing_id)\n" +
-//                            ")");
-//
-//            System.out.println("\n" + item + " has been created.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError creating " + item + ": " + e);
-//        }
-//    }
+
+    public static void deletePerson () {
+        String item = "person";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "delete from paid_by where per_id = 2");
+
+            rset = stmt.executeQuery(
+                    "delete from job_history where per_id = 2");
+
+            rset = stmt.executeQuery(
+                    "delete from phone_number where per_id = 2");
+
+            rset = stmt.executeQuery(
+                    "delete from person_skill where per_id = 2");
+
+            rset = stmt.executeQuery(
+                    "delete from takes where per_id = 2");
+
+            rset = stmt.executeQuery(
+                    "delete from person where per_id = 2");
+
+            System.out.println("\nA " + item + " has been deleted.\n");
+        } catch(Exception e) {
+            System.out.println("\nError deleting " + item + ": " + e);
+        }
+    }
+
+    public static void createPerson () {
+        String item = "person";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO person\n" +
+                            "VALUES (2, 'Jane', 'Metairie', '3325 Causway', 'LA', 70001, 'jane@yahoo.com', 'female')");
+
+            // revert DB to original properties
+            rset = stmt.executeQuery(
+                    "INSERT INTO phone_number\n" +
+                            "VALUES (2, '702-324-2342', '124-854-2342')");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO person_skill\n" +
+                            "VALUES(2, 435789)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_history\n" +
+                            "VALUES ('05/10/2013', '01/23/2015', 5, 2)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO takes\n" +
+                            "VALUES (2, 321)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO paid_by\n" +
+                            "VALUES(2, 11)");
+
+            System.out.println("\nA " + item + " has been created.\n");
+        } catch(Exception e) {
+            System.out.println("\nError creating " + item + ": " + e);
+        }
+    }
 }
