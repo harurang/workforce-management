@@ -10,15 +10,15 @@ public class Task7 {
         try {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
-//            deleteJob();
-//            createJob();
+            deleteJob();
+            createJob();
 
-//            deleteCourse();
-//            createCourse();
-//
-//            deleteJobCategory();
-//            createJobCategory();
-//
+            deleteCourse();
+            createCourse();
+
+            deleteJobCategory();
+            createJobCategory();
+
             deletePerson();
             createPerson();
 
@@ -35,13 +35,14 @@ public class Task7 {
             ResultSet rset;
 
             rset = stmt.executeQuery(
-                    "delete from (select * from job_history natural join job_listing)\n" +
-                            "where job_code = 91");
+                    "delete from job_history " +
+                            "where listing_id in " +
+                            "(select listing_id from job_history natural join job_listing where job_code = 91)");
 
             rset = stmt.executeQuery(
                     "delete " +
-                            "from (select * from paid_by natural join job_listing) " +
-                            "where job_code = 91");
+                            "from paid_by where listing_id in " +
+                            "(select listing_id from paid_by natural join job_listing where job_code = 91)");
 
             rset = stmt.executeQuery(
                     "delete " +
@@ -77,11 +78,11 @@ public class Task7 {
             // revert DB to original properties
             rset = stmt.executeQuery(
                     " INSERT INTO job_skill\n" +
-                            "            VALUES(91, 435789, 'required')");
+                            "VALUES(91, 435789, 'required')");
 
             rset = stmt.executeQuery(
                     "INSERT INTO job_skill\n" +
-                            "            VALUES(91, 435783, 'preferred')");
+                            "VALUES(91, 435783, 'preferred')");
 
             rset = stmt.executeQuery(
                     "INSERT INTO job_listing\n" +
@@ -117,7 +118,7 @@ public class Task7 {
 
             rset = stmt.executeQuery(
                     "delete " +
-                            "from (select * from takes natural join section) where c_code = 3120");
+                            "from takes where sec_id in (select sec_id from section where c_code = 3120)");
 
             rset = stmt.executeQuery(
                     "delete " +
@@ -171,11 +172,11 @@ public class Task7 {
 
             rset = stmt.executeQuery(
                     "delete from job_history \n" +
-                            "where listing_id in (select listing_id from job_history natural join job where cate_code = 4)");
+                            "where listing_id in (select listing_id from job_history natural join job_listing natural join job where cate_code = 4)");
 
             rset = stmt.executeQuery(
                     "delete from paid_by \n" +
-                            "where listing_id in (select listing_id from paid_by natural join job where cate_code = 4)");
+                            "where listing_id in (select listing_id from paid_by natural join job_listing natural join job where cate_code = 4)");
 
             rset = stmt.executeQuery(
                     "delete " +
