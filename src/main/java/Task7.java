@@ -14,10 +14,10 @@ public class Task7 {
 //            createJob();
 
 //            deleteCourse();
-            createCourse();
+//            createCourse();
 //
-//            deleteJobCategory();
-//            createJobCategory();
+            deleteJobCategory();
+            createJobCategory();
 //
 //            deletePerson();
 //            createPerson();
@@ -163,100 +163,87 @@ public class Task7 {
         }
     }
 
-//    public static void deleteJobCategory () {
-//        String item = "job_category";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "delete from job where cate_code = 5");
-//
-//            rset = stmt.executeQuery(
-//                    "delete from job_cateogory where cate_code = 5");
-//
-//            System.out.println("\n" + item + " has been deleted.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError deleting " + item + ": " + e);
-//        }
-//    }
+    public static void deleteJobCategory () {
+        String item = "job_category";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
 
-//    public static void createJobCategory () {
-//        String item = "job_category";
-//        try {
-//            Statement stmt = conn.createStatement();
-//            ResultSet rset;
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job_category (\n" +
-//                            "  cate_code number,\n" +
-//                            "  parent_cate number,\n" +
-//                            "  pay_range_high number,\n" +
-//                            "  pay_range_low number,\n" +
-//                            "  title varchar(70),\n" +
-//                            "  ks_code number,\n" +
-//                            "  primary key (cate_code),\n" +
-//                            "  foreign key (parent_cate) references job_category(cate_code),\n" +
-//                            "  foreign key (title) references soc(soc_title),\n" +
-//                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
-//                            ")");
-//
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job (\n" +
-//                            "  job_code number,\n" +
-//                            "  pay_rate number,\n" +
-//                            "  pay_type varchar(20),\n" +
-//                            "  hours number,\n" +
-//                            "  cate_code number,\n" +
-//                            "  job_title varchar(70),\n" +
-//                            "  primary key (job_code),\n" +
-//                            "  foreign key (cate_code) references job_category(cate_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job_skill (\n" +
-//                            "  job_code number,\n" +
-//                            "  ks_code number,\n" +
-//                            "  importance varchar(30),\n" +
-//                            "  foreign key (job_code) references job(job_code),\n" +
-//                            "  foreign key (ks_code) references knowledge_skill(ks_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job_listing (\n" +
-//                            "    listing_id number,\n" +
-//                            "    comp_id number,\n" +
-//                            "    job_code number,\n" +
-//                            "    primary key (listing_id),\n" +
-//                            "    foreign key (comp_id) references company(comp_id),\n" +
-//                            "    foreign key (job_code) references job(job_code)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE paid_by(\n" +
-//                            "  per_id number,\n" +
-//                            "  listing_id number,\n" +
-//                            "  foreign key (per_id) references person(per_id),\n" +
-//                            "  foreign key (listing_id) references job_listing(listing_id),\n" +
-//                            "  unique (listing_id)\n" +
-//                            ")");
-//
-//            rset = stmt.executeQuery(
-//                    "CREATE TABLE job_history (\n" +
-//                            "  start_date varchar(50),\n" +
-//                            "  end_date varchar(50),\n" +
-//                            "  listing_id number,\n" +
-//                            "  per_id number,\n" +
-//                            "  foreign key (per_id) references person(per_id),\n" +
-//                            "  foreign key (listing_id) references job_listing(listing_id)\n" +
-//                            ")");
-//
-//            System.out.println("\n" + item + " has been created.\n");
-//        } catch(Exception e) {
-//            System.out.println("\nError creating " + item + ": " + e);
-//        }
-//    }
+            rset = stmt.executeQuery(
+                    "delete from job_history \n" +
+                            "where listing_id in (select listing_id from job_history natural join job where cate_code = 4)");
+
+            rset = stmt.executeQuery(
+                    "delete from paid_by \n" +
+                            "where listing_id in (select listing_id from paid_by natural join job where cate_code = 4)");
+
+            rset = stmt.executeQuery(
+                    "delete " +
+                            "from job_listing where job_code in (select job_code from job_listing natural join job where cate_code = 4)");
+
+            rset = stmt.executeQuery(
+                    "delete from job_skill where job_code in (select job_code from job where cate_code = 4)");
+
+            rset = stmt.executeQuery(
+                    "delete from job where cate_code = 4");
+
+            rset = stmt.executeQuery(
+                    "delete from job_category where cate_code = 4");
+
+            System.out.println("\n" + item + " has been deleted.\n");
+        } catch(Exception e) {
+            System.out.println("\nError deleting " + item + ": " + e);
+        }
+    }
+
+    public static void createJobCategory () {
+        String item = "job_category";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rset;
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_category \n" +
+                            "VALUES (4, 3, 50000, 45000, 'Computer User Support Specialists', 435787)");
+
+            // revert DB to original properties
+            rset = stmt.executeQuery(
+                    "INSERT INTO job\n" +
+                            "VALUES(73, 15, 'hourly', 2080 , 4, 'Geek Squad Agent')");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_skill\n" +
+                            "VALUES(73, 435787, 'required')");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_listing\n" +
+                            "VALUES(6, 15, 73)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_listing\n" +
+                            "VALUES (16, 15, 73)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO paid_by \n" +
+                            "VALUES (105, 6)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO paid_by\n" +
+                            "VALUES (105, 16)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_history\n" +
+                            "VALUES ('02/15/2013', '04/23/2015', 6, 207)");
+
+            rset = stmt.executeQuery(
+                    "INSERT INTO job_history\n" +
+                            "VALUES ('05/14/2013', '08/04/2015', 6, 206)");
+
+            System.out.println("\nA " + item + " has been created.\n");
+        } catch(Exception e) {
+            System.out.println("\nError creating " + item + ": " + e);
+        }
+    }
 //
 //    public static void deletePerson () {
 //        String item = "person";
