@@ -1,3 +1,18 @@
+career_cluster(cluster_title)
+
+No functional dependencies.
+
+---
+nwcet(nwcet_title)
+
+No functional dependencies.
+
+---
+soc(soc_title)
+
+No functional dependencies.
+
+---
 job(job_code, pay_type, pay_rate, cate_code)
 
 functional dependency:
