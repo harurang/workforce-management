@@ -1,148 +1,102 @@
-What I think is correct = witic
+job(job_code, pay_type, pay_rate, cate_code)
 
-
-job(job_code,pay_type,pay_rate,cate_code)
 functional dependency:
-job_code->cate_code
-
-witic:
 job_code --> pay_type, pay_rate, cate_code
 
 ---
 job_skill(importance, job_code, ks_code)
-funcional dependency:
-importance->job_code
-job_code->ks_code or ks_code->job_code
 
-witic:
 No functional dependencies. 
 
 ---
-job_category(cate_code,parent_cate,pay_range_high,pay_range_low,ks_code,title)
-functional dependency:
-cate_code->parent_cate
-ks_code->cate_code
+job_category(cate_code, parent_cate, pay_range_high, pay_range_low, ks_code, title)
 
-witic:
-cate_code --> parent_cate, pay_range_high, pay_range_low, ks_code, title
+functional dependency:
+cate_code --> parent_cate, pay_range_high, pay_range_low, ks_code,  title
+cate_code --> title 
 
 ---
-job_listing(listing_id,job_code,comp_id)
-functional dependencty:
-listing_id->job_code,comp_id
-job_code->comp_id
+job_listing(listing_id,  job_code, comp_id)
 
-witic:
+functional dependency:
 listing_id --> job_code, comp_id
 
 ---
-company(comp_id,city,state,zip,comp_name,website,primary_sector,n_code)
-comp_name->comp_id or comp_id->comp_name
-primary_sector->naics?
+company(comp_id, city, state, zip, comp_name, website, primary_sector, n_code)
 
-witic:
-comp_id --> city,state,zip,comp_name,website,primary_sector,n_code
+functional dependency:
+comp_id --> city, state, zip, comp_name, website, primary_sector, n_code
+comp_id --> comp_name 
 
 ---
-naics(n_code,specialty,hiearchy)
-functional dependency:
-specialty->n_code or n_code->specialty
+naics(n_code, specialty, hiearchy)
 
-witic:
-n_code --> specialty,hiearchy
+functional dependency:
+n_code --> specialty, hiearchy
+n_code --> speciality
 
 ---
-knowledge_skill(ks_code,title,cluster_title,tier_level)
-functional dependency:
-ks_code->title,cluster_title,tier_level
+knowledge_skill(ks_code, title, cluster_title, tier_level)
 
-witic:
-ks_code --> title,cluster_title,tier_level
+functional dependency:
+ks_code --> title, cluster_title, tier_level
+ks_code --> title
 
 ---
-paid_by(listing_id,per_id)
-functional dependency:
-per_id->listing_id or listing_id->per_id
+paid_by(listing_id, per_id)
 
-witic:
+functional dependency:
 listing_id --> per_id
 
 ---
-career_tier(tier_level,tier_description)
-functional dependency:
-tier_description->tier_level
+career_tier(tier_level, tier_description)
 
-witic:
+functional dependency:
 tier_level --> tier_description
-tier_descripton --> tier_level
+tier_description --> tier_level
 
 ---
-course_knowledge(ks_code,c_code)
-functional dependency:
-ks_code->c_code
+course_knowledge(ks_code, c_code)
 
-witic:
 No functional dependencies. 
 
 ---
-course(c_code,title,level,description,status,prereq)
-functional dependency:
-prereq->c_code
-title->c_code
-status->c_code
-level->c_code
+course(c_code, title, level, description, status, prereq)
 
-witic:
-c_code --> title,level,description,status,prereq
-title --> c_code,level,description,status,prereq
-description --> c_code,level,title,status,prereq
+functional dependency:
+c_code --> title, level, description, status, prereq
+title --> c_code, level, description, status, prereq
+description --> c_code, level, title, status, prereq
 
 ---
-section(sec_id,start_date,end_date,format,offered_by,price,c_code)
-functional dependency:
-sec_id->c_code
-price->sec_id
-offered_by->sec_id
-format->sec_id
+section(sec_id, start_date, end_date, format, offered_by, price, c_code)
 
-witic:
-sec_id --> start_date,end_date,format,offered_by,price,c_code
+functional dependency:
+sec_id --> start_date, end_date, format, offered_by, price, c_code
 
 ---
-takes(per_id,sec_id)
-sec_id->per_id
+takes(per_id, sec_id)
 
-witic:
 No functional dependencies.
 
 ---
-person_skill(ks_code,per_id)
-functional dependency:
-ks_code->per_id or per_id->ks_code
+person_skill(ks_code, per_id)
 
-witic:
 No functional dependencies
 
 ---
-job_history(end_date,start_date,per_id,listing_id)
-functional dependency:
-listing_id->job_code
+job_history(end_date, start_date, per_id, listing_id)
 
-witic:
 No functional dependencies.
 
 ---
-person(per_id,name,city,state,zip)
-functional dependency:
-name->per_id or per_id->name
+person(per_id, name, city, state, zip)
 
-witic:
-per_id --> name,city,state,zip
+per_id --> name, city, state, zip
+zip --> city 
+city --> state 
 
 ---
-phone_number(number,type,per_id)
-functional dependency:
-number->per_id
+phone_number(number, type, per_id)
 
-witic: 
-number --> type,per_id
+number --> type, per_id
