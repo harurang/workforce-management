@@ -794,9 +794,6 @@ INSERT INTO paid_by
 VALUES (5, 3);
 
 INSERT INTO paid_by
-VALUES (7, 3);
-
-INSERT INTO paid_by
 VALUES (9, 1);
 
 INSERT INTO paid_by
