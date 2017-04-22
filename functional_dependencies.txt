@@ -1,10 +1,14 @@
+job(job_code,pay_type,pay_rate,cate_code)
+functional dependency:
+job_code->pay_type,pay_rate
+---
 job_skill(importance, job_code, ks_code)
 funcional dependency:
-importance->job_code
+No functional dependencies
 ---
 job_category(cate_code,parent_cate,pay_range_high,pay_range_low,ks_code,title)
 functional dependency:
-cate_code->parent_cate
+cate_code->parent_cate,pay_range_high,pay_range_low, title
 ---
 job_listing(listing_id,job_code,comp_id)
 functional dependencty:
@@ -31,30 +35,25 @@ functional dependency:
 tier_description->tier_level
 ---
 course_knowledge(ks_code,c_code)
-functional dependency:
-ks_code->c_code
+No functional dependencies
 ---
 course(c_code,title,level,description,status,prereq)
 functional dependency:
-prereq->c_code
-title->c_code
-status->c_code
-level->c_code
+c_code->title, level, description,status, prereq
 ---
 section(sec_id,start_date,end_date,format,offered_by,price,c_code)
 functional dependency:
-sec_id->c_code
+sec_id->start_date,end_date,format,offered_by,price
 ---
 takes(per_id,sec_id)
-sec_id->per_id
+No functional dependencies
 ---
 person_skill(ks_code,per_id)
-functional dependency:
-ks_code->per_id
+No funtional dependencies
 ---
 job_history(end_date,start_date,job_code,listing_id)
 functional dependency:
-listing_id->job_code
+listing_id->job_code,start_date,end_date
 ---
 person(per_id,name,city,state,zip)
 functional dependency:
@@ -62,6 +61,6 @@ per_id->name,city,state,zip
 ---
 phone_number(number,type,per_id)
 functional dependency:
-per_id->number
+number->type,per_id
 
 
