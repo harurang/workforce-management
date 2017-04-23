@@ -34,12 +34,13 @@ No functional dependencies.
 No lossless decompositions.
 
 ---
-// TODO
 job_category(cate_code, parent_cate, pay_range_high, pay_range_low, ks_code, title)
 
 functional dependency:
 cate_code --> parent_cate, pay_range_high, pay_range_low, ks_code,  title
 cate_code --> title 
+
+No functional dependencies.
 
 ---
 job_listing(listing_id,  job_code, comp_id)
@@ -50,28 +51,31 @@ listing_id --> job_code, comp_id
 No lossless decompositions.
 
 ---
-// TODO
 company(comp_id, city, state, zip, comp_name, website, primary_sector, n_code)
 
 functional dependency:
 comp_id --> city, state, zip, comp_name, website, primary_sector, n_code
 comp_id --> comp_name 
 
+No functional dependencies.
+
 ---
-// TODO
 naics(n_code, specialty, hierarchy)
 
 functional dependency:
 n_code --> specialty, hierarchy
 n_code --> speciality
 
+No functional dependencies.
+
 ---
-// TODO
 knowledge_skill(ks_code, title, cluster_title, tier_level)
 
 functional dependency:
 ks_code --> title, cluster_title, tier_level
 ks_code --> title
+
+No functional dependencies.
 
 ---
 paid_by(listing_id, per_id)
