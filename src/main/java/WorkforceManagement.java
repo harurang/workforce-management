@@ -1,6 +1,6 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class WorkforceManagement {
@@ -34,11 +34,10 @@ public class WorkforceManagement {
         String primarySector = "";
 
         try {
-            Statement stmt = conn.createStatement();
-            ResultSet rset;
+            PreparedStatement pStmt = conn.prepareStatement("select * from company where comp_id=?");
 
-            rset = stmt.executeQuery(
-                    "select * from company where comp_id=" + compId);
+            pStmt.setString(1, compId + "");
+            ResultSet rset = pStmt.executeQuery();
 
             while ( rset.next() ) {
                 compName = rset.getString("comp_name");
@@ -51,7 +50,7 @@ public class WorkforceManagement {
             }
 
         } catch(Exception e) {
-            System.out.println("\nError at method getQualifiedPeople() in WorkforceManagement: " + e);
+            System.out.println("\nError at method instantiateCompany() in WorkforceManagement: " + e);
         }
 
         return new Company(compId, compName, nCode, city, state, zip, website, primarySector, conn);
