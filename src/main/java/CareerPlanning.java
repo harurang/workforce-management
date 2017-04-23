@@ -65,6 +65,11 @@ public class CareerPlanning {
         return results;
     }
 
+    /**
+     * Gets all job openings.
+     *
+     * @return a list of job openings
+     */
     public ArrayList<String> getAllOpenings () {
         ArrayList<String> results = new ArrayList<String>();
 
