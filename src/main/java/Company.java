@@ -44,7 +44,7 @@ public class Company {
                     "  -- get skills of specific job\n" +
                     "  SELECT JOB_SKILL.KS_CODE\n" +
                     "  FROM JOB_SKILL\n" +
-                    "  WHERE JOB_CODE=44\n" +
+                    "  WHERE JOB_CODE=?\n" +
                     "  \n" +
                     "  MINUS\n" +
                     "  \n" +
@@ -55,9 +55,8 @@ public class Company {
                     "  WHERE A.NAME = C.NAME)\n" +
                     ")");
 
-            ResultSet rset;
-
-            rset = pStmt.executeQuery();
+            pStmt.setString(1, jobCode + "");
+            ResultSet rset = pStmt.executeQuery();
 
             while(rset.next()){
                 name = rset.getString(1);
