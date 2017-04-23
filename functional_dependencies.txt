@@ -1,66 +1,117 @@
-job(job_code,pay_type,pay_rate,cate_code)
+career_cluster(cluster_title)
+
+No functional dependencies.
+
+---
+nwcet(nwcet_title)
+
+No functional dependencies.
+
+---
+soc(soc_title)
+
+No functional dependencies.
+
+---
+job(job_code, pay_type, pay_rate, cate_code)
+
 functional dependency:
-job_code->pay_type,pay_rate
+job_code --> pay_type, pay_rate, cate_code
+
 ---
 job_skill(importance, job_code, ks_code)
-funcional dependency:
-No functional dependencies
----
-job_category(cate_code,parent_cate,pay_range_high,pay_range_low,ks_code,title)
-functional dependency:
-cate_code->parent_cate,pay_range_high,pay_range_low, title
----
-job_listing(listing_id,job_code,comp_id)
-functional dependencty:
-listing_id->job_code,comp_id
----
-company(comp_id,city,state,zip,comp_name,website,primary_sector,n_code)
-functional dependency:
-comp_id->comp_name,city,state,website,primary_sector,n_code
----
-naics(n_code,specialty,hiearchy)
-functional dependency:
-specialty->n_code or n_code->specialty
----
-knowledge_skill(ks_code,title,cluster_title,tier_level)
-functional dependency:
-ks_code->title,cluster_title,tier_level
----
-paid_by(listing_id,per_id)
-functional dependency:
-listing_id->per_id
----
-career_tier(tier_level,tier_description)
-functional dependency:
-tier_description->tier_level
----
-course_knowledge(ks_code,c_code)
-No functional dependencies
----
-course(c_code,title,level,description,status,prereq)
-functional dependency:
-c_code->title, level, description,status, prereq
----
-section(sec_id,start_date,end_date,format,offered_by,price,c_code)
-functional dependency:
-sec_id->start_date,end_date,format,offered_by,price
----
-takes(per_id,sec_id)
-No functional dependencies
----
-person_skill(ks_code,per_id)
-No funtional dependencies
----
-job_history(end_date,start_date,job_code,listing_id)
-functional dependency:
-listing_id->job_code,start_date,end_date
----
-person(per_id,name,city,state,zip)
-functional dependency:
-per_id->name,city,state,zip
----
-phone_number(number,type,per_id)
-functional dependency:
-number->type,per_id
 
+No functional dependencies. 
 
+---
+job_category(cate_code, parent_cate, pay_range_high, pay_range_low, ks_code, title)
+
+functional dependency:
+cate_code --> parent_cate, pay_range_high, pay_range_low, ks_code,  title
+cate_code --> title 
+
+---
+job_listing(listing_id,  job_code, comp_id)
+
+functional dependency:
+listing_id --> job_code, comp_id
+
+---
+company(comp_id, city, state, zip, comp_name, website, primary_sector, n_code)
+
+functional dependency:
+comp_id --> city, state, zip, comp_name, website, primary_sector, n_code
+comp_id --> comp_name 
+
+---
+naics(n_code, specialty, hiearchy)
+
+functional dependency:
+n_code --> specialty, hiearchy
+n_code --> speciality
+
+---
+knowledge_skill(ks_code, title, cluster_title, tier_level)
+
+functional dependency:
+ks_code --> title, cluster_title, tier_level
+ks_code --> title
+
+---
+paid_by(listing_id, per_id)
+
+functional dependency:
+listing_id --> per_id
+
+---
+career_tier(tier_level, tier_description)
+
+functional dependency:
+tier_level --> tier_description
+tier_description --> tier_level
+
+---
+course_knowledge(ks_code, c_code)
+
+No functional dependencies. 
+
+---
+course(c_code, title, level, description, status, prereq)
+
+functional dependency:
+c_code --> title, level, description, status, prereq
+title --> c_code, level, description, status, prereq
+description --> c_code, level, title, status, prereq
+
+---
+section(sec_id, start_date, end_date, format, offered_by, price, c_code)
+
+functional dependency:
+sec_id --> start_date, end_date, format, offered_by, price, c_code
+
+---
+takes(per_id, sec_id)
+
+No functional dependencies.
+
+---
+person_skill(ks_code, per_id)
+
+No functional dependencies
+
+---
+job_history(end_date, start_date, per_id, listing_id)
+
+No functional dependencies.
+
+---
+person(per_id, name, city, state, zip)
+
+per_id --> name, city, state, zip
+zip --> city 
+city --> state 
+
+---
+phone_number(number, type, per_id)
+
+number --> type, per_id
