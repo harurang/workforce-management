@@ -1,6 +1,6 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -35,32 +35,33 @@ public class Company {
         String email = "";
 
         try {
-            Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
+            PreparedStatement pStmt = conn.prepareStatement("SELECT DISTINCT NAME, EMAIL \n" +
+                    "FROM PERSON A INNER JOIN PERSON_SKILL B\n" +
+                    "ON A.PER_ID = B.PER_ID \n" +
+                    "WHERE NOT EXISTS (\n" +
+                    "\n" +
+                    "  -- get skills of specific job\n" +
+                    "  SELECT JOB_SKILL.KS_CODE\n" +
+                    "  FROM JOB_SKILL\n" +
+                    "  WHERE JOB_CODE=44\n" +
+                    "  \n" +
+                    "  MINUS\n" +
+                    "  \n" +
+                    "  -- get skills of person\n" +
+                    "  (SELECT KS_CODE\n" +
+                    "  FROM PERSON C INNER JOIN PERSON_SKILL D \n" +
+                    "  ON C.PER_ID = D.PER_ID\n" +
+                    "  WHERE A.NAME = C.NAME)\n" +
+                    ")");
+
             ResultSet rset;
 
-            rset = stmt.executeQuery(
-                    "SELECT DISTINCT NAME, EMAIL \n" +
-                            "FROM PERSON A INNER JOIN PERSON_SKILL B\n" +
-                            "ON A.PER_ID = B.PER_ID \n" +
-                            "WHERE NOT EXISTS (\n" +
-                            "\n" +
-                            "  -- get skills of specific job\n" +
-                            "  SELECT JOB_SKILL.KS_CODE\n" +
-                            "  FROM JOB_SKILL\n" +
-                            "  WHERE JOB_CODE=" + jobCode + "\n" +
-                            "  \n" +
-                            "  MINUS\n" +
-                            "  \n" +
-                            "  -- get skills of person\n" +
-                            "  (SELECT KS_CODE\n" +
-                            "  FROM PERSON C INNER JOIN PERSON_SKILL D \n" +
-                            "  ON C.PER_ID = D.PER_ID\n" +
-                            "  WHERE A.NAME = C.NAME)\n" +
-                            ")");
+            rset = pStmt.executeQuery();
 
-            while ( rset.next() ) {
-                name = rset.getString("name");
-                email = rset.getString("email");
+            while(rset.next()){
+                name = rset.getString(1);
+                email = rset.getString(2);
 
                 Person person = new Person(name, email);
                 results.add(person);
