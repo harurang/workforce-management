@@ -12,10 +12,24 @@ public class WorkforceManagement {
         try {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
-            // c) A company finds the right people for a job with training
-            ArrayList<Person> results = instantiateCompany(3).getQualifiedPeople(44);
-            for(Person person : results) {
+            // Career Planning Service
+            CareerPlanning career =  new CareerPlanning(conn);
+            // get qualified people according to job only
+            ArrayList<Person> qualifiedPpl = career.getQualifiedPeople(44);
+            for(Person person : qualifiedPpl) {
                 System.out.println(person.getName());
+            }
+
+            // c) Get qualifed people according to company and job
+            ArrayList<Person> qualPplByCompanyJob = instantiateCompany(18).getQualifiedPeople(44);
+            for(Person person : qualPplByCompanyJob) {
+                System.out.println(person.getName());
+            }
+
+            // d) Evaluate the opportunities in all the business sectors for the career planning service
+            ArrayList<String> openings = career.getAllOpenings();
+            for(String opening : openings) {
+                System.out.println(opening);
             }
 
             conn.close();

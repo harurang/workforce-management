@@ -28,6 +28,12 @@ public class Company {
         this.conn = conn;
     }
 
+    /**
+     * Gets qualified people according to the company and job.
+     *
+     * @param jobCode
+     * @return qualified people
+     */
     public ArrayList<Person> getQualifiedPeople(int jobCode) {
         ArrayList<Person> results = new ArrayList<Person>();
 
@@ -35,7 +41,6 @@ public class Company {
         String email = "";
 
         try {
-            // Statement stmt = conn.createStatement();
             PreparedStatement pStmt = conn.prepareStatement("SELECT DISTINCT NAME, EMAIL \n" +
                     "FROM PERSON A INNER JOIN PERSON_SKILL B\n" +
                     "ON A.PER_ID = B.PER_ID \n" +
@@ -43,8 +48,9 @@ public class Company {
                     "\n" +
                     "  -- get skills of specific job\n" +
                     "  SELECT JOB_SKILL.KS_CODE\n" +
-                    "  FROM JOB_SKILL\n" +
-                    "  WHERE JOB_CODE=?\n" +
+                    "  FROM JOB_SKILL INNER JOIN JOB_LISTING\n" +
+                    "  ON JOB_SKILL.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
+                    "  WHERE JOB_LISTING.JOB_CODE=? AND JOB_LISTING.COMP_ID = ?\n" +
                     "  \n" +
                     "  MINUS\n" +
                     "  \n" +
@@ -56,6 +62,7 @@ public class Company {
                     ")");
 
             pStmt.setString(1, jobCode + "");
+            pStmt.setString(2, this.compId + "");
             ResultSet rset = pStmt.executeQuery();
 
             while(rset.next()){
