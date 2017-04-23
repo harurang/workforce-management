@@ -2,15 +2,21 @@ career_cluster(cluster_title)
 
 No functional dependencies.
 
+No lossless decompositions.
+
 ---
 nwcet(nwcet_title)
 
 No functional dependencies.
 
+No lossless decompositions.
+
 ---
 soc(soc_title)
 
 No functional dependencies.
+
+No lossless decompositions.
 
 ---
 job(job_code, pay_type, pay_rate, cate_code)
@@ -18,12 +24,17 @@ job(job_code, pay_type, pay_rate, cate_code)
 functional dependency:
 job_code --> pay_type, pay_rate, cate_code
 
+No lossless decompositions.
+
 ---
 job_skill(importance, job_code, ks_code)
 
 No functional dependencies. 
 
+No lossless decompositions.
+
 ---
+// TODO
 job_category(cate_code, parent_cate, pay_range_high, pay_range_low, ks_code, title)
 
 functional dependency:
@@ -36,7 +47,10 @@ job_listing(listing_id,  job_code, comp_id)
 functional dependency:
 listing_id --> job_code, comp_id
 
+No lossless decompositions.
+
 ---
+// TODO
 company(comp_id, city, state, zip, comp_name, website, primary_sector, n_code)
 
 functional dependency:
@@ -44,13 +58,15 @@ comp_id --> city, state, zip, comp_name, website, primary_sector, n_code
 comp_id --> comp_name 
 
 ---
-naics(n_code, specialty, hiearchy)
+// TODO
+naics(n_code, specialty, hierarchy)
 
 functional dependency:
-n_code --> specialty, hiearchy
+n_code --> specialty, hierarchy
 n_code --> speciality
 
 ---
+// TODO
 knowledge_skill(ks_code, title, cluster_title, tier_level)
 
 functional dependency:
@@ -63,7 +79,10 @@ paid_by(listing_id, per_id)
 functional dependency:
 listing_id --> per_id
 
+No lossless decompositions.
+
 ---
+// TODO
 career_tier(tier_level, tier_description)
 
 functional dependency:
@@ -75,7 +94,10 @@ course_knowledge(ks_code, c_code)
 
 No functional dependencies. 
 
+No lossless decompositions.
+
 ---
+// TODO
 course(c_code, title, level, description, status, prereq)
 
 functional dependency:
@@ -89,24 +111,34 @@ section(sec_id, start_date, end_date, format, offered_by, price, c_code)
 functional dependency:
 sec_id --> start_date, end_date, format, offered_by, price, c_code
 
+No lossless decompositions.
+
 ---
 takes(per_id, sec_id)
 
 No functional dependencies.
 
+No lossless decompositions.
+
 ---
 person_skill(ks_code, per_id)
 
-No functional dependencies
+No functional dependencies.
+
+No lossless decompositions.
 
 ---
 job_history(end_date, start_date, per_id, listing_id)
 
 No functional dependencies.
 
+No lossless decompositions.
+
 ---
+// TODO
 person(per_id, name, city, state, zip)
 
+functional dependency:
 per_id --> name, city, state, zip
 zip --> city 
 city --> state 
@@ -114,4 +146,7 @@ city --> state
 ---
 phone_number(number, type, per_id)
 
+functional dependency:
 number --> type, per_id
+
+No lossless decompositions.
