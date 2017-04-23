@@ -31,16 +31,12 @@ job_skill(importance, job_code, ks_code)
 
 No functional dependencies. 
 
-No lossless decompositions.
-
 ---
 job_category(cate_code, parent_cate, pay_range_high, pay_range_low, ks_code, title)
 
 functional dependency:
 cate_code --> parent_cate, pay_range_high, pay_range_low, ks_code,  title
 cate_code --> title 
-
-No functional dependencies.
 
 ---
 job_listing(listing_id,  job_code, comp_id)
@@ -57,8 +53,6 @@ functional dependency:
 comp_id --> city, state, zip, comp_name, website, primary_sector, n_code
 comp_id --> comp_name 
 
-No functional dependencies.
-
 ---
 naics(n_code, specialty, hierarchy)
 
@@ -66,16 +60,12 @@ functional dependency:
 n_code --> specialty, hierarchy
 n_code --> speciality
 
-No functional dependencies.
-
 ---
 knowledge_skill(ks_code, title, cluster_title, tier_level)
 
 functional dependency:
 ks_code --> title, cluster_title, tier_level
 ks_code --> title
-
-No functional dependencies.
 
 ---
 paid_by(listing_id, per_id)
@@ -86,12 +76,13 @@ listing_id --> per_id
 No lossless decompositions.
 
 ---
-// TODO
 career_tier(tier_level, tier_description)
 
 functional dependency:
 tier_level --> tier_description
 tier_description --> tier_level
+
+No lossless decompositions.
 
 ---
 course_knowledge(ks_code, c_code)
@@ -101,13 +92,14 @@ No functional dependencies.
 No lossless decompositions.
 
 ---
-// TODO
 course(c_code, title, level, description, status, prereq)
 
 functional dependency:
 c_code --> title, level, description, status, prereq
 title --> c_code, level, description, status, prereq
 description --> c_code, level, title, status, prereq
+
+No lossless decompositions.
 
 ---
 section(sec_id, start_date, end_date, format, offered_by, price, c_code)
@@ -139,13 +131,14 @@ No functional dependencies.
 No lossless decompositions.
 
 ---
-// TODO
 person(per_id, name, city, state, zip)
 
 functional dependency:
 per_id --> name, city, state, zip
 zip --> city 
 city --> state 
+
+No lossless decompositions.
 
 ---
 phone_number(number, type, per_id)
