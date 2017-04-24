@@ -560,6 +560,8 @@ INSERT INTO person_skill
 VALUES(206, 435784);
 
 
+INSERT INTO job_skill
+VALUES(23, 435789, 'required');
 
 INSERT INTO job_skill
 VALUES(75, 435785, 'required');
