@@ -513,6 +513,8 @@ VALUES (19, 18, 44);
 
 
 
+INSERT INTO person_skill
+VALUES(208, 435785);
 
 INSERT INTO person_skill
 VALUES(209, 435786);
