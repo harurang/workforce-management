@@ -281,31 +281,26 @@ WHERE MISSING_AMOUNT = (
 -- 19
 -- Description: For a specified job category and a given small number k, make a “missing-k” list that lists the people’s IDs and
 -- the number of missing skills for the people who miss only up to k skills in the ascending order of missing skills. 
-WITH MISSING_SKILLS AS (
-  SELECT KS_CODE
-  FROM JOB_CATEGORY
-  WHERE CATE_CODE=11
-),
-
-COUNT_MISSING_SKILLS(PER_ID, MISSING_AMOUNT) AS (
-  SELECT PER_ID, COUNT(KS_CODE)
-  FROM PERSON P, MISSING_SKILLS
-  WHERE KS_CODE IN (
-  SELECT KS_CODE 
-  FROM MISSING_SKILLS
+WITH COUNT_MISSING_SKILLS AS (
+    SELECT PER_ID, COUNT(KS_CODE) AS MISSING_AMOUNT
+    FROM PERSON P NATURAL JOIN JOB_CATEGORY
+    WHERE KS_CODE IN (
+    SELECT KS_CODE 
+    FROM JOB_CATEGORY
+    WHERE CATE_CODE=11
   
-  MINUS
+    MINUS
   
-  SELECT KS_CODE
-  FROM PERSON_SKILL
-  WHERE PER_ID=P.PER_ID)
-  GROUP BY PER_ID
+    SELECT KS_CODE
+    FROM PERSON_SKILL
+    WHERE PER_ID=P.PER_ID)
+    GROUP BY PER_ID
 )
-
 SELECT PER_ID, MISSING_AMOUNT
 FROM COUNT_MISSING_SKILLS
 WHERE MISSING_AMOUNT <=2
 ORDER BY MISSING_AMOUNT ASC;
+
 
 -- 20
 -- Description: Given a job category code and its corresponding missing-k list specified in Question 19. Find every skill that is
