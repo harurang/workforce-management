@@ -277,31 +277,26 @@ ORDER BY NUMB_MISSING_SKILL ASC;
 -- 18
 -- Description: Suppose there is a new job that has nobody qualified. List the persons who miss the least number of skills and
 -- report the “least number”. 
-WITH NEEDED_SKILLS AS (
-  SELECT KS_CODE
-  FROM JOB_SKILL
-  WHERE JOB_CODE=23
-),
-
-COUNT_NEEDED_SKILLS(PER_ID, MISSING_AMOUNT) AS (
-  SELECT PER_ID, COUNT(KS_CODE)
-  FROM PERSON P, NEEDED_SKILLS
+WITH COUNT_NEEDED_SKILLS AS (
+  SELECT PER_ID, COUNT(DISTINCT KS_CODE) AS MISSING_AMOUNT
+  FROM PERSON P NATURAL JOIN JOB_SKILL
   WHERE KS_CODE IN (
     SELECT KS_CODE 
-    FROM NEEDED_SKILLS
+    FROM JOB_SKILL
+    WHERE JOB_CODE=23
     MINUS
     SELECT KS_CODE 
     FROM PERSON_SKILL
     WHERE PER_ID=P.PER_ID)
-  GROUP BY PER_ID
+    GROUP BY PER_ID
 )
 
 SELECT PER_ID, MISSING_AMOUNT
 FROM COUNT_NEEDED_SKILLS
 WHERE MISSING_AMOUNT = (
   SELECT MIN(MISSING_AMOUNT)
-  FROM COUNT_NEEDED_SKILLS)
-ORDER BY PER_ID ASC;
+  FROM COUNT_NEEDED_SKILLS);
+
 
 -- 19
 -- Description: For a specified job category and a given small number k, make a “missing-k” list that lists the people’s IDs and
