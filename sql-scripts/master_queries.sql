@@ -174,10 +174,37 @@ WHERE PRICE = (SELECT MIN(PRICE) FROM SECTION);
 -- Provided query. 
 
 --13
--- Provided query. 
+--Description: List all the job categories that person is qualified for. 
+SELECT DISTINCT TITLE
+FROM JOB_CATEGORY JC
+WHERE EXISTS (
+      SELECT KS_CODE
+      FROM JOB_SKILL JB
+      WHERE JC.KS_CODE=JB.KS_CODE
+      MINUS
+      SELECT KS_CODE
+      FROM PERSON_SKILL
+      WHERE PER_ID=7
+); 
 
 --14
--- Provided query.
+--Description: Find the job with the highest pay rate for a person according
+--to his/her skill qualification
+WITH SKILL_QUALIFICATION AS (
+  SELECT DISTINCT TITLE
+  FROM JOB_CATEGORY JC
+  WHERE EXISTS (
+     SELECT KS_CODE
+      FROM JOB_SKILL JB
+      WHERE JC.KS_CODE=JB.KS_CODE
+      MINUS
+      SELECT KS_CODE
+      FROM PERSON_SKILL
+      WHERE PER_ID=7)
+)
+SELECT MAX(PAY_RATE)
+FROM SKILL_QUALIFICATION NATURAL JOIN JOB;
+
 
 -- 15
 -- Description: List all the names along with the emails of the persons who are qualified for a job. 
