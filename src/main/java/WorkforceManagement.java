@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WorkforceManagement {
     private static Connection conn;
@@ -19,6 +20,31 @@ public class WorkforceManagement {
             for(Person person : qualifiedPpl) {
                 System.out.println(person.getName());
             }
+
+            // a) A a person to a company
+            Company comp = instantiateCompany(12);
+            Person newEmployee = new Person(2349, "Jim", "Escalon", "1311 Carolyn",
+                    "CA", 95320, "jim@gmail.com", "male", conn);
+            ArrayList<Integer> paidBy = new ArrayList<Integer>() {{
+                add(8);
+            }};
+            ArrayList<Integer> takes = new ArrayList<Integer>() {{
+                add(326);
+                add(327);
+            }};
+            ArrayList<JobHistory> history = new ArrayList<JobHistory>() {{
+                add(new JobHistory("06/12/2012", "09/12/2013", 14));
+                add(new JobHistory("01/06/2012", "06/12/2012", 18));
+            }};
+            ArrayList<Integer> skills = new ArrayList<Integer>() {{
+                add(435785);
+                add(435788);
+            }};
+            HashMap<String, String> phoneNumbers = new HashMap<String, String>() {{
+                put("home", "234-345-1324");
+                put("mobile", "234-234-356");
+            }};
+            comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
 
             // c) Get qualifed people according to company and job
             ArrayList<Person> qualPplByCompanyJob = instantiateCompany(18).getQualifiedPeople(44);

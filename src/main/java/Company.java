@@ -2,9 +2,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Company {
+
+    ArrayList<Person> employees = new ArrayList<Person>();
 
     private Connection conn;
     private int compId;
@@ -78,6 +81,85 @@ public class Company {
         }
 
         return results;
+    }
+
+    /**
+     * A company accepts a new employee.
+     *
+     * @param person
+     * @param paidBy
+     * @param takes
+     * @param history
+     * @param skills
+     * @param phoneNumbers
+     */
+    public void addEmployee(Person person, ArrayList<Integer> paidBy, ArrayList<Integer> takes, ArrayList<JobHistory> history,
+                                    ArrayList<Integer> skills, HashMap<String, String> phoneNumbers) {
+        try{
+            // insert person
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO person\n" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+
+            pStmt.setString(1, person.getPerId() + "");
+            pStmt.setString(2, person.getName());
+            pStmt.setString(3, person.getStreet());
+            pStmt.setString(4, person.getState());
+            pStmt.setString(5, person.getZipCode() + "");
+            pStmt.setString(6, person.getEmail());
+            pStmt.setString(7, person.getGender());
+            ResultSet rset = pStmt.executeQuery();
+
+             // insert phone numbers
+             pStmt = conn.prepareStatement("INSERT INTO phone_number " +
+                    "VALUES (?, ?, ?)");
+
+            pStmt.setString(1, person.getPerId() + "");
+            pStmt.setString(2, phoneNumbers.get("home"));
+            pStmt.setString(3, phoneNumbers.get("mobile"));
+            rset = pStmt.executeQuery();
+
+            // insert skills
+            for(Integer skill : skills) {
+                pStmt = conn.prepareStatement("INSERT INTO person_skill VALUES (?, ?)");
+
+                pStmt.setString(1, person.getPerId() + "");
+                pStmt.setString(2, skill + "");
+                rset = pStmt.executeQuery();
+            }
+
+            // insert job histories
+            for(JobHistory job : history) {
+                pStmt = conn.prepareStatement("INSERT INTO job_history VALUES (?, ?, ?, ?)");
+
+                pStmt.setString(1, job.getStartDate());
+                pStmt.setString(2, job.getEndDate());
+                pStmt.setString(3, job.getJobListing() + "");
+                pStmt.setString(4, person.getPerId() + "");
+                rset = pStmt.executeQuery();
+            }
+
+            // insert sections taken
+            for(Integer section : takes) {
+                pStmt = conn.prepareStatement("INSERT INTO takes VALUES (?, ?)");
+
+                pStmt.setString(1, person.getPerId() + "");
+                pStmt.setString(2, section + "");
+                rset = pStmt.executeQuery();
+            }
+
+            // add job a person is paid by
+            for(Integer jobListing : paidBy) {
+                pStmt = conn.prepareStatement("INSERT INTO paid_by VALUES (?, ?)");
+
+                pStmt.setString(1, person.getPerId() + "");
+                pStmt.setString(2, jobListing + "");
+                rset = pStmt.executeQuery();
+            }
+
+        } catch(Exception e){
+            System.out.println("\nError in method addEmployee: " + e);
+        }
+
     }
 
     public Connection getConn() {
