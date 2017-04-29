@@ -14,14 +14,14 @@ public class WorkforceManagement {
             conn = dbCon.getDBConnection("hmangini", "H94F4Phd");
 
             // Career Planning Service
-            CareerPlanning career =  new CareerPlanning(conn);
+            CareerPlanningService career =  new CareerPlanningService(conn);
             // get qualified people according to job only
             ArrayList<Person> qualifiedPpl = career.getQualifiedPeople(44);
             for(Person person : qualifiedPpl) {
                 System.out.println(person.getName());
             }
 
-            // a) A a person to a company
+            // a) Add a person to a company
             Company comp = instantiateCompany(12);
             Person newEmployee = new Person(2349, "Jim", "Escalon", "1311 Carolyn",
                     "CA", 95320, "jim@gmail.com", "male", conn);

@@ -102,11 +102,12 @@ public class Company {
 
             pStmt.setString(1, person.getPerId() + "");
             pStmt.setString(2, person.getName());
-            pStmt.setString(3, person.getStreet());
-            pStmt.setString(4, person.getState());
-            pStmt.setString(5, person.getZipCode() + "");
-            pStmt.setString(6, person.getEmail());
-            pStmt.setString(7, person.getGender());
+            pStmt.setString(3, person.getCity());
+            pStmt.setString(4, person.getStreet());
+            pStmt.setString(5, person.getState());
+            pStmt.setString(6, person.getZipCode() + "");
+            pStmt.setString(7, person.getEmail());
+            pStmt.setString(8, person.getGender());
             ResultSet rset = pStmt.executeQuery();
 
              // insert phone numbers
@@ -156,11 +157,16 @@ public class Company {
                 rset = pStmt.executeQuery();
             }
 
+            employees.add(person);
+            System.out.println(person.getName() + " added successfully to company " + getCompName());
+
         } catch(Exception e){
             System.out.println("\nError in method addEmployee: " + e);
         }
 
     }
+
+    public ArrayList<Person> getEmployees() { return employees; }
 
     public Connection getConn() {
         return conn;

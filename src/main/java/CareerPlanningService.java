@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * workers suitable for a job.
  */
 
-public class CareerPlanning {
+public class CareerPlanningService {
     private Connection conn;
 
-    public CareerPlanning (Connection conn) {
+    public CareerPlanningService(Connection conn) {
         this.conn = conn;
     }
 
@@ -59,7 +59,7 @@ public class CareerPlanning {
             }
 
         } catch(Exception e) {
-            System.out.println("\nError in method getQualifiedPeople in CareerPlanning: " + e);
+            System.out.println("\nError in method getQualifiedPeople in CareerPlanningService: " + e);
         }
 
         return results;
@@ -106,7 +106,7 @@ public class CareerPlanning {
             }
 
         } catch(Exception e) {
-            System.out.println("\nError in method getAllOpenings in CareerPlanning: " + e);
+            System.out.println("\nError in method getAllOpenings in CareerPlanningService: " + e);
         }
 
         return results;

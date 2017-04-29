@@ -374,12 +374,13 @@ WHERE JOB_CATEGORY.TITLE = 'Computer User Support Specialists';
 -- 22
 -- Description: Find all the unemployed people who once held a job of the given job identifier
 WITH UNEMPLOYED AS (
-  SELECT PER_ID, NAME 
-  FROM PERSON
-  MINUS 
-  SELECT PERSON.PER_ID, PERSON.NAME
-  FROM PAID_BY INNER JOIN PERSON
-  ON PAID_BY.PER_ID = PERSON.PER_ID
+  SELECT PER_ID, NAME FROM (
+    SELECT PER_ID
+    FROM PERSON
+    MINUS 
+    SELECT PER_ID
+    FROM PAID_BY
+  ) NATURAL JOIN PERSON
 )
 
 SELECT NAME 
@@ -515,27 +516,25 @@ WITH OPENINGS AS (
   FROM JOB_LISTING
   NATURAL JOIN (
     -- all job listings
-    SELECT JOB.JOB_CODE
-    FROM JOB INNER JOIN JOB_LISTING
-    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+    SELECT JOB_CODE
+    FROM JOB_LISTING
     MINUS
     -- filled job listings 
-    SELECT JOB.JOB_CODE
+    SELECT JOB_CODE
     FROM PAID_BY INNER JOIN JOB_LISTING
-    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
-    INNER JOIN JOB
-    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)
-    GROUP BY JOB_CODE
+    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID)
+  GROUP BY JOB_CODE
 ),
 
 -- people who do not have a job 
 UNEMPLOYED AS (
-  SELECT PER_ID, NAME 
-  FROM PERSON
-  MINUS 
-  SELECT PERSON.PER_ID, PERSON.NAME
-  FROM PAID_BY INNER JOIN PERSON
-  ON PAID_BY.PER_ID = PERSON.PER_ID
+  SELECT PER_ID, NAME FROM (
+    SELECT PER_ID
+    FROM PERSON
+    MINUS 
+    SELECT PER_ID
+    FROM PAID_BY 
+  ) NATURAL JOIN PERSON
 ),
 
 -- Number skills each unemployed person has in common with each opening 
@@ -583,33 +582,31 @@ WHERE DIFF = (SELECT MAX(DIFF) FROM DIFFERENCES);
 -- Description: Find the courses that can help most jobless people find a job by training them toward the jobs of this category that
 -- have the most openings due to lack of qualified workers.
 
--- jobs with openings 
+-- Jobs with openings 
 WITH OPENINGS AS (
   SELECT JOB_CODE, COUNT(JOB_CODE) AS NUMB_OPENINGS
   FROM JOB_LISTING
   NATURAL JOIN (
-    -- all job listings 
-    SELECT JOB.JOB_CODE
-    FROM JOB INNER JOIN JOB_LISTING
-    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE
+    -- all job listings
+    SELECT JOB_CODE
+    FROM JOB_LISTING
     MINUS
     -- filled job listings 
-    SELECT JOB.JOB_CODE
+    SELECT JOB_CODE
     FROM PAID_BY INNER JOIN JOB_LISTING
-    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
-    INNER JOIN JOB
-    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)
-    GROUP BY JOB_CODE
+    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID)
+  GROUP BY JOB_CODE
 ),
 
--- people who do not have a job
+-- people who do not have a job 
 UNEMPLOYED AS (
-  SELECT PER_ID, NAME 
-  FROM PERSON
-  MINUS 
-  SELECT PERSON.PER_ID, PERSON.NAME
-  FROM PAID_BY INNER JOIN PERSON
-  ON PAID_BY.PER_ID = PERSON.PER_ID
+  SELECT PER_ID, NAME FROM (
+    SELECT PER_ID
+    FROM PERSON
+    MINUS 
+    SELECT PER_ID
+    FROM PAID_BY 
+  ) NATURAL JOIN PERSON
 ),
 
 -- number of skills each unemployed person has in common with each opening 
