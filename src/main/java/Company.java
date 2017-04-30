@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class Company {
 
     ArrayList<Person> employees = new ArrayList<Person>();
@@ -158,7 +157,7 @@ public class Company {
             }
 
             employees.add(person);
-            System.out.println(person.getName() + " added successfully to company " + getCompName());
+            System.out.println("\n" + person.getName() + " added successfully to company " + getCompName());
 
         } catch(Exception e){
             System.out.println("\nError in method addEmployee: " + e);

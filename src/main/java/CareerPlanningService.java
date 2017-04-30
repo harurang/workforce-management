@@ -101,7 +101,7 @@ public class CareerPlanningService {
                 jobCode = rset.getInt(2);
                 numbOpenings = rset.getInt(3);
 
-                String opening = "\n Job Title: " + title + " Job Code: " + jobCode + " Number of Openings: " + numbOpenings + "\n";
+                String opening = "Job Title: " + title + " Job Code: " + jobCode + " Number of Openings: " + numbOpenings + "\n";
                 results.add(opening);
             }
 
