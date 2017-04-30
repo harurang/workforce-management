@@ -64,6 +64,9 @@ public class WorkforceManagement {
                 System.out.println(opening);
             }
 
+            DBReset reset = new DBReset(conn);
+            reset.removeInsertFromTask8a(newEmployee, paidBy, takes, history, skills);
+
             conn.close();
         } catch(Exception e) {
             System.out.println(e);
