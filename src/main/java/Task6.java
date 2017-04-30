@@ -419,7 +419,7 @@ public class Task6 {
                             "FROM PERSON_SKILL\n" +
                             "WHERE PER_ID=7) \n" +
                             ") \n" +
-                            "SELECT MAX(PAY_RATE)" +
+                            "SELECT MAX(PAY_RATE) AS PAY_RATE\n" +
                             "FROM SKILL_QUALIFICATION NATURAL JOIN JOB");
             while ( rset.next() ) {
                 Integer payRate = rset.getInt("pay_rate");
