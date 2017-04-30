@@ -158,7 +158,7 @@ public class Task6 {
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 Integer skillCode = rset.getInt("ks_code");
-                System.out.println("Name: " + name + "Knowledge Skill: " + skillCode + "\n");
+                System.out.println("Name: " + name + "\n" + "Knowledge Skill: " + skillCode + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 5: " + e);
@@ -372,6 +372,66 @@ public class Task6 {
             System.out.println("\nError at query 11: " + e);
         }
     }
+   
+    public static void query13 () {
+        System.out.println("\nQuery 13: \n");
+        try {
+            Statement stmt = conn.createStatement();
+
+            ResultSet rset = stmt.executeQuery(
+                    "SELECT DISTINCT TITLE\n" +
+                            "FROM JOB_CATEGORY JC\n" +
+                            "WHERE EXISTS (\n" +
+                            "\n" +
+                            "SELECT KS_CODE\n" +
+                            "FROM JOB_SKILL JB\n" +
+                            "WHERE JC.KS_CODE=JB.KS_CODE\n" +
+                            "MINUS\n" +
+                            "SELECT KS_CODE\n" +
+                            "FROM PERSON_SKILL\n" +
+                            "WHERE PER_ID = 7)");
+            while ( rset.next() ) {
+                String title = rset.getString("title");
+                System.out.println("Title: " + title + "\n");
+            }
+        } catch(Exception e) {
+            System.out.println("\nError at query 13: " + e);
+        }
+    }
+
+     public static void query14() {
+        System.out.println("\nQuery 14: \n");
+        try {
+            Statement stmt = conn.createStatement();
+
+            ResultSet rset = stmt.executeQuery(
+                    "WITH SKILL_QUALIFICATION AS (\n" +
+                            "\n" +
+                            "SELECT DISTINCT TITLE\n" +
+                            "FROM JOB_CATEGORY JC\n" +
+                            "WHERE EXISTS ( \n" +
+                            "\n" +
+                            "SELECT KS_CODE\n" +
+                            "FROM JOB_SKILL JB \n" +
+                            "WHERE JC.KS_CODE=JB.KS_CODE\n" +
+                            "MINUS\n" +
+                            "SELECT KS_CODE\n" +
+                            "FROM PERSON_SKILL\n" +
+                            "WHERE PER_ID=7) \n" +
+                            ") \n" +
+                            "SELECT MAX(PAY_RATE)" +
+                            "FROM SKILL_QUALIFICATION NATURAL JOIN JOB");
+            while ( rset.next() ) {
+                int payRate = rset.getString("pay_rate");
+                System.out.println("Highest Pay Rate: " + payRate + "\n");
+            }
+        } catch(Exception e) {
+            System.out.println("\nError at query 14: " + e);
+        }
+    }
+
+
+
 
     public static void query15 () {
         System.out.println("\nQuery 15: \n");
@@ -487,17 +547,15 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                "WITH NEEDED_SKILLS AS (\n" +
-                        "SELECT KS_CODE\n" +
-                        "FROM JOB_SKILL\n" +
-                        "WHERE JOB_CODE=23),\n" +
+                        "WITH COUNT_NEEDED_SKILLS AS (\n" +
                         "\n" +
-                        "COUNT_NEEDED_SKILLS(PER_ID, MISSING_AMOUNT) AS (\n" +
-                        "SELECT PER_ID, COUNT(KS_CODE)\n" +
-                        "FROM PERSON P, NEEDED_SKILLS\n" +
+                        "SELECT PER_ID, COUNT(DISTINCT KS_CODE) AS MISSING_AMOUNT\n" +
+                        "FROM PERSON P NATURAL JOIN JOB_SKILL" +
                         "WHERE KS_CODE IN (\n" +
+                        "\n" +
                         "SELECT KS_CODE \n" +
-                        "FROM NEEDED_SKILLS\n" +
+                        "FROM JOB_SKILL\n" +
+                        "WHERE JOB_CODE=23" +
                         "MINUS\n" +
                         "SELECT KS_CODE \n" +
                         "FROM PERSON_SKILL\n" +
@@ -508,8 +566,7 @@ public class Task6 {
                         "FROM COUNT_NEEDED_SKILLS\n" +
                         "WHERE MISSING_AMOUNT = (\n" +
                         "SELECT MIN(MISSING_AMOUNT)\n" +
-                        "FROM COUNT_NEEDED_SKILLS)\n" +
-                        "ORDER BY PER_ID ASC");
+                        "FROM COUNT_NEEDED_SKILLS)\n");
                 while ( rset.next() ) {
                     Integer perId = rset.getInt("per_id");
                     Integer missingSkills = rset.getInt("missing_amount");
@@ -527,17 +584,15 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "WITH MISSING_SKILLS AS ( \n" +
+                            "WITH COUNT_MISSING_SKILLS AS ( \n" +
+                            "\n" +
+                            "SELECT PER_ID, COUNT(KS_CODE) AS MISSING_AMOUNT \n" +
+                            "FROM PERSON P NATURAL JOIN JOB_CATEGORY \n" +
+                            "WHERE KS_CODE IN ( \n" +
                             "\n" +
                             "SELECT KS_CODE \n" +
                             "FROM JOB_CATEGORY \n" +
-                            "WHERE CATE_CODE=11), \n" +
-                            "COUNT_MISSING_SKILLS(PER_ID, MISSING_AMOUNT) AS ( \n" +
-                            "SELECT PER_ID, COUNT(KS_CODE) \n" +
-                            "FROM PERSON P, MISSING_SKILLS \n" +
-                            "WHERE KS_CODE IN ( \n" +
-                            "SELECT KS_CODE \n" +
-                            "FROM MISSING_SKILLS \n" +
+                            "WHERE CATE_CODE=11\n" +
                             "MINUS \n" +
                             "SELECT KS_CODE \n" +
                             "FROM PERSON_SKILL \n" +
@@ -564,47 +619,34 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "WITH MISSING_SKILLS AS (\n" +
-                            "SELECT KS_CODE\n" +
-                            "FROM JOB_CATEGORY\n" +
-                            "WHERE CATE_CODE=11),\n" +
+                            "WITH COUNT_MISSING_SKILLS(PER_ID, KS_CODE) AS (\n" +
                             "\n" +
-                            "COUNT_MISSING_SKILLS(PER_ID, MISSING_AMOUNT) AS (\n" +
-                            "SELECT PER_ID, COUNT(KS_CODE)\n" +
-                            "FROM PERSON P, MISSING_SKILLS\n" +
-                            "WHERE KS_CODE IN (\n" +
-                            "SELECT KS_CODE \n" +
-                            "FROM MISSING_SKILLS\n" +
-                            "\n" +
+                            "SELECT DISTINCT PER_ID, KS_CODE\n" +
+                            "FROM PERSON P, JOB_CATEGORY\n" +
+                            "WHERE CATE_CODE=11\n" +
                             "MINUS\n" +
-                            "\n" +
-                            "SELECT KS_CODE\n" +
+                            "SELECT PER_ID,  KS_CODE\n" +
                             "FROM PERSON_SKILL\n" +
-                            "WHERE PER_ID=P.PER_ID)\n" +
-                            "GROUP BY PER_ID\n" +
                             "),\n" +
                             "\n" +
                             "MISSING_K AS (\n" +
+                            "\n" +
+                            "SELECT MIN(COUNT(KS_CODE))\n" +
+                            "FROM JOB_CATEGORY NATURAL JOIN COUNT_MISSING_SKILLS\n" +
+                            "WHERE CATE_CODE=11\n" +
+                            "GROUP BY PER_ID\n" +
+                            "),\n" +
+                            "SELECT KS_CODE, COUNT(PER_ID) AS SKILLS_COUNT\n" +
+                            "FROM COUNT_MISSING_SKILLS CMS\n" +
+                            "WHERE EXISTS (\n" +
+                            "\n" +
                             "SELECT PER_ID\n" +
                             "FROM COUNT_MISSING_SKILLS\n" +
-                            "WHERE MISSING_AMOUNT <=2),\n" +
-                            "\n" +
-                            "PERSON_SKILLS_COUNT(KS_CODE, SKILLS_COUNT) AS (\n" +
-                            "SELECT KS_CODE, COUNT(PER_ID)\n" +
-                            "FROM MISSING_K P, MISSING_SKILLS\n" +
-                            "WHERE KS_CODE IN (\n" +
-                            "SELECT KS_CODE\n" +
-                            "FROM MISSING_SKILLS\n" +
-                            "\n" +
-                            "MINUS\n" +
-                            "\n" +
-                            "SELECT KS_CODE\n" +
-                            "FROM PERSON_SKILL\n" +
-                            "WHERE PER_ID=P.PER_ID)\n" +
-                            "GROUP BY KS_CODE\n" +
+                            "WHERE PER_ID=CMS.PER_ID\n" +
+                            "GROUP BY PER_ID\n" +
+                            "HAVING COUNT(KS_CODE) <=2\n" +
                             ")\n" +
-                            "SELECT KS_CODE, SKILLS_COUNT\n" +
-                            "FROM PERSON_SKILLS_COUNT\n" +
+                            "GROUP BY KS_CODE\n" +
                             "ORDER BY SKILLS_COUNT DESC");
             while ( rset.next() ) {
                 Integer ksCode = rset.getInt("ks_code");
