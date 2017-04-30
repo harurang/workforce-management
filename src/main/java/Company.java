@@ -44,24 +44,25 @@ public class Company {
 
         try {
             PreparedStatement pStmt = conn.prepareStatement("SELECT DISTINCT NAME, EMAIL \n" +
-                    "FROM PERSON A INNER JOIN PERSON_SKILL B\n" +
-                    "ON A.PER_ID = B.PER_ID \n" +
-                    "WHERE NOT EXISTS (\n" +
-                    "\n" +
-                    "  -- get skills of specific job\n" +
-                    "  SELECT JOB_SKILL.KS_CODE\n" +
-                    "  FROM JOB_SKILL INNER JOIN JOB_LISTING\n" +
-                    "  ON JOB_SKILL.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
-                    "  WHERE JOB_LISTING.JOB_CODE=? AND JOB_LISTING.COMP_ID = ?\n" +
+                    "FROM PERSON NATURAL JOIN (\n" +
+                    "  SELECT PER_ID\n" +
+                    "  FROM PERSON_SKILL A\n" +
+                    "  WHERE NOT EXISTS (\n" +
                     "  \n" +
-                    "  MINUS\n" +
-                    "  \n" +
-                    "  -- get skills of person\n" +
-                    "  (SELECT KS_CODE\n" +
-                    "  FROM PERSON C INNER JOIN PERSON_SKILL D \n" +
-                    "  ON C.PER_ID = D.PER_ID\n" +
-                    "  WHERE A.NAME = C.NAME)\n" +
-                    ")");
+                    "    -- get skills of specific job\n" +
+                    "    SELECT JOB_SKILL.KS_CODE\n" +
+                    "    FROM JOB_SKILL INNER JOIN JOB_LISTING\n" +
+                    "    ON JOB_SKILL.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
+                    "    WHERE JOB_SKILL.JOB_CODE=44 AND JOB_LISTING.COMP_ID=18\n" +
+                    "    \n" +
+                    "    MINUS\n" +
+                    "    \n" +
+                    "    -- get skills of person\n" +
+                    "    (SELECT KS_CODE\n" +
+                    "    FROM PERSON_SKILL B\n" +
+                    "    WHERE A.PER_ID = B.PER_ID)\n" +
+                    "  )\n" +
+                    ");");
 
             pStmt.setString(1, jobCode + "");
             pStmt.setString(2, this.compId + "");

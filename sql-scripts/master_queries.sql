@@ -208,7 +208,6 @@ FROM SKILL_QUALIFICATION NATURAL JOIN JOB;
 
 -- 15
 -- Description: List all the names along with the emails of the persons who are qualified for a job. 
--- Description: List all the names along with the emails of the persons who are qualified for a job. 
 SELECT DISTINCT NAME, EMAIL 
 FROM PERSON NATURAL JOIN (
   SELECT PER_ID
