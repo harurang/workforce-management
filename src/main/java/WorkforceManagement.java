@@ -21,6 +21,7 @@ public class WorkforceManagement {
                 System.out.println(person.getName());
             }
 
+
             // a) Add a person to a company
             Company comp = instantiateCompany(12);
             Person newEmployee = new Person(2349, "Jim", "Escalon", "1311 Carolyn",
@@ -45,6 +46,8 @@ public class WorkforceManagement {
                 put("mobile", "234-234-356");
             }};
             comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
+
+            // b) a person's job hunting
 
             // c) Get qualifed people according to company and job
             ArrayList<Person> qualPplByCompanyJob = instantiateCompany(18).getQualifiedPeople(44);
