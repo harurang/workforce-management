@@ -66,7 +66,7 @@ SELECT KS_CODE
 FROM PERSON_SKILL WHERE PER_ID=2;
 
 -- 7
--- A
+-- a
 -- Description: List the required knowledge/skills of a job/ a job category in a readable format. (two queries)
 SELECT TITLE
 FROM JOB_SKILL INNER JOIN KNOWLEDGE_SKILL 
@@ -74,7 +74,7 @@ ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE
 WHERE JOB_SKILL.JOB_CODE = 23 AND IMPORTANCE='required';
 
 -- 7
--- B
+-- b
 -- Description: List the required knowledge/skills of a job/ a job category in a readable format. (two queries)
 SELECT KNOWLEDGE_SKILL.TITLE
 FROM JOB_CATEGORY INNER JOIN KNOWLEDGE_SKILL 
