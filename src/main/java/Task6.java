@@ -150,8 +150,11 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT PERSON.NAME, KNOWLEDGE_SKILL.KS_CODE \n" +
-                            "FROM PERSON LEFT JOIN PERSON_SKILL ON PERSON.PER_ID = PERSON_SKILL.PER_ID \n" +
-                            "LEFT JOIN KNOWLEDGE_SKILL ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE");
+                            "FROM PERSON INNER JOIN PERSON_SKILL \n" +
+                            "ON PERSON.PER_ID = PERSON_SKILL.PER_ID \n" +
+                            "INNER JOIN KNOWLEDGE_SKILL \n" +
+                            "ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "WHERE PERSON.PER_ID = 209");
             while ( rset.next() ) {
                 String name = rset.getString("name");
                 Integer skillCode = rset.getInt("ks_code");
@@ -168,8 +171,7 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "-- get job skills of person\n" +
-                            "SELECT KS_CODE \n" +
+                    "SELECT KS_CODE \n" +
                             "FROM PAID_BY INNER JOIN JOB_LISTING \n" +
                             "ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
                             "INNER JOIN JOB_SKILL\n" +
@@ -179,7 +181,8 @@ public class Task6 {
                             "MINUS\n" +
                             "\n" +
                             "-- ger person skills\n" +
-                            "SELECT KS_CODE FROM PERSON_SKILL WHERE PER_ID=2");
+                            "SELECT KS_CODE \n" +
+                            "FROM PERSON_SKILL WHERE PER_ID=2");
             while ( rset.next() ) {
                 Integer skillCode = rset.getInt("ks_code");
                 System.out.println("Knowledge Code: " + skillCode + "\n");
@@ -195,14 +198,13 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT JOB_TITLE, TITLE AS SKILL \n" +
-                            "FROM JOB_SKILL LEFT JOIN JOB ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE \n" +
-                            "LEFT JOIN KNOWLEDGE_SKILL ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
-                            "WHERE IMPORTANCE='required'");
+                    "SELECT TITLE\n" +
+                            "FROM JOB_SKILL INNER JOIN KNOWLEDGE_SKILL \n" +
+                            "ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "WHERE JOB_SKILL.JOB_CODE = 23 AND IMPORTANCE='required'");
             while ( rset.next() ) {
-                String jobTitle = rset.getString("job_title");
-                String skill = rset.getString("skill");
-                System.out.println("Job Title: " + jobTitle + "\n" + "Knowledge Skill: " + skill + "\n");
+                String skill = rset.getString("title");
+                System.out.println("Knowledge Skill: " + skill + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 7a: " + e);
@@ -215,12 +217,13 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT JOB_CATEGORY.TITLE AS JOB_CATEGORY_TITLE, KNOWLEDGE_SKILL.TITLE AS SKILL_TITLE\n" +
-                            "FROM JOB_CATEGORY LEFT JOIN KNOWLEDGE_SKILL ON JOB_CATEGORY.KS_CODE = KNOWLEDGE_SKILL.KS_CODE");
+                    "SELECT KNOWLEDGE_SKILL.TITLE\n" +
+                            "FROM JOB_CATEGORY INNER JOIN KNOWLEDGE_SKILL \n" +
+                            "ON JOB_CATEGORY.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
+                            "WHERE JOB_CATEGORY.CATE_CODE=4");
             while ( rset.next() ) {
-                String jobCat = rset.getString("job_category_title");
-                String skill = rset.getString("skill_title");
-                System.out.println("Job Category: " + jobCat + "\n" + "Knowledge Skill: " + skill + "\n");
+                String skill = rset.getString("title");
+                System.out.println("Knowledge Skill: " + skill + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 7b: " + e);
@@ -233,15 +236,15 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
-                            "WHERE JOB_CODE=91\n" +
-                            "MINUS\n" +
-                            "SELECT PERSON_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
-                            "FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
-                            "WHERE PER_ID=5");
+                    "SELECT KS_CODE, TITLE FROM (\n" +
+                            "  SELECT JOB_SKILL.KS_CODE\n" +
+                            "  FROM JOB_SKILL \n" +
+                            "  WHERE JOB_CODE=23\n" +
+                            "  MINUS\n" +
+                            "  SELECT PERSON_SKILL.KS_CODE\n" +
+                            "  FROM PERSON_SKILL \n" +
+                            "  WHERE PER_ID=2\n" +
+                            ") NATURAL JOIN KNOWLEDGE_SKILL");
             while ( rset.next() ) {
                 Integer skillCode = rset.getInt("ks_code");
                 String skill = rset.getString("title");
@@ -259,10 +262,9 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT DISTINCT C.TITLE, C.C_CODE\n" +
-                            "FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S\n" +
-                            "ON C.C_CODE = S.C_CODE\n" +
+                            "FROM COURSE C\n" +
                             "WHERE NOT EXISTS (\n" +
-                            "\n" +
+                            "  -- skills a person is missing for a job\n" +
                             "  SELECT JOB_SKILL.KS_CODE\n" +
                             "  FROM JOB_SKILL \n" +
                             "  WHERE JOB_CODE=44\n" +
@@ -272,10 +274,10 @@ public class Task6 {
                             "  WHERE PER_ID=176\n" +
                             "  \n" +
                             "  MINUS\n" +
+                            "  -- skills of a course \n" +
                             "  (SELECT KS_CODE\n" +
-                            "  FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B\n" +
-                            "  ON A.C_CODE = B.C_CODE\n" +
-                            "  WHERE C.TITLE = A.TITLE)\n" +
+                            "  FROM COURSE_KNOWLEDGE A\n" +
+                            "  WHERE C.C_CODE = A.C_CODE)\n" +
                             ")");
             while ( rset.next() ) {
                 Integer courseCode = rset.getInt("c_code");
@@ -294,33 +296,27 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "WITH COURSES AS (\n" +
-                            "  SELECT TITLE, SECTION.START_DATE, SECTION.END_DATE, SECTION.FORMAT, SECTION.OFFERED_BY FROM SECTION NATURAL JOIN (\n" +
-                            "    SELECT DISTINCT C.TITLE, C.C_CODE\n" +
-                            "    FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S\n" +
-                            "    ON C.C_CODE = S.C_CODE\n" +
+                            "    SELECT DISTINCT C.C_CODE\n" +
+                            "    FROM COURSE C\n" +
                             "    WHERE NOT EXISTS (\n" +
                             "    \n" +
                             "      SELECT JOB_SKILL.KS_CODE\n" +
-                            "      FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON JOB_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
-                            "      WHERE JOB_CODE=44\n" +
+                            "      FROM JOB_SKILL\n" +
+                            "      WHERE JOB_CODE=23\n" +
                             "      MINUS\n" +
                             "      SELECT PERSON_SKILL.KS_CODE \n" +
-                            "      FROM PERSON_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
-                            "      ON PERSON_SKILL.KS_CODE = KNOWLEDGE_SKILL.KS_CODE\n" +
-                            "      WHERE PER_ID=176\n" +
+                            "      FROM PERSON_SKILL \n" +
+                            "      WHERE PER_ID=2\n" +
                             "      \n" +
                             "      MINUS\n" +
                             "      (SELECT KS_CODE\n" +
-                            "      FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B\n" +
-                            "      ON A.C_CODE = B.C_CODE\n" +
-                            "      WHERE C.TITLE = A.TITLE)\n" +
+                            "      FROM COURSE_KNOWLEDGE A\n" +
+                            "      WHERE C.C_CODE = A.C_CODE)\n" +
                             "    )\n" +
-                            "  )\n" +
                             ")\n" +
                             "\n" +
-                            "SELECT TITLE, START_DATE, END_DATE, FORMAT, OFFERED_BY \n" +
-                            "FROM COURSES \n" +
+                            "SELECT DISTINCT TITLE, START_DATE, END_DATE, FORMAT, OFFERED_BY \n" +
+                            "FROM COURSES NATURAL JOIN SECTION NATURAL JOIN COURSE\n" +
                             "WHERE START_DATE = (SELECT MIN(TO_DATE(START_DATE)) FROM COURSES)");
             while ( rset.next() ) {
                 String title = rset.getString("title");
@@ -344,36 +340,33 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "WITH COURSES AS (\n" +
-                            "  SELECT TITLE, PRICE, SEC_ID FROM SECTION NATURAL JOIN (\n" +
-                            "    SELECT DISTINCT C.TITLE, C.C_CODE\n" +
-                            "    FROM COURSE C RIGHT JOIN COURSE_KNOWLEDGE S\n" +
-                            "    ON C.C_CODE = S.C_CODE\n" +
+                            "    SELECT DISTINCT C.C_CODE\n" +
+                            "    FROM COURSE_KNOWLEDGE C\n" +
                             "    WHERE NOT EXISTS (\n" +
                             "    \n" +
                             "      SELECT JOB_SKILL.KS_CODE\n" +
                             "      FROM JOB_SKILL \n" +
-                            "      WHERE JOB_CODE=44\n" +
+                            "      WHERE JOB_CODE=23\n" +
                             "      MINUS\n" +
                             "      SELECT PERSON_SKILL.KS_CODE \n" +
                             "      FROM PERSON_SKILL\n" +
-                            "      WHERE PER_ID=176\n" +
+                            "      WHERE PER_ID=2\n" +
                             "      \n" +
                             "      MINUS\n" +
                             "      (SELECT KS_CODE\n" +
-                            "      FROM COURSE A RIGHT JOIN COURSE_KNOWLEDGE B\n" +
-                            "      ON A.C_CODE = B.C_CODE\n" +
-                            "      WHERE C.TITLE = A.TITLE)\n" +
-                            "    )\n" +
+                            "      FROM COURSE_KNOWLEDGE A\n" +
+                            "      WHERE A.C_CODE = C.C_CODE)\n" +
                             "  )\n" +
                             ")\n" +
                             "\n" +
-                            "SELECT TITLE, PRICE, SEC_ID FROM COURSES WHERE PRICE = (SELECT MIN(PRICE) FROM COURSES)");
+                            "SELECT TITLE, PRICE \n" +
+                            "FROM SECTION NATURAL JOIN COURSES \n" +
+                            "NATURAL JOIN COURSE \n" +
+                            "WHERE PRICE = (SELECT MIN(PRICE) FROM SECTION)");
             while ( rset.next() ) {
                 String title = rset.getString("title");
                 String price = rset.getString("price");
-                Integer sec_id = rset.getInt("sec_id");
-                System.out.println("Course Title: " + title + "\n" + "Price: " + price + "\n"+
-                        "Section Id: " + sec_id + "\n");
+                System.out.println("Course Title: " + title + "\n" + "Price: " + price + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 11: " + e);
@@ -387,22 +380,23 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "SELECT DISTINCT NAME, EMAIL \n" +
-                            "FROM PERSON A INNER JOIN PERSON_SKILL B\n" +
-                            "ON A.PER_ID = B.PER_ID \n" +
-                            "WHERE NOT EXISTS (\n" +
-                            "\n" +
-                            "  -- get skills of specific job\n" +
-                            "  SELECT JOB_SKILL.KS_CODE\n" +
-                            "  FROM JOB_SKILL\n" +
-                            "  WHERE JOB_CODE=44\n" +
+                            "FROM PERSON NATURAL JOIN (\n" +
+                            "  SELECT PER_ID\n" +
+                            "  FROM PERSON_SKILL A\n" +
+                            "  WHERE NOT EXISTS (\n" +
                             "  \n" +
-                            "  MINUS\n" +
-                            "  \n" +
-                            "  -- get skills of person\n" +
-                            "  (SELECT KS_CODE\n" +
-                            "  FROM PERSON C INNER JOIN PERSON_SKILL D \n" +
-                            "  ON C.PER_ID = D.PER_ID\n" +
-                            "  WHERE A.NAME = C.NAME)\n" +
+                            "    -- get skills of specific job\n" +
+                            "    SELECT JOB_SKILL.KS_CODE\n" +
+                            "    FROM JOB_SKILL\n" +
+                            "    WHERE JOB_CODE=44\n" +
+                            "    \n" +
+                            "    MINUS\n" +
+                            "    \n" +
+                            "    -- get skills of person\n" +
+                            "    (SELECT KS_CODE\n" +
+                            "    FROM PERSON_SKILL B\n" +
+                            "    WHERE A.PER_ID = B.PER_ID)\n" +
+                            "  )\n" +
                             ")");
             while ( rset.next() ) {
                 String name = rset.getString("name");
@@ -447,54 +441,39 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "WITH PERSON_REQUIRED_SKILL_CNT AS (\n" +
+                    "WITH PERSON_SKILL_CNT AS (\n" +
                             "  SELECT PER_ID, COUNT(KS_CODE) AS SKILL_COUNT\n" +
                             "  FROM PERSON_SKILL NATURAL JOIN JOB_SKILL\n" +
                             "  WHERE JOB_CODE = 31\n" +
                             "  GROUP BY PER_ID\n" +
                             "),\n" +
                             "\n" +
+                            "-- people who miss a skill by one\n" +
                             "MISSING_ONE AS (\n" +
                             "  SELECT PER_ID\n" +
-                            "  FROM PERSON_REQUIRED_SKILL_CNT\n" +
+                            "  FROM PERSON_SKILL_CNT\n" +
                             "  WHERE SKILL_COUNT = (SELECT COUNT(*) - 1\n" +
                             "  FROM JOB_SKILL\n" +
                             "  WHERE JOB_CODE = 31)\n" +
                             "),\n" +
                             "\n" +
-                            "MISSING_AND_SUPRLUS_SKILLS AS (\n" +
-                            "  SELECT KS_CODE\n" +
-                            "  FROM PERSON_SKILL A INNER JOIN MISSING_ONE\n" +
-                            "  ON A.PER_ID = MISSING_ONE.PER_ID\n" +
-                            "  \n" +
-                            "  WHERE EXISTS (\n" +
-                            "    -- get skills of job\n" +
-                            "    SELECT KS_CODE \n" +
-                            "    FROM JOB_SKILL\n" +
-                            "    WHERE JOB_CODE = 31\n" +
-                            "    \n" +
-                            "    MINUS\n" +
-                            "    \n" +
-                            "    -- skills of people\n" +
-                            "    SELECT KS_CODE\n" +
-                            "    FROM MISSING_ONE\n" +
-                            "    INNER JOIN PERSON \n" +
-                            "    ON MISSING_ONE.PER_ID = PERSON.PER_ID\n" +
-                            "    INNER JOIN PERSON_SKILL B\n" +
-                            "    ON PERSON.PER_ID = B.PER_ID\n" +
-                            "    WHERE A.KS_CODE = B.KS_CODE\n" +
-                            "  )\n" +
+                            "-- skills of a specific job\n" +
+                            "SKILLS_OF_JOB AS (\n" +
+                            "  SELECT KS_CODE \n" +
+                            "  FROM JOB_SKILL\n" +
+                            "  WHERE JOB_CODE = 31\n" +
                             ")\n" +
                             "\n" +
-                            "SELECT JOB_SKILL.KS_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMB_MISSING_SKILL\n" +
-                            "FROM JOB_SKILL INNER JOIN MISSING_AND_SUPRLUS_SKILLS\n" +
-                            "ON JOB_SKILL.KS_CODE = MISSING_AND_SUPRLUS_SKILLS.KS_CODE\n" +
-                            "WHERE JOB_SKILL.JOB_CODE = 31\n" +
-                            "GROUP BY JOB_SKILL.KS_CODE\n" +
-                            "ORDER BY NUMB_MISSING_SKILL ASC");
+                            "SELECT SKILLS_OF_JOB.KS_CODE, COUNT(SKILLS_OF_JOB.KS_CODE) AS NUMB_MISSING \n" +
+                            "FROM MISSING_ONE INNER JOIN PERSON_SKILL\n" +
+                            "ON MISSING_ONE.PER_ID = PERSON_SKILL.PER_ID\n" +
+                            "INNER JOIN SKILLS_OF_JOB\n" +
+                            "ON SKILLS_OF_JOB.KS_CODE = PERSON_SKILL.KS_CODE\n" +
+                            "GROUP BY SKILLS_OF_JOB.KS_CODE\n" +
+                            "ORDER BY NUMB_MISSING ASC");
             while ( rset.next() ) {
                 Integer perCode = rset.getInt("ks_code");
-                Integer numbPpl = rset.getInt("numb_missing_skill");
+                Integer numbPpl = rset.getInt("numb_missing");
                 System.out.println("Knowledge Code:" + perCode + "\n" + "Number of People : " + numbPpl + "\n");
             }
         } catch(Exception e) {
@@ -669,12 +648,13 @@ public class Task6 {
 
             ResultSet rset = stmt.executeQuery(
                     "WITH UNEMPLOYED AS (\n" +
-                            "  SELECT PER_ID, NAME \n" +
-                            "  FROM PERSON\n" +
-                            "  MINUS \n" +
-                            "  SELECT PERSON.PER_ID, PERSON.NAME\n" +
-                            "  FROM PAID_BY INNER JOIN PERSON\n" +
-                            "  ON PAID_BY.PER_ID = PERSON.PER_ID\n" +
+                            "  SELECT PER_ID, NAME FROM (\n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PERSON\n" +
+                            "    MINUS \n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PAID_BY\n" +
+                            "  ) NATURAL JOIN PERSON\n" +
                             ")\n" +
                             "\n" +
                             "SELECT NAME \n" +
@@ -725,8 +705,8 @@ public class Task6 {
                             "\n" +
                             "SELECT COMP_NAME, SUM_SAL, NUMB_EMPLOYEES FROM COMP_PAYCHECKS NATURAL JOIN COMP_EMPLOYEE_COUNT\n" +
                             "WHERE SUM_SAL = \n" +
-                            "(SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR \n" +
-                            "NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT)");
+                            "  (SELECT MAX(SUM_SAL) FROM COMP_PAYCHECKS) OR \n" +
+                            "  NUMB_EMPLOYEES = (SELECT MAX(NUMB_EMPLOYEES) FROM COMP_EMPLOYEE_COUNT)");
             while ( rset.next() ) {
                 String compName = rset.getString("comp_name");
                 String sumSal = rset.getString("sum_sal");
@@ -800,7 +780,7 @@ public class Task6 {
                             "  ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
                             "  INNER JOIN COMPANY\n" +
                             "  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID\n" +
-                            "  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'\n" +
+                            "  WHERE PRIMARY_SECTOR = 'Software Engineering'\n" +
                             "  GROUP BY NAME\n" +
                             "),\n" +
                             "\n" +
@@ -817,7 +797,7 @@ public class Task6 {
                             "  ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE\n" +
                             "  INNER JOIN COMPANY\n" +
                             "  ON JOB_LISTING.COMP_ID = COMPANY.COMP_ID\n" +
-                            "  WHERE PRIMARY_SECTOR = 'SOFTWARE ENGINEERING'\n" +
+                            "  WHERE PRIMARY_SECTOR = 'Software Engineering'\n" +
                             "  GROUP BY NAME\n" +
                             "),\n" +
                             "\n" +
@@ -844,74 +824,60 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "-- Jobs with openings \n" +
-                            "WITH OPENINGS AS (\n" +
+                    "WITH OPENINGS AS (\n" +
                             "  SELECT JOB_CODE, COUNT(JOB_CODE) AS NUMB_OPENINGS\n" +
                             "  FROM JOB_LISTING\n" +
                             "  NATURAL JOIN (\n" +
                             "    -- all job listings\n" +
-                            "    SELECT JOB.JOB_CODE\n" +
-                            "    FROM JOB INNER JOIN JOB_LISTING\n" +
-                            "    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
+                            "    SELECT JOB_CODE\n" +
+                            "    FROM JOB_LISTING\n" +
                             "    MINUS\n" +
                             "    -- filled job listings \n" +
-                            "    SELECT JOB.JOB_CODE\n" +
+                            "    SELECT JOB_CODE\n" +
                             "    FROM PAID_BY INNER JOIN JOB_LISTING\n" +
-                            "    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
-                            "    INNER JOIN JOB\n" +
-                            "    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)\n" +
-                            "    GROUP BY JOB_CODE\n" +
+                            "    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID)\n" +
+                            "  GROUP BY JOB_CODE\n" +
                             "),\n" +
                             "\n" +
                             "-- people who do not have a job \n" +
                             "UNEMPLOYED AS (\n" +
-                            "  SELECT PER_ID, NAME \n" +
-                            "  FROM PERSON\n" +
-                            "  MINUS \n" +
-                            "  SELECT PERSON.PER_ID, PERSON.NAME\n" +
-                            "  FROM PAID_BY INNER JOIN PERSON\n" +
-                            "  ON PAID_BY.PER_ID = PERSON.PER_ID\n" +
+                            "  SELECT PER_ID, NAME FROM (\n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PERSON\n" +
+                            "    MINUS \n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PAID_BY \n" +
+                            "  ) NATURAL JOIN PERSON\n" +
                             "),\n" +
                             "\n" +
-                            "-- Number skills each unemployed person has in common with each opening \n" +
-                            "NUMB_SKILLS_BY_PERSON AS (\n" +
-                            "  SELECT UNEMPLOYED.NAME, OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBPERSKILLS\n" +
-                            "  FROM UNEMPLOYED INNER JOIN PERSON_SKILL\n" +
-                            "  ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID\n" +
-                            "  INNER JOIN JOB_SKILL \n" +
-                            "  ON PERSON_SKILL.KS_CODE = JOB_SKILL.KS_CODE\n" +
-                            "  INNER JOIN OPENINGS\n" +
-                            "  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE\n" +
-                            "  GROUP BY NAME, OPENINGS.JOB_CODE\n" +
-                            "),\n" +
-                            "\n" +
-                            "-- Number of skills required for each opening \n" +
-                            "NUMB_SKILLS_BY_JOB AS (\n" +
-                            "  SELECT OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBJOBSKILLS\n" +
-                            "  FROM JOB_SKILL INNER JOIN OPENINGS\n" +
-                            "  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE\n" +
-                            "  GROUP BY OPENINGS.JOB_CODE\n" +
-                            "),\n" +
-                            "\n" +
-                            "-- Unemployed ppl that are qualifeid for an opening \n" +
-                            "QUALIFIED AS (\n" +
-                            "  SELECT NUMB_SKILLS_BY_PERSON.NAME, NUMB_SKILLS_BY_JOB.JOB_CODE, COUNT(NUMB_SKILLS_BY_JOB.JOB_CODE) AS NUMB_QUALIFIED\n" +
-                            "  FROM NUMB_SKILLS_BY_PERSON INNER JOIN  NUMB_SKILLS_BY_JOB\n" +
-                            "  ON NUMB_SKILLS_BY_PERSON.JOB_CODE = NUMB_SKILLS_BY_JOB.JOB_CODE\n" +
-                            "  WHERE (NUMB_SKILLS_BY_JOB.NUMBJOBSKILLS - NUMB_SKILLS_BY_PERSON.NUMBPERSKILLS) = 0\n" +
-                            "  GROUP BY NUMB_SKILLS_BY_PERSON.NAME, NUMB_SKILLS_BY_JOB.JOB_CODE\n" +
+                            "-- number of people qualified per job \n" +
+                            "NUMB_QUALIFIED AS (\n" +
+                            "  SELECT JOB_CODE, COUNT(PER_ID) AS NUMB_QUAL\n" +
+                            "  FROM OPENINGS O, UNEMPLOYED U\n" +
+                            "  WHERE NOT EXISTS (\n" +
+                            "    SELECT KS_CODE\n" +
+                            "    FROM JOB_SKILL\n" +
+                            "    WHERE O.JOB_CODE = JOB_SKILL.JOB_CODE\n" +
+                            "    \n" +
+                            "    MINUS\n" +
+                            "    \n" +
+                            "    SELECT KS_CODE\n" +
+                            "    FROM PERSON_SKILL\n" +
+                            "    WHERE U.PER_ID = PERSON_SKILL.PER_ID\n" +
+                            "  )\n" +
+                            "  GROUP BY JOB_CODE\n" +
                             "),\n" +
                             "\n" +
                             "-- sum(vacancies - qualifeid) according to job category \n" +
                             "DIFFERENCES AS (\n" +
-                            "  SELECT CATE_CODE, SUM(OPENINGS.NUMB_OPENINGS - QUALIFIED.NUMB_QUALIFIED) AS DIFF\n" +
-                            "  FROM OPENINGS NATURAL JOIN QUALIFIED NATURAL JOIN JOB\n" +
-                            "  GROUP BY CATE_CODE\n" +
-                            ")  \n" +
+                            "  SELECT JOB_CODE, SUM(OPENINGS.NUMB_OPENINGS - NUMB_QUALIFIED.NUMB_QUAL) AS DIFF\n" +
+                            "  FROM OPENINGS NATURAL JOIN NUMB_QUALIFIED \n" +
+                            "  GROUP BY JOB_CODE\n" +
+                            ")\n" +
                             "\n" +
-                            "-- select max difference\n" +
+                            "-- select job category with max difference\n" +
                             "SELECT CATE_CODE\n" +
-                            "FROM DIFFERENCES \n" +
+                            "FROM DIFFERENCES NATURAL JOIN JOB\n" +
                             "WHERE DIFF = (SELECT MAX(DIFF) FROM DIFFERENCES)");
             while ( rset.next() ) {
                 Integer cateCode = rset.getInt("cate_code");
@@ -932,74 +898,57 @@ public class Task6 {
                             "  SELECT JOB_CODE, COUNT(JOB_CODE) AS NUMB_OPENINGS\n" +
                             "  FROM JOB_LISTING\n" +
                             "  NATURAL JOIN (\n" +
-                            "    -- all job listings \n" +
-                            "    SELECT JOB.JOB_CODE\n" +
-                            "    FROM JOB INNER JOIN JOB_LISTING\n" +
-                            "    ON JOB.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
+                            "    -- all job listings\n" +
+                            "    SELECT JOB_CODE\n" +
+                            "    FROM JOB_LISTING\n" +
                             "    MINUS\n" +
                             "    -- filled job listings \n" +
-                            "    SELECT JOB.JOB_CODE\n" +
+                            "    SELECT JOB_CODE\n" +
                             "    FROM PAID_BY INNER JOIN JOB_LISTING\n" +
-                            "    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID\n" +
-                            "    INNER JOIN JOB\n" +
-                            "    ON JOB_LISTING.JOB_CODE = JOB.JOB_CODE)\n" +
-                            "    GROUP BY JOB_CODE\n" +
+                            "    ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID)\n" +
+                            "  GROUP BY JOB_CODE\n" +
                             "),\n" +
                             "\n" +
-                            "-- people who do not have a job\n" +
+                            "-- people who do not have a job \n" +
                             "UNEMPLOYED AS (\n" +
-                            "  SELECT PER_ID, NAME \n" +
-                            "  FROM PERSON\n" +
-                            "  MINUS \n" +
-                            "  SELECT PERSON.PER_ID, PERSON.NAME\n" +
-                            "  FROM PAID_BY INNER JOIN PERSON\n" +
-                            "  ON PAID_BY.PER_ID = PERSON.PER_ID\n" +
+                            "  SELECT PER_ID, NAME FROM (\n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PERSON\n" +
+                            "    MINUS \n" +
+                            "    SELECT PER_ID\n" +
+                            "    FROM PAID_BY \n" +
+                            "  ) NATURAL JOIN PERSON\n" +
                             "),\n" +
                             "\n" +
-                            "-- number of skills each unemployed person has in common with each opening \n" +
-                            "NUMB_SKILLS_BY_PERSON AS (\n" +
-                            "  SELECT UNEMPLOYED.NAME, OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBPERSKILLS\n" +
-                            "  FROM UNEMPLOYED INNER JOIN PERSON_SKILL\n" +
-                            "  ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID\n" +
-                            "  INNER JOIN JOB_SKILL \n" +
-                            "  ON PERSON_SKILL.KS_CODE = JOB_SKILL.KS_CODE\n" +
-                            "  INNER JOIN OPENINGS\n" +
-                            "  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE\n" +
-                            "  GROUP BY NAME, OPENINGS.JOB_CODE\n" +
-                            "),\n" +
-                            "\n" +
-                            "-- number of skills required for each opening \n" +
-                            "NUMB_SKILLS_BY_JOB AS (\n" +
-                            "  SELECT OPENINGS.JOB_CODE, COUNT(JOB_SKILL.KS_CODE) AS NUMBJOBSKILLS\n" +
-                            "  FROM JOB_SKILL INNER JOIN OPENINGS\n" +
-                            "  ON JOB_SKILL.JOB_CODE = OPENINGS.JOB_CODE\n" +
-                            "  GROUP BY OPENINGS.JOB_CODE\n" +
-                            "),\n" +
-                            "\n" +
-                            "-- unemployed ppl that are qualified for an opening \n" +
-                            "QUALIFIED AS (\n" +
-                            "  SELECT NUMB_SKILLS_BY_PERSON.NAME, NUMB_SKILLS_BY_JOB.JOB_CODE, COUNT(NUMB_SKILLS_BY_JOB.JOB_CODE) AS NUMB_QUALIFIED\n" +
-                            "  FROM NUMB_SKILLS_BY_PERSON INNER JOIN  NUMB_SKILLS_BY_JOB\n" +
-                            "  ON NUMB_SKILLS_BY_PERSON.JOB_CODE = NUMB_SKILLS_BY_JOB.JOB_CODE\n" +
-                            "  WHERE (NUMB_SKILLS_BY_JOB.NUMBJOBSKILLS - NUMB_SKILLS_BY_PERSON.NUMBPERSKILLS) = 0\n" +
-                            "  GROUP BY NUMB_SKILLS_BY_PERSON.NAME, NUMB_SKILLS_BY_JOB.JOB_CODE\n" +
+                            "-- number of people qualified per job \n" +
+                            "NUMB_QUALIFIED AS (\n" +
+                            "  SELECT JOB_CODE, COUNT(PER_ID) AS NUMB_QUAL\n" +
+                            "  FROM OPENINGS O, UNEMPLOYED U\n" +
+                            "  WHERE NOT EXISTS (\n" +
+                            "    SELECT KS_CODE\n" +
+                            "    FROM JOB_SKILL\n" +
+                            "    WHERE O.JOB_CODE = JOB_SKILL.JOB_CODE\n" +
+                            "    \n" +
+                            "    MINUS\n" +
+                            "    \n" +
+                            "    SELECT KS_CODE\n" +
+                            "    FROM PERSON_SKILL\n" +
+                            "    WHERE U.PER_ID = PERSON_SKILL.PER_ID\n" +
+                            "  )\n" +
+                            "  GROUP BY JOB_CODE\n" +
                             "),\n" +
                             "\n" +
                             "-- sum(vacancies - qualified) according to job category \n" +
                             "DIFFERENCES AS (\n" +
-                            "  SELECT CATE_CODE, SUM(OPENINGS.NUMB_OPENINGS - QUALIFIED.NUMB_QUALIFIED) AS DIFF\n" +
-                            "  FROM OPENINGS NATURAL JOIN QUALIFIED NATURAL JOIN JOB\n" +
-                            "  GROUP BY CATE_CODE\n" +
+                            "  SELECT JOB_CODE, SUM(OPENINGS.NUMB_OPENINGS - NUMB_QUALIFIED.NUMB_QUAL) AS DIFF\n" +
+                            "  FROM OPENINGS NATURAL JOIN NUMB_QUALIFIED \n" +
+                            "  GROUP BY JOB_CODE\n" +
                             "),\n" +
                             "\n" +
+                            "-- courses and number of jobless people they help\n" +
                             "COURSES AS (\n" +
-                            "  SELECT C.TITLE, C.C_CODE, COUNT(DISTINCT E.PER_ID) NUMB_PPL_COURSE_QUALIFIES\n" +
-                            "  FROM COURSE C INNER JOIN COURSE_KNOWLEDGE S\n" +
-                            "  ON C.C_CODE = S.C_CODE\n" +
-                            "  INNER JOIN PERSON_SKILL\n" +
-                            "  ON PERSON_SKILL.KS_CODE = S.KS_CODE\n" +
-                            "  INNER JOIN UNEMPLOYED E\n" +
-                            "  ON PERSON_SKILL.PER_ID = E.PER_ID\n" +
+                            "  SELECT C.C_CODE, COUNT(DISTINCT U.PER_ID) NUMB_PPL_COURSE_QUALIFIES\n" +
+                            "  FROM COURSE_KNOWLEDGE C NATURAL JOIN OPENINGS NATURAL JOIN JOB_SKILL, UNEMPLOYED U \n" +
                             "  WHERE NOT EXISTS (\n" +
                             "  \n" +
                             "    -- get all skills required by job category \n" +
@@ -1008,33 +957,26 @@ public class Task6 {
                             "    ON JOB_SKILL.JOB_CODE = JOB.JOB_CODE\n" +
                             "    WHERE JOB.CATE_CODE = (\n" +
                             "      SELECT CATE_CODE\n" +
-                            "      FROM DIFFERENCES \n" +
+                            "      FROM DIFFERENCES NATURAL JOIN JOB\n" +
                             "      WHERE DIFF = (SELECT MAX(DIFF) FROM DIFFERENCES))\n" +
                             "    MINUS\n" +
                             "    -- get all skills an unemployed person has \n" +
                             "    SELECT PERSON_SKILL.KS_CODE  \n" +
-                            "    FROM UNEMPLOYED INNER JOIN PERSON_SKILL\n" +
-                            "    ON UNEMPLOYED.PER_ID = PERSON_SKILL.PER_ID\n" +
+                            "    FROM PERSON_SKILL\n" +
+                            "    WHERE PERSON_SKILL.PER_ID = U.PER_ID\n" +
                             "    \n" +
                             "    MINUS\n" +
                             "    -- get all the skills a course offers \n" +
-                            "    (SELECT PERSON_SKILL.KS_CODE\n" +
-                            "    FROM COURSE A INNER JOIN COURSE_KNOWLEDGE B\n" +
-                            "    ON A.C_CODE = B.C_CODE\n" +
-                            "    INNER JOIN PERSON_SKILL\n" +
-                            "    ON PERSON_SKILL.KS_CODE = B.KS_CODE\n" +
-                            "    INNER JOIN UNEMPLOYED D\n" +
-                            "    ON PERSON_SKILL.PER_ID = D.PER_ID\n" +
-                            "    WHERE C.TITLE = A.TITLE\n" +
-                            "    AND D.PER_ID = E.PER_ID)\n" +
+                            "    (SELECT KS_CODE \n" +
+                            "    FROM COURSE_KNOWLEDGE\n" +
+                            "    WHERE COURSE_KNOWLEDGE.C_CODE = C.C_CODE)\n" +
                             "  )\n" +
-                            "  GROUP BY C.TITLE, C.C_CODE\n" +
+                            "  GROUP BY C.C_CODE\n" +
                             ")\n" +
                             "\n" +
-                            "SELECT TITLE, NUMB_PPL_COURSE_QUALIFIES\n" +
-                            "FROM COURSES\n" +
-                            "WHERE NUMB_PPL_COURSE_QUALIFIES = \n" +
-                            "  (SELECT MAX(NUMB_PPL_COURSE_QUALIFIES) FROM COURSES)");
+                            "SELECT TITLE, C_CODE, NUMB_PPL_COURSE_QUALIFIES\n" +
+                            "FROM COURSES NATURAL JOIN COURSE\n" +
+                            "WHERE NUMB_PPL_COURSE_QUALIFIES = (SELECT MAX(NUMB_PPL_COURSE_QUALIFIES) FROM COURSES)");
             while ( rset.next() ) {
                 String courseTitle = rset.getString("title");
                 Integer numbPpl = rset.getInt("numb_ppl_course_qualifies");

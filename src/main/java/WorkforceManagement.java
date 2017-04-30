@@ -17,6 +17,7 @@ public class WorkforceManagement {
             CareerPlanningService career =  new CareerPlanningService(conn);
             // get qualified people according to job only
             ArrayList<Person> qualifiedPpl = career.getQualifiedPeople(44);
+            System.out.print("\nQualified people: \n");
             for(Person person : qualifiedPpl) {
                 System.out.println(person.getName());
             }
@@ -27,7 +28,7 @@ public class WorkforceManagement {
             Person newEmployee = new Person(2349, "Jim", "Escalon", "1311 Carolyn",
                     "CA", 95320, "jim@gmail.com", "male", conn);
             ArrayList<Integer> paidBy = new ArrayList<Integer>() {{
-                add(8);
+                add(12);
             }};
             ArrayList<Integer> takes = new ArrayList<Integer>() {{
                 add(326);
@@ -51,12 +52,14 @@ public class WorkforceManagement {
 
             // c) Get qualifed people according to company and job
             ArrayList<Person> qualPplByCompanyJob = instantiateCompany(18).getQualifiedPeople(44);
+            System.out.println("\nQualified people according to a specific job: ");
             for(Person person : qualPplByCompanyJob) {
                 System.out.println(person.getName());
             }
 
             // d) Evaluate the opportunities in all the business sectors for the career planning service
             ArrayList<String> openings = career.getAllOpenings();
+            System.out.println("\nOpportunities in all business sectors: ");
             for(String opening : openings) {
                 System.out.println(opening);
             }
