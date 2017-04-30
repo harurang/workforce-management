@@ -22,6 +22,15 @@ public class WorkforceManagement {
                 System.out.println(person.getName());
             }
 
+           //Training Service
+            TrainingService training = new TrainingService(conn);
+            //get recommended course
+            ArrayList<Course> neededCourse = training.getNeededCourse(91,5);
+            System.out.println("\nRecommended course: \n");
+            for( Course course: neededCourse) {
+                System.out.println(course.getTitle());
+            }
+
 
             // a) Add a person to a company
             Company comp = instantiateCompany(12);

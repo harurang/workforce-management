@@ -17,6 +17,11 @@ public class Course{
           this.prereq = prereq;
      }
 
+     public Course(String title, int cCode) {
+        this.title = title;
+        this.cCode = cCode;
+    }
+
      public int getCCode() {
         return cCode;
      }
