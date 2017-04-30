@@ -37,7 +37,7 @@ public class CareerPlanningService {
                     "    -- get skills of specific job\n" +
                     "    SELECT JOB_SKILL.KS_CODE\n" +
                     "    FROM JOB_SKILL\n" +
-                    "    WHERE JOB_CODE=44\n" +
+                    "    WHERE JOB_CODE=?\n" +
                     "    \n" +
                     "    MINUS\n" +
                     "    \n" +
@@ -74,7 +74,6 @@ public class CareerPlanningService {
     public ArrayList<String> getAllOpenings () {
         ArrayList<String> results = new ArrayList<String>();
 
-        String title = "";
         int jobCode = 0;
         int numbOpenings = 0;
 
@@ -105,7 +104,6 @@ public class CareerPlanningService {
         } catch(Exception e) {
             System.out.println("\nError in method getAllOpenings in CareerPlanningService: " + e);
         }
-
         return results;
     }
 }

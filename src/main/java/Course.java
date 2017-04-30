@@ -14,7 +14,7 @@ public class Course{
           this.courseLevel = courseLevel;
           this.description = description;
           this.status = status;
-          this.pereq = prereq;
+          this.prereq = prereq;
      }
 
      public int getCCode() {

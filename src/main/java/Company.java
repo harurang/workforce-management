@@ -53,7 +53,7 @@ public class Company {
                     "    SELECT JOB_SKILL.KS_CODE\n" +
                     "    FROM JOB_SKILL INNER JOIN JOB_LISTING\n" +
                     "    ON JOB_SKILL.JOB_CODE = JOB_LISTING.JOB_CODE\n" +
-                    "    WHERE JOB_SKILL.JOB_CODE=44 AND JOB_LISTING.COMP_ID=18\n" +
+                    "    WHERE JOB_SKILL.JOB_CODE=? AND JOB_LISTING.COMP_ID=?\n" +
                     "    \n" +
                     "    MINUS\n" +
                     "    \n" +
@@ -62,7 +62,7 @@ public class Company {
                     "    FROM PERSON_SKILL B\n" +
                     "    WHERE A.PER_ID = B.PER_ID)\n" +
                     "  )\n" +
-                    ");");
+                    ")");
 
             pStmt.setString(1, jobCode + "");
             pStmt.setString(2, this.compId + "");
@@ -77,7 +77,7 @@ public class Company {
             }
 
         } catch(Exception e) {
-            System.out.println("\nError in method qualifiedPeople: " + e);
+            System.out.println("\nError in method qualifiedPeople of Company: " + e);
         }
 
         return results;
