@@ -26,7 +26,17 @@ ORDER BY PAY_RATE DESC;
 
 -- 3
 -- Description: List companies’ labor cost (total salaries and wage rates by 1920 hours) in descending order.  
+
+ -- For an employee who works 40 hours per week, this equals 2,080 hours
+ -- If the employee is paid $15 per hour, annual wages equal $31,200 (2080 * 15)
+ -- Suppose you expect to pay for holidays, vacation time and sick time totaling 20 days, which is 160 hours per year. 
+ -- Subtract 160 hours from 2,080 to get 1,920 hours actually worked. 
+ -- Divide the annual wages by the actual labor hours to find the wages per labor hour. 
+ -- In this example, $31,200 divided by 1,920 hours works out to $16.25 per hour.
+ -- http://smallbusiness.chron.com/allocate-costs-labor-hours-34118.html
 SELECT COMP_ID, SUM(NVL((PAY_RATE * HOURS) / 1920 , 0)) AS TOTAL_WAGE, 
+-- NVL: if null, replace with zero 
+-- either salary or hours * pay_rate will be listed as total_sal 
 SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS TOTAL_SAL
 FROM PAID_BY INNER JOIN JOB_LISTING
 ON PAID_BY.LISTING_ID = JOB_LISTING.LISTING_ID
