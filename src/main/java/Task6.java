@@ -422,7 +422,7 @@ public class Task6 {
                             "SELECT MAX(PAY_RATE)" +
                             "FROM SKILL_QUALIFICATION NATURAL JOIN JOB");
             while ( rset.next() ) {
-                int payRate = rset.getString("pay_rate");
+                Integer payRate = rset.getInt("pay_rate");
                 System.out.println("Highest Pay Rate: " + payRate + "\n");
             }
         } catch(Exception e) {
