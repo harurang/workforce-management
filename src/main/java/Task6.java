@@ -26,6 +26,8 @@ public class Task6 {
             query9();
             query10();
             query11();
+            query13();
+            query14();
             query15();
             query16();
             query17();
