@@ -1,13 +1,12 @@
 import java.util.*;
 import java.sql.*;
 
-public class JobHunting{
+public class JobHunting {
 
     private Connection conn;
     private Scanner input = new Scanner(System.in);
 
     public JobHunting(Connection conn){
-
         this.conn = conn;
     }
 
@@ -43,10 +42,7 @@ public class JobHunting{
             System.out.println("Select 0: to exit");
             option = input.nextInt();
             showSearchedJobs(option);
-        }while (option != 0);
-
-
-
+        } while (option != 0);
     }
 
     public void showSearchedJobs(int userOption){
@@ -87,7 +83,7 @@ public class JobHunting{
                 Integer cateCode = rset.getInt("cate_code");
                 System.out.println(cateCode + "\t\t" + title);
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("\nError in method jobCategories in JobHunting" + e);
         }
     }
@@ -116,16 +112,13 @@ public class JobHunting{
 
                 System.out.printf("%-10.10s %-20.20s %-10.10s %-10.10s%n%n", jobCode, jobTitle, payRate, payType);
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("\nError in method jobsList in JobHunting"+ e);
         }
     }
 
     public void qualifiedCategories(){
-
-
         try {
-
             PreparedStatement pStmt = conn.prepareStatement(
                     "SELECT DISTINCT CATE_CODE, TITLE\n " +
                             "FROM JOB_CATEGORY JC\n " +
@@ -148,16 +141,14 @@ public class JobHunting{
                 Integer cateCode = rset.getInt("cate_code");
                 System.out.println(cateCode + "\t\t" + jobTitle);
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("\nError in method qualifiedCategories in JobHunting " + e);
         }
 
     }
 
     public void qualifiedJobs() {
-
         try {
-
             PreparedStatement pStmt = conn.prepareStatement(
                     "SELECT DISTINCT JOB_CODE, JOB_TITLE, PAY_RATE, PAY_TYPE\n" +
                             "FROM JOB J\n" +
@@ -184,7 +175,7 @@ public class JobHunting{
 
                 System.out.printf("%-10.10s %-20.20s %-10.10s %-10.10s%n%n", jobCode, jobTitle, payRate, payType);
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("\nError in method qualifiedJobs in JobHunting" + e);
         }
     }
