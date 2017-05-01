@@ -58,6 +58,8 @@ public class WorkforceManagement {
             comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
 
             // b) a person's job hunting
+            JobHunting hunt = new JobHunting(conn);
+            hunt.searchMenuRunner(); 
 
             // c) Get qualifed people according to company and job
             ArrayList<Person> qualPplByCompanyJob = instantiateCompany(18).getQualifiedPeople(44);
