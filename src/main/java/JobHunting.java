@@ -19,7 +19,7 @@ public class JobHunting {
     public void menu(int menuOption){
         if (menuOption != 0){
             if(menuOption == 1) searchJobs();
-            System.out.println("\nSearch complete, hit enter to continue");
+            System.out.println("\nSearch complete. Hit enter to continue.");
             input.nextLine();
             input.nextLine();
             searchMenuRunner();

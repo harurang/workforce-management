@@ -3,12 +3,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
 /**
- *The training service can recommend the courses for a person who pursues
- *a job by recognizing the missing skills of the person for the job.
+ * The training service recommends the courses a person for a job
+ * by recognizing the missing skills of the person for a job.
  */
-
 public class TrainingService{
     private Connection conn;
 
@@ -16,21 +14,18 @@ public class TrainingService{
         this.conn = conn;
     }
 
-
     /**
-     *Gets all people missing a skill for a job
-     *
-     *@param jobCode
-     *@return person with missing skill
+     * @param jobCode
+     * @param perId
+     * @return missing skills of a person based on a job's requirements
      */
-
     public ArrayList<String> getMissingSkills(int jobCode, int perId){
         ArrayList<String> results = new ArrayList<String>();
 
         int ksCode = 0;
         String title = "";
 
-        try{
+        try {
             PreparedStatement pStmt = conn.prepareStatement("SELECT JOB_SKILL.KS_CODE, KNOWLEDGE_SKILL.TITLE \n" +
                     "FROM JOB_SKILL LEFT JOIN KNOWLEDGE_SKILL \n" +
                     "ON JOB_SKILL.KS_CODE=KNOWLEDGE_SKILL.KS_CODE \n" +
@@ -56,28 +51,25 @@ public class TrainingService{
 
             }
 
-        }catch(Exception e){
+        } catch(Exception e){
             System.out.println("\nError in method getMissingSkills in TrainingService: " + e);
 
         }
         return results;
-
     }
 
-
     /**
-     *Gets courses needed for a job
-     *
-     *@returns the course needed of specific job
+     * @param jobCode
+     * @param perId
+     * @return courses needed for a job based on person
      */
-
     public ArrayList<Course> getNeededCourse(int jobCode, int perId) {
         ArrayList<Course> results = new ArrayList<Course>();
 
         String title = "";
         int cCode = 0;
 
-        try{
+        try {
             PreparedStatement pStmt = conn.prepareStatement(
                     "SELECT DISTINCT C.TITLE, C.C_CODE\n" +
                     "FROM COURSE C\n" +
@@ -108,11 +100,7 @@ public class TrainingService{
                 Course course = new Course(title, cCode);
                 results.add(course);
             }
-
-
-
-
-        }catch(Exception e){
+        } catch(Exception e){
             System.out.println("\n Error in the method getNeededCourse in TrainingService: " + e);
         }
         return results;
