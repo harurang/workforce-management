@@ -127,16 +127,16 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "SELECT PER_ID, JOB_TITLE, START_DATE, END_DATE\n" +
-                            "FROM JOB_HISTORY NATURAL JOIN JOB\n" +
+                    "SELECT LISTING_ID \n" +
+                            "FROM JOB_HISTORY\n" +
+                            "WHERE PER_ID=2\n" +
+                            "UNION\n" +
+                            "SELECT LISTING_ID\n" +
+                            "FROM PAID_BY\n" +
                             "WHERE PER_ID=2");
             while ( rset.next() ) {
-                Integer perId = rset.getInt("per_id");
-                String jobTitle = rset.getString("job_title");
-                String startDate = rset.getString("start_date");
-                String endDate = rset.getString("end_date");
-                System.out.println("Person Id: " + perId + "\n" + "Job Title:" + jobTitle + "\n" + "Start Date:" +
-                        startDate + "\n" + "End Date:" + endDate + "\n");
+                Integer listingId = rset.getInt("listing_id");
+                System.out.println("Person Id: " + listingId + "\n");
             }
         } catch(Exception e) {
             System.out.println("\nError at query 4: " + e);
