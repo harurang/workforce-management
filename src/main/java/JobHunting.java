@@ -11,7 +11,7 @@ public class JobHunting {
     }
 
     public void searchMenuRunner(){
-        System.out.println("Enter \"0\" to exit");
+        System.out.println("\nEnter \"0\" to exit");
         System.out.println("Enter \"1\" to search for jobs");
         menu(input.nextInt());
     }

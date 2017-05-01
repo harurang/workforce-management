@@ -22,11 +22,11 @@ public class WorkforceManagement {
                 System.out.println(person.getName());
             }
 
-            //Training Service
+            // Training Service
             TrainingService training = new TrainingService(conn);
-            //get recommended course
+            // get recommended course
             ArrayList<Course> neededCourse = training.getNeededCourse(91,5);
-            System.out.println("\nRecommended course: \n");
+            System.out.println("\nRecommended course: ");
             for( Course course: neededCourse) {
                 System.out.println(course.getTitle());
             }
