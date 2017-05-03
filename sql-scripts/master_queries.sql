@@ -259,7 +259,7 @@ WHERE JOB_CODE = 31);
 
 -- 17
 -- Description: List the skillID and the number of people in the missing-one list for a given job code in the ascending order of the
--- people counts. 
+-- people counts.  
 
 -- number of skills a person has in common with a certain job
 WITH PERSON_SKILL_CNT AS (
@@ -276,22 +276,19 @@ MISSING_ONE AS (
   WHERE SKILL_COUNT = (SELECT COUNT(*) - 1
   FROM JOB_SKILL
   WHERE JOB_CODE = 31)
-),
-
--- skills of a specific job
-SKILLS_OF_JOB AS (
-  SELECT KS_CODE 
-  FROM JOB_SKILL
-  WHERE JOB_CODE = 31
 )
 
-SELECT SKILLS_OF_JOB.KS_CODE, COUNT(SKILLS_OF_JOB.KS_CODE) AS NUMB_MISSING 
-FROM MISSING_ONE INNER JOIN PERSON_SKILL
-ON MISSING_ONE.PER_ID = PERSON_SKILL.PER_ID
-INNER JOIN SKILLS_OF_JOB
-ON SKILLS_OF_JOB.KS_CODE = PERSON_SKILL.KS_CODE
-GROUP BY SKILLS_OF_JOB.KS_CODE
-ORDER BY NUMB_MISSING ASC;
+SELECT KS_CODE, COUNT(PER_ID) AS NUMB_MISSING
+FROM MISSING_ONE M, JOB_SKILL
+WHERE JOB_CODE = 31 
+AND KS_CODE IN (
+  SELECT KS_CODE FROM JOB_SKILL
+  WHERE JOB_CODE = 31
+  MINUS
+  SELECT KS_CODE FROM PERSON_SKILL
+  WHERE PER_ID = M.PER_ID
+)
+GROUP BY KS_CODE;
 
 -- 18
 -- Description: Suppose there is a new job that has nobody qualified. List the persons who miss the least number of skills and

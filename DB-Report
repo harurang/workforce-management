@@ -1,0 +1,23 @@
+DB 4515 Report 
+Hillary Arurang
+Eresha Polite
+Spring 2017
+
+folder: docs
+In this folder you will find our:
+  1. Revised ER Diagram
+  2. Revised Relational Schema
+  3. Functional Dependencies and 3NF
+
+folder: sql 
+In this folder you will find our:
+  1. queries 
+  2. insert script
+  3. delete script
+  4. create script
+  
+folder: src 
+In this folder you will find task 6, 7 and 8.
+Task 6 can be found in task6.java.
+Task 7 can be found in task7.java.
+Task 8 consists of the remaining files and is demonstrated in the main method of WorkforceManagement.java.

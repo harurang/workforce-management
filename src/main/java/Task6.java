@@ -501,7 +501,11 @@ public class Task6 {
             Statement stmt = conn.createStatement();
 
             ResultSet rset = stmt.executeQuery(
-                    "WITH PERSON_SKILL_CNT AS (\n" +
+                    "-- Description: List the skillID and the number of people in the missing-one list for a given job code in the ascending order of the\n" +
+                            "-- people counts. \n" +
+                            "\n" +
+                            "-- number of skills a person has in common with a certain job\n" +
+                            "WITH PERSON_SKILL_CNT AS (\n" +
                             "  SELECT PER_ID, COUNT(KS_CODE) AS SKILL_COUNT\n" +
                             "  FROM PERSON_SKILL NATURAL JOIN JOB_SKILL\n" +
                             "  WHERE JOB_CODE = 31\n" +
@@ -515,22 +519,19 @@ public class Task6 {
                             "  WHERE SKILL_COUNT = (SELECT COUNT(*) - 1\n" +
                             "  FROM JOB_SKILL\n" +
                             "  WHERE JOB_CODE = 31)\n" +
-                            "),\n" +
-                            "\n" +
-                            "-- skills of a specific job\n" +
-                            "SKILLS_OF_JOB AS (\n" +
-                            "  SELECT KS_CODE \n" +
-                            "  FROM JOB_SKILL\n" +
-                            "  WHERE JOB_CODE = 31\n" +
                             ")\n" +
                             "\n" +
-                            "SELECT SKILLS_OF_JOB.KS_CODE, COUNT(SKILLS_OF_JOB.KS_CODE) AS NUMB_MISSING \n" +
-                            "FROM MISSING_ONE INNER JOIN PERSON_SKILL\n" +
-                            "ON MISSING_ONE.PER_ID = PERSON_SKILL.PER_ID\n" +
-                            "INNER JOIN SKILLS_OF_JOB\n" +
-                            "ON SKILLS_OF_JOB.KS_CODE = PERSON_SKILL.KS_CODE\n" +
-                            "GROUP BY SKILLS_OF_JOB.KS_CODE\n" +
-                            "ORDER BY NUMB_MISSING ASC");
+                            "SELECT KS_CODE, COUNT(PER_ID) AS NUMB_MISSING \n" +
+                            "FROM MISSING_ONE M, JOB_SKILL\n" +
+                            "WHERE JOB_CODE = 31 \n" +
+                            "AND KS_CODE IN (\n" +
+                            "  SELECT KS_CODE FROM JOB_SKILL\n" +
+                            "  WHERE JOB_CODE = 31\n" +
+                            "  MINUS\n" +
+                            "  SELECT KS_CODE FROM PERSON_SKILL\n" +
+                            "  WHERE PER_ID = M.PER_ID\n" +
+                            ")\n" +
+                            "GROUP BY KS_CODE");
             while ( rset.next() ) {
                 Integer perCode = rset.getInt("ks_code");
                 Integer numbPpl = rset.getInt("numb_missing");
