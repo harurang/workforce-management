@@ -57,7 +57,7 @@ public class WorkforceManagement {
             comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
 
 
-	    Company comp2 = instantiateCompany(17);
+	        Company comp2 = instantiateCompany(17);
             Person newEmployee2 = new Person(1231, "Joe", "Gainsville", "2342 Sugar",
             "LA", 95320, "joe@gmail.com", "male", conn);
             ArrayList<Integer> skills2 = new ArrayList<Integer>() {{
