@@ -37,6 +37,9 @@ VALUES (208, 'Dominique', 'Modesto', '9232 Tully', 'CA', 34532, 'dom@gmail.com',
 INSERT INTO person
 VALUES (209, 'Herschel', 'Houston', '2342 Bowling', 'TX', 235423, 'herschel@aol.com', 'male');
 
+INSERT INTO person
+VALUES (211, 'Chaz', 'Atlanta', '2342 Maple St.', 'GA', 30301, 'chazuch@gmail.com', 'male');
+
 
 
 
@@ -459,6 +462,12 @@ VALUES (64, 52000, 'salary', null, 2, 'Technology Coordinator');
 
 
 INSERT INTO job_listing
+VALUES(22,19, 75);
+
+INSERT INTO job_listing
+VALUES(23,19, 91);
+
+INSERT INTO job_listing
 VALUES(1,13, 21);
 
 INSERT INTO job_listing
@@ -519,6 +528,9 @@ INSERT INTO job_listing
 VALUES (20, 24, 64);
 
 
+
+INSERT INTO person_skill
+VALUES(211, 435788);
 
 INSERT INTO person_skill
 VALUES(208, 435785);
@@ -718,6 +730,10 @@ VALUES (332, TO_DATE('2016/07/13','YYYY/MM/DD'), TO_DATE('2016/12/04','YYYY/MM/D
 
 
 
+
+INSERT INTO job_history
+VALUES ('01/2/2013', '12/20/2015', 23, 211);
+
 INSERT INTO job_history
 VALUES ('01/12/2013', '05/11/2015', 11, 5);
 
@@ -798,6 +814,8 @@ VALUES (206, 330);
 
 
 
+INSERT INTO paid_by
+VALUES(211, 22);
 
 INSERT INTO paid_by
 VALUES(2, 11);
