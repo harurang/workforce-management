@@ -70,3 +70,91 @@ Parameters:
 
 Output:
   Web Design	200
+  
+Input Query 15:
+Test Case 1:
+Parameters:
+  job_code = 44
+  
+Output:
+  John	john@gmail.com
+    
+Test Case 2:
+Parameters:
+  job_code = 75
+
+Output:
+  Herschel	herschel@aol.com
+  John	john@gmail.com
+  
+Input Query 16:
+Test Case 1:
+Parameters:
+  job_code = 31
+  
+Output:
+  209
+  4
+  7
+  234
+    
+Test Case 2:
+Parameters:
+  job_code = 75
+
+Output:
+  7
+  176
+  208
+  9
+
+Input Query 17:
+
+Input Query 21:
+Test Case 1:
+Parameters:
+  job_category.title = 'Computer User Support Specialists';
+  
+Output:
+  John
+  Lindsey
+  Ashton
+  Jaimie
+    
+Test Case 2:
+Parameters:
+  job_category.title = 'Web Developers';
+
+Output:
+  Adam
+  Vanessa
+
+Input Query 22:
+Test Case 1:
+Parameters:
+  job_category.title = 'Computer User Support Specialists';
+  
+Output:
+  Jaimie
+    
+Test Case 2:
+Parameters:
+  job_category.title = 'Web Developers';
+
+Output:
+  Vanessa
+  
+Input Query 23:
+Test Case 1:
+Parameters:
+  job_category.title = 'Computer User Support Specialists';
+  
+Output:
+  Jaimie
+    
+Test Case 2:
+Parameters:
+  job_category.title = 'Web Developers';
+
+Output:
+  Vanessa
