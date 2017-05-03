@@ -56,7 +56,6 @@ public class WorkforceManagement {
             }};
             comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
 
-
 	        Company comp2 = instantiateCompany(17);
             Person newEmployee2 = new Person(1231, "Joe", "Gainsville", "2342 Sugar",
             "LA", 95320, "joe@gmail.com", "male", conn);
@@ -67,7 +66,7 @@ public class WorkforceManagement {
                 put("home", "251-966-1324");
                 put("mobile", "111-234-356");
             }};
-            comp.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
+            comp2.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
 
 
             // b) a person's job hunting
