@@ -109,6 +109,21 @@ Output:
   9
 
 Input: Query 17
+Test Case 1:
+Parameters:
+  job_code = 31
+
+Output:
+  435790	3
+  435786	1
+
+Test Case 2:
+Parameters:
+  job_code = 91
+
+Output:
+  435789	1
+  435783	2
 
 Input: Query 21
 Test Case 1:
