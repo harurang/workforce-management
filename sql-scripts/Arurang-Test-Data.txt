@@ -34,7 +34,7 @@ Parameters:
 Output:
   Introduction to Software Engineering	4208
 
-Input Query 10:
+Input: Query 10
 
 Test Case 1:
 Parameters:
@@ -52,7 +52,7 @@ Parameters:
 Output:
   Introduction to Software Engineering	13-JAN-16	04-MAY-16	classroom	University
   
-Input Query 11:
+Input: Query 11
 
 Test Case 1:
 Parameters:
@@ -71,7 +71,7 @@ Parameters:
 Output:
   Web Design	200
   
-Input Query 15:
+Input: Query 15
 Test Case 1:
 Parameters:
   job_code = 44
@@ -87,7 +87,7 @@ Output:
   Herschel	herschel@aol.com
   John	john@gmail.com
   
-Input Query 16:
+Input: Query 16
 Test Case 1:
 Parameters:
   job_code = 31
@@ -108,9 +108,9 @@ Output:
   208
   9
 
-Input Query 17:
+Input: Query 17
 
-Input Query 21:
+Input: Query 21
 Test Case 1:
 Parameters:
   job_category.title = 'Computer User Support Specialists';
@@ -129,7 +129,7 @@ Output:
   Adam
   Vanessa
 
-Input Query 22:
+Input: Query 22
 Test Case 1:
 Parameters:
   job_category.title = 'Computer User Support Specialists';
@@ -144,7 +144,7 @@ Parameters:
 Output:
   Vanessa
   
-Input Query 23:
+Input: Query 23
 Test Case 1:
 Parameters:
   none
@@ -152,7 +152,7 @@ Parameters:
 Output:
   Nasa	199000	3
 
-Input Query 24:
+Input: Query 24
 Test Case 1:
 Parameters:
   none
@@ -161,7 +161,7 @@ Output:
   Scientific Support	199000	3
   Software Engineering	246000	3
 
-Input Query 25:
+Input: Query 25
 Test Case 1:
 Parameters:
   primary_sector = Software Engineering
@@ -176,7 +176,7 @@ Parameters:
 Output:
   1.12903225806451612903225806451612903226
 
-Input Query 26:
+Input: Query 26
 Test Case 1:
 Parameters:
   none
@@ -184,7 +184,7 @@ Parameters:
 Output:
   9
 
-Input Query 26:
+Input: Query 26
 Test Case 1:
 Parameters:
   none
@@ -194,3 +194,29 @@ Output:
   Algorithms and Data Structures	3024	2
   Introduction to Networking	3120	2
   Introduction to Database Systems	4102	2
+  
+Input: Task 8 c
+Test Case 1:
+Parameters:
+  comp_id = 18
+  job_code = 44
+
+Output: 
+  John
+
+Test Case 2:
+Parameters:
+  comp_id = 15
+  job_code = 75
+
+Output:
+  Herschel
+  John
+
+Input: Task 8 d
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  Job Code: 64 Number of Openings: 1
