@@ -147,14 +147,28 @@ Output:
 Input Query 23:
 Test Case 1:
 Parameters:
-  job_category.title = 'Computer User Support Specialists';
+  none
   
 Output:
-  Jaimie
-    
-Test Case 2:
+  Nasa	199000	3
+
+Input Query 24:
+Test Case 1:
 Parameters:
-  job_category.title = 'Web Developers';
+  none
+  
+Output:
+  Scientific Support	199000	3
+  Software Engineering	246000	3
+
+Input Query 25:
+Test Case 1:
+Parameters:
+  primary_sector = Software Engineering
 
 Output:
-  Vanessa
+  1.0375
+
+Test Case 2:
+Parameters:
+  

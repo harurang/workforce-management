@@ -187,8 +187,8 @@ WHERE PRICE = (SELECT MIN(PRICE) FROM SECTION NATURAL JOIN COURSES);
 -- 12
 -- Provided query. 
 
---13
---Description: List all the job categories that person is qualified for. 
+-- 13
+-- Description: List all the job categories that person is qualified for. 
 SELECT DISTINCT TITLE
 FROM JOB_CATEGORY JC
 WHERE EXISTS (
@@ -201,9 +201,9 @@ WHERE EXISTS (
       WHERE PER_ID=7
 ); 
 
---14
---Description: Find the job with the highest pay rate for a person according
---to his/her skill qualification
+-- 14
+-- Description: Find the job with the highest pay rate for a person according
+-- to his/her skill qualification
 WITH SKILL_QUALIFICATION AS (
   SELECT DISTINCT TITLE
   FROM JOB_CATEGORY JC
@@ -218,7 +218,6 @@ WITH SKILL_QUALIFICATION AS (
 )
 SELECT MAX(PAY_RATE)
 FROM SKILL_QUALIFICATION NATURAL JOIN JOB;
-
 
 -- 15
 -- Description: List all the names along with the emails of the persons who are qualified for a job. 
@@ -490,7 +489,7 @@ WITH PREVIOUS_SAL AS (
   GROUP BY NAME
 ),
 
--- gets the current salary of employes in the software engineering primary sector 
+-- gets the current salary of employees in the software engineering primary sector 
 CURRENT_SAL AS (
   -- Get the current salary or get the current pay rate * hours 
   SELECT NAME, SUM(NVL(PAY_RATE,0) + NVL(HOURS * PAY_RATE, 0)) AS NEW_SAL 
