@@ -1,0 +1,38 @@
+Input: Query 8
+
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+
+Output:
+  435786	JAVA
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+  
+Output:
+  435789	CSS
+
+Input: Query 9
+
+Test Case 1:
+Parameters:
+  job_code = 44
+  per_id = 176
+  
+Output:
+  Introduction to Database Systems	4102
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+  Introduction to Software Engineering	4208
+
+Input Query 10:
+
