@@ -56,6 +56,23 @@ public class WorkforceManagement {
             }};
             comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
 
+
+	    Company comp2 = instantiateCompany(17);
+            Person newEmployee2 = new Person(1231, "Joe", "Gainsville", "2342 Sugar",
+            "LA", 95320, "joe@gmail.com", "male", conn);
+            ArrayList<Integer> paidBy2 = new ArrayList<Integer>() {{
+                add(17);
+            }};
+            ArrayList<Integer> skills2 = new ArrayList<Integer>() {{
+                add(435785);
+            }};
+            HashMap<String, String> phoneNumbers2 = new HashMap<String, String>() {{
+                put("home", "251-966-1324");
+                put("mobile", "111-234-356");
+            }};
+            comp.addEmployee(newEmployee2, paidBy2, null, null, skills2, phoneNumbers2);
+
+
             // b) a person's job hunting
             JobHunting hunt = new JobHunting(conn);
             hunt.searchMenuRunner(); 

@@ -137,7 +137,7 @@ public class Company {
                 pStmt.setString(3, job.getJobListing() + "");
                 pStmt.setString(4, person.getPerId() + "");
                 rset = pStmt.executeQuery();
-            }
+            }if(history != null);
 
             // insert sections taken
             for(Integer section : takes) {
@@ -146,7 +146,7 @@ public class Company {
                 pStmt.setString(1, person.getPerId() + "");
                 pStmt.setString(2, section + "");
                 rset = pStmt.executeQuery();
-            }
+            }if(takes != null);
 
             // add job a person is paid by
             for(Integer jobListing : paidBy) {
