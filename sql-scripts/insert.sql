@@ -703,7 +703,7 @@ INSERT INTO section
 VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102, 300);
 
 INSERT INTO section
-VALUES (332, TO_DATE('2016/07/13','YYYY/MM/DD'), TO_DATE('2016/12/04','YYYY/MM/DD'), 'classroom', 'University', 4577, 300);
+VALUES (332, TO_DATE('2016/07/13','YYYY/MM/DD'), TO_DATE('2016/12/04','YYYY/MM/DD'), 'classroom', 'University', 4577, 200);
 
 
 

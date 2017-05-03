@@ -50,5 +50,23 @@ Parameters:
   per_id = 5
 
 Output:
-Introduction to Software Engineering	13-JAN-16	04-MAY-16	classroom	University
+  Introduction to Software Engineering	13-JAN-16	04-MAY-16	classroom	University
+  
+Input Query 11:
 
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+  
+Output:
+  Algorithms and Data Structures	200
+  Introduction to Database Systems	200
+    
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+  Web Design	200
