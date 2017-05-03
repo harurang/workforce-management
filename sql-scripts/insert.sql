@@ -662,8 +662,8 @@ INSERT INTO course
 VALUES (4786, 'Social and Mobile Computing', 4000, 'Topics in social computing. Consideration in
 the design of mobile and ubiquitous computing systems.', 'Closed', null);
 
-
-
+INSERT INTO course
+VALUES (4577, 'Web Design', 4000, 'Topics in user experience (UX).', 'Open', null);
 
 
 
@@ -702,7 +702,8 @@ VALUES (330, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/D
 INSERT INTO section
 VALUES (3301, TO_DATE('2016/01/13','YYYY/MM/DD'), TO_DATE('2016/05/04','YYYY/MM/DD'), 'online', 'University', 4102, 300);
 
-
+INSERT INTO section
+VALUES (332, TO_DATE('2016/07/13','YYYY/MM/DD'), TO_DATE('2016/12/04','YYYY/MM/DD'), 'classroom', 'University', 4577, 300);
 
 
 
@@ -822,7 +823,11 @@ INSERT INTO paid_by
 VALUES (105, 6);
 
 
+INSERT INTO course_knowledge
+VALUES (435783, 4577 );
 
+INSERT INTO course_knowledge
+VALUES (435789, 4577 );
 
 INSERT INTO course_knowledge
 VALUES (435782, 1543 );

@@ -36,3 +36,19 @@ Output:
 
 Input Query 10:
 
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+  
+Output:
+  Introduction to Networking	12-AUG-15	08-DEC-15	classroom	University
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+Introduction to Software Engineering	13-JAN-16	04-MAY-16	classroom	University
+
