@@ -403,7 +403,7 @@ Company comp2 = instantiateCompany(17);
             comp.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
 
 Output:
-Joe is successfully added to company Geocent
+Joe added successfully to company Geocent
 
 
 Input: Task 8 b
