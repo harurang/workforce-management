@@ -146,7 +146,7 @@ public class Company {
                 pStmt.setString(1, person.getPerId() + "");
                 pStmt.setString(2, section + "");
                 rset = pStmt.executeQuery();
-            }if(takes != null);
+            }
 
             // add job a person is paid by
             for(Integer jobListing : paidBy) {

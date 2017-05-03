@@ -68,7 +68,6 @@ public class WorkforceManagement {
             }};
             comp2.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
 
-
             // b) a person's job hunting
             JobHunting hunt = new JobHunting(conn);
             hunt.searchMenuRunner(); 
