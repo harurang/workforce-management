@@ -286,6 +286,8 @@ VALUES (20, 'Computer-Aided Design', 541512, 'New Orleans', 'LA', 74561, 'www.co
 INSERT INTO company
 VALUES (22, 'ContingaSoft', 541511, 'New Orleans', 'LA', 70130, 'www.contingasoft.com', 'Software Engineering');
 
+INSERT INTO company
+VALUES (24, 'InspireNOLA Charter Schools', 541513, 'New Orleans', 'LA', 70130, 'www.inspirenolacharterschools.org', 'Education' );
 
 
 
@@ -451,6 +453,8 @@ VALUES(21, 57000, 'salary', null, 13, 'Bioinformatician');
 INSERT INTO job
 VALUES (23, 83000, 'salary', null, 8, 'Mobile Software Engineer');
 
+INSERT INTO job
+VALUES (64, 52000, 'salary', null, 2, 'Technology Coordinator');
 
 
 
@@ -510,6 +514,9 @@ VALUES (18, 13, 21);
 
 INSERT INTO job_listing 
 VALUES (19, 18, 44);
+
+INSERT INTO job_listing
+VALUES (20, 24, 64);
 
 
 
@@ -612,6 +619,9 @@ VALUES(31, 435790, 'preferred');
 
 INSERT INTO job_skill 
 VALUES (23, 435786, 'required');
+
+INSERT INTO job_skill
+VALUES (64, 435787, 'preferred');
 
 
 
