@@ -1,0 +1,438 @@
+Input: Query 8
+
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+
+Output:
+  435786	JAVA
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+  
+Output:
+  435789	CSS
+
+Input: Query 9
+
+Test Case 1:
+Parameters:
+  job_code = 44
+  per_id = 176
+  
+Output:
+  Introduction to Database Systems	4102
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+  Introduction to Software Engineering	4208
+
+Input: Query 10
+
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+  
+Output:
+  Introduction to Networking	12-AUG-15	08-DEC-15	classroom	University
+
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+  Introduction to Software Engineering	13-JAN-16	04-MAY-16	classroom	University
+  
+Input: Query 11
+
+Test Case 1:
+Parameters:
+  job_code = 23
+  per_id = 2
+  
+Output:
+  Algorithms and Data Structures	200
+  Introduction to Database Systems	200
+    
+Test Case 2:
+Parameters:
+  job_code = 91
+  per_id = 5
+
+Output:
+  Web Design	200
+
+
+Input: Query 13
+
+Test case 1:
+Parameter:
+   per_id = 7
+
+Output:
+   Computer and Mathematical Occupations
+   Computer Occupations
+   Web Developers
+   Computer and Information Research Scientists
+   Computer Support Specialists
+   Information Security Analysts
+   Computer Systems Analysts
+   Computer User Support Specialists
+   Computer and Information Analysts
+
+
+Test case 2:
+Parameter:
+   per_id = 176
+
+Output:
+   Computer and Mathematical Occupations
+   Computer Occupations
+   Software Developers, Applications
+   Web Developers
+   Computer Programmers
+   Computer and Information Research Scientists
+   Computer Support Specialists
+   Software Developers and Programmers
+   Computer Systems Analysts
+   Computer User Support Specialists
+   Computer and Information Analysts
+
+Input: Query14:
+
+Test case 1:
+Parameter:
+   per_id = 7
+
+Output:
+   85000
+
+
+Test case 2:
+Parameter:
+   per_id = 176
+
+Output:
+   85000
+
+Input: Query 15
+Test Case 1:
+Parameters:
+  job_code = 44
+  
+Output:
+  John	john@gmail.com
+    
+Test Case 2:
+Parameters:
+  job_code = 75
+
+Output:
+  Herschel	herschel@aol.com
+  John	john@gmail.com
+  
+Input: Query 16
+Test Case 1:
+Parameters:
+  job_code = 31
+  
+Output:
+  209
+  4
+  7
+  234
+    
+Test Case 2:
+Parameters:
+  job_code = 75
+
+Output:
+  7
+  176
+  208
+  9
+
+Input: Query 17
+Test Case 1:
+Parameters:
+  job_code = 31
+
+Output:
+  435790	3
+  435786	1
+
+Test Case 2:
+Parameters:
+  job_code = 91
+
+Output:
+  435789	1
+  435783	2
+
+
+Input: Query18
+
+Test case 1:
+Parameter:
+   job_code = 23
+
+Output:
+PER_ID		MISSING_AMOUNT
+2			1
+5			1
+9			1
+100			1
+105			1
+176			1
+206			1
+207			1
+208			1
+234			1
+
+Test case 2:
+Parameter:
+   job_code = 64
+
+Output:
+PER_ID 		MISSING_AMOUNT
+2			1
+4			1
+5			1
+7			1
+100			1
+176			1
+206			1
+207			1
+208			1
+209			1
+234			1
+
+
+Input: Query19
+
+Test case 1:
+Parameter:
+   cate_code = 11
+
+Output:
+PER_ID		MISSING_AMOUNT
+100			1
+207			1
+2			1
+5			1
+234			1
+7			1
+105			1
+208			1
+206			1
+
+Test case 2:
+Parameter:
+   cate_code = 6
+
+Output:
+PER_ID		MISSING_AMOUNT
+207			1
+209			1
+4			1
+5			1
+206			1
+234			1
+105			1
+176			1
+9			1
+208			1
+7			1
+
+
+Input: Query20
+
+Test case 1:
+Parameter:
+   cate_code = 11
+
+Output:
+KS_CODE		SKILLS_COUNT
+435785			9
+
+
+Test case 2:
+Parameter:
+   cate_code = 6
+
+Output:
+PER_ID		SKILLS_COUNT
+435789			11
+
+Input: Query 21
+Test Case 1:
+Parameters:
+  job_category.title = 'Computer User Support Specialists';
+  
+Output:
+  John
+  Lindsey
+  Ashton
+  Jaimie
+    
+Test Case 2:
+Parameters:
+  job_category.title = 'Web Developers';
+
+Output:
+  Adam
+  Vanessa
+
+Input: Query 22
+Test Case 1:
+Parameters:
+  job_category.title = 'Computer User Support Specialists';
+  
+Output:
+  Jaimie
+    
+Test Case 2:
+Parameters:
+  job_category.title = 'Web Developers';
+
+Output:
+  Vanessa
+  
+Input: Query 23
+Test Case 1:
+Parameters:
+  none
+  
+Output:
+  Nasa	199000	3
+
+Input: Query 24
+Test Case 1:
+Parameters:
+  none
+  
+Output:
+  Scientific Support	199000	3
+  Software Engineering	246000	3
+
+Input: Query 25
+Test Case 1:
+Parameters:
+  primary_sector = Software Engineering
+
+Output:
+  1.0375
+
+Test Case 2:
+Parameters:
+  primary_sector = Social Media
+
+Output:
+  1.12903225806451612903225806451612903226
+
+Input: Query 26
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  9
+
+Input: Query 26
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  Reverse Engineering	2345	2
+  Algorithms and Data Structures	3024	2
+  Introduction to Networking	3120	2
+  Introduction to Database Systems	4102	2
+
+
+
+Input: Task 8 a
+Test case 1:
+Company comp = instantiateCompany(12);
+            Person newEmployee = new Person(2349, "Jim", "Escalon", "1311 Carolyn",
+                    "CA", 95320, "jim@gmail.com", "male", conn);
+            ArrayList<Integer> paidBy = new ArrayList<Integer>() {{
+                add(12);
+            }};
+            ArrayList<Integer> takes = new ArrayList<Integer>() {{
+                add(326);
+                add(327);
+            }};
+            ArrayList<JobHistory> history = new ArrayList<JobHistory>() {{
+                add(new JobHistory("06/12/2012", "09/12/2013", 14));
+                add(new JobHistory("01/06/2012", "06/12/2012", 18));
+            }};
+            ArrayList<Integer> skills = new ArrayList<Integer>() {{
+                add(435785);
+                add(435788);
+            }};
+            HashMap<String, String> phoneNumbers = new HashMap<String, String>() {{
+                put("home", "234-345-1324");
+                put("mobile", "234-234-356");
+            }};
+            comp.addEmployee(newEmployee, paidBy, takes, history, skills, phoneNumbers);
+
+Output:
+Jim added successfully to company Geocent
+
+Test case 2:
+Company comp2 = instantiateCompany(17);
+            Person newEmployee2 = new Person(1231, "Joe", "Gainsville", "2342 Sugar",
+            "LA", 95320, "joe@gmail.com", "male", conn);
+            ArrayList<Integer> skills2 = new ArrayList<Integer>() {{
+                add(435785);
+            }};
+            HashMap<String, String> phoneNumbers2 = new HashMap<String, String>() {{
+                put("home", "251-966-1324");
+                put("mobile", "111-234-356");
+            }};
+            comp.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
+
+Output:
+Joe is successfully added to company Geocent
+
+
+Input: Task 8 b
+
+It's a tui and therefore covers multiple test cases.
+
+
+Input: Task 8 c
+Test Case 1:
+Parameters:
+  comp_id = 18
+  job_code = 44
+
+Output: 
+  John
+
+Test Case 2:
+Parameters:
+  comp_id = 15
+  job_code = 75
+
+Output:
+  Herschel
+  John
+
+Input: Task 8 d
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  Job Code: 64 Number of Openings: 1
