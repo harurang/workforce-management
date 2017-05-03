@@ -60,9 +60,9 @@ public class WorkforceManagement {
 	    Company comp2 = instantiateCompany(17);
             Person newEmployee2 = new Person(1231, "Joe", "Gainsville", "2342 Sugar",
             "LA", 95320, "joe@gmail.com", "male", conn);
-            ArrayList<Integer> paidBy2 = new ArrayList<Integer>() {{
-                add(17);
-            }};
+//            ArrayList<Integer> paidBy2 = new ArrayList<Integer>() {{
+//                add(17);
+//            }};
             ArrayList<Integer> skills2 = new ArrayList<Integer>() {{
                 add(435785);
             }};
@@ -70,7 +70,7 @@ public class WorkforceManagement {
                 put("home", "251-966-1324");
                 put("mobile", "111-234-356");
             }};
-            comp.addEmployee(newEmployee2, paidBy2, null, null, skills2, phoneNumbers2);
+            comp.addEmployee(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2, phoneNumbers2);
 
 
             // b) a person's job hunting
@@ -93,6 +93,7 @@ public class WorkforceManagement {
 
             DBReset reset = new DBReset(conn);
             reset.removeInsertFromTask8a(newEmployee, paidBy, takes, history, skills);
+            reset.removeInsertFromTask8a(newEmployee2, new ArrayList<Integer>(), new ArrayList<Integer>(), new ArrayList<JobHistory>(), skills2);
 
             conn.close();
         } catch(Exception e) {
