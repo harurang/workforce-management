@@ -171,4 +171,23 @@ Output:
 
 Test Case 2:
 Parameters:
-  
+
+
+Input Query 26:
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  9
+
+Input Query 26:
+Test Case 1:
+Parameters:
+  none
+
+Output:
+  Reverse Engineering	2345	2
+  Algorithms and Data Structures	3024	2
+  Introduction to Networking	3120	2
+  Introduction to Database Systems	4102	2
