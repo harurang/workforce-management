@@ -137,7 +137,7 @@ public class Company {
                 pStmt.setString(3, job.getJobListing() + "");
                 pStmt.setString(4, person.getPerId() + "");
                 rset = pStmt.executeQuery();
-            }if(history != null);
+            }
 
             // insert sections taken
             for(Integer section : takes) {
